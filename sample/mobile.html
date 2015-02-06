@@ -109,7 +109,17 @@
             length = rawKeys.length;
             for(i = 0; i < length; i++) {
                 if(rawKeys[i]) {
-                    key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
+                    if(keyType === 'english') {
+                        key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
+                    } else if(keyType === 'korean') {
+                        if(isCapsLock) {
+                            key = rawKeys[i].replace('ㄱ', 'ㄲ').replace('ㅂ', 'ㅃ').replace('ㅅ', 'ㅆ').replace('ㅈ', 'ㅉ');
+                        } else {
+                            key = rawKeys[i].replace('ㄲ', 'ㄱ').replace('ㅃ', 'ㅂ').replace('ㅆ', 'ㅅ').replace('ㅉ', 'ㅈ');
+                        }
+                    } else {
+                        key = rawKeys[i];
+                    }
                     keys[keyType][i] = rawKeys[i] = key;
                 }
             }
