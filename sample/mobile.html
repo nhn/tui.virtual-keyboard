@@ -83,43 +83,60 @@
 <script type="text/javascript" src="../src/VirtualKeyboard.js"></script>
 <script>
     var keyPressCallback = function(index) {
-        console.log('keyPressCallbakc', index);
+        console.log('keyPressCallback', index);
     }
 
-    var shuffleCallback = function() {
-        var keys = ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""],
-                length = keys.length;
-        for (var i = length; i > 0; i--) {
-            keys[length - 1] = keys.splice(Math.floor(Math.random() * i), 1)[0];
+    var deleteCallback = function(index) {
+        console.log('deleteCallback', index);
+    }
+
+    var getKeysCallback = function(keyType, _isCapsLock) {
+        var keys = {
+            english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", ""],
+            korean: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", ""],
+            special: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")", ""],
+            number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""]
+        },
+            rawKeys = keys[keyType] || keys['number'],
+            i = length = rawKeys.length,
+            key;
+        for (; i > 0; i--) {
+            key = rawKeys.splice(Math.floor(Math.random() * i), 1)[0]
+            key = !!_isCapsLock ? key.toUpperCase() : key.toLowerCase();
+            rawKeys[length - 1] = key;
         }
-        return keys;
+        return rawKeys;
     }
 
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
         specials: {
-            shuffle: 3,
-            space: 4,
-            delete: 5
+            shuffle: 0,
+            language: 2,
+            caps: 3,
+            special: 4,
+            delete: 5,
+            clear: 9,
+            space: 10,
+            close: 11,
+            done: 20,
         },
         keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""],
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
-            blank: '<li class="subcon"><span class="btn btn_reload"></span></li>',
+            blank: '<li class="subcon"><span class="btn_key"></span></li>',
             shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button">재배열</button></span></li>',
             delete: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
         },
         callback: {
-            key: keyPressCallback,
-            shuffle: shuffleCallback
+            key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+            delete: deleteCallback,
+            getKeys: getKeysCallback        // 재배열시 키목록을 새로 요청하는 콜백
         }
     });
 </script>
 </body>
 </html>
-
-
-
 
 
 

@@ -74,6 +74,24 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     _inputString: [],
 
     /**
+     * 자판 키타입
+     * @type {string}
+     */
+    _keyType: 'eglish',
+
+    /**
+     * caps lock 여부
+     * @type {boolean}
+     */
+    _isCapsLock: false,
+
+    /**
+     * 키 엘리먼트의 pool로 사용할 documentFragment
+     * @type {element}
+     */
+    _documentFragment: null,
+
+    /**
      * 초기화 함수
      * @param {object} options 가상키보드를 초기화 옵션
      */
@@ -85,8 +103,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
         this._initKeyboard(options.container);
 
         this._attachEvent();
-
-        console.log(this._keyMap)
     },
 
     /**
@@ -99,6 +115,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
         this._rawKeys = options.keys || [];
         this._template = ne.util.extend(this._template, options.template);
         this._callback = options.callback || {};
+        this._documentFragment = document.createDocumentFragment();
     },
 
     /**
@@ -120,18 +137,22 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     _pressKeyHandler: function(event) {
         var targetButton = this._getTargetButton(event.target),
             inputValue,
-            index;
+            index,
+            keyType;
         if(!ne.util.isExisty(targetButton)) {
             return false;
         }
 
         inputValue = targetButton.value;
         index = this._keyMap[inputValue].keyIndex;
-        if(this._getKeyType(inputValue) === 'key') {
+        keyType = this._getKeyType(inputValue);
+
+        if(keyType === 'key') {
             this._inputString.push(index);
-            this._callback.key(index);
+            this._excuteCallback(keyType);
         } else {
             this[inputValue]();
+            this._excuteCallback(inputValue);
         }
     },
 
@@ -170,7 +191,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
                 this._keySequences.splice(this._fixedKeys[value], 0, value);
             }
         }, this);
-        console.log("this._keySequences", this._keySequences)
     },
 
     /**
@@ -328,9 +348,15 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * @private
      */
     _initContainer: function(containerId) {
-        this._$container = $('#' + containerId);
-        if(!ne.util.isHTMLTag(this._$container[0])) {
-            this._$container = this._createContainer();
+        if(this._$container) {
+            ne.util.forEach(this._identifiedRawKeys, function(value) {
+                this._documentFragment.appendChild(this._keyMap[value].element);
+            }, this);
+        } else {
+            this._$container = $('#' + containerId);
+            if(!ne.util.isHTMLTag(this._$container[0])) {
+                this._$container = this._createContainer();
+            }
         }
     },
 
@@ -381,7 +407,13 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * @private
      */
     _getTemplate: function(keyType, keyValue) {
-        var template = this._template[keyType] || this._template.key;
+        var template;
+
+        if(keyType === 'blank') {
+            template = this._template.blank;
+        } else {
+            template = this._template[keyValue] || this._template.key;
+        }
 
         if(ne.util.isExisty(keyValue)) {
             template = template.replace(/{KEY}/g, keyValue);
@@ -411,7 +443,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * @param {array} rawKeys 재배열된 키배열
      * @private
      */
-    _shuffleKeys: function(rawKeys) {
+    _reArrangeKeys: function(rawKeys) {
         this._rawKeys.length = 0;
         this._keySequences.length = 0;
         this._inputString.length = 0;
@@ -423,29 +455,135 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     },
 
     /**
-     * 자판을 재배열한다.
+     * 마지막 입력값의 인덱스를 반환한다.
+     * @returns {number} 인덱스 값
+     * @private
      */
-    shuffle: function() {
-        var suffledKeys;
-        if(ne.util.isExisty(this._callback, 'shuffle') && ne.util.isFunction(this._callback.shuffle)) {
-            suffledKeys = this._callback.shuffle();
-        }
-        if(ne.util.isArray(suffledKeys)) {
-            this._shuffleKeys(suffledKeys);
+    _getLastInput: function() {
+        var length = this._inputString.length;
+        if(length > 0) {
+            return this._inputString[length - 1];
+        } else {
+            return false;
         }
     },
 
     /**
-     * 가상키보드를 보여준다.
+     * 사용자 등록 콜백 수행함수
+     * @param {string} callbackKey 수행할 콜백함수 키
+     * @private
      */
-    show: function() {
+    _excuteCallback: function(callbackKey) {
+        if(ne.util.isExisty(this._callback, callbackKey) && ne.util.isFunction(this._callback[callbackKey])) {
+            console.log('Callback Excuted!!!!', callbackKey);
+            this._callback[callbackKey](this._getLastInput());
+        }
+    },
+
+    /**
+     * 자판의 배열정보를 받아온다.
+     * @param {string} keyType 재배열받을 키 타입 ('english', 'korean', 'lower', 'upper' 'special', 'number')
+     * @private
+     */
+    _getRawKeys: function(keyType) {
+        var rawKeys;
+        if(ne.util.isExisty(this._callback, 'getKeys') && ne.util.isFunction(this._callback.getKeys)) {
+            rawKeys = this._callback.getKeys(keyType);
+        }
+        if(ne.util.isArray(rawKeys)) {
+            this._reArrangeKeys(rawKeys);
+        }
+    },
+
+    /**
+     * 자판을 재배열한다.
+     */
+    shuffle: function() {
+        console.log('shuffle');
+        this._getRawKeys(this._KeyType, this._isCapsLock);
+    },
+
+    /**
+     * 한/영 자판을 변환한다.
+     */
+    language: function() {
+        console.log('language');
+        this._initContainer();
+        this._KeyType = (this._KeyType === 'english') ? 'korean' : 'english';
+        this._getRawKeys(this._KeyType, this._isCapsLock);
+    },
+
+    /**
+     * 대소문자 변환을 한다.
+     */
+    caps: function() {
+        console.log('caps');
+        this._initContainer();
+        this._isCapsLock = !this._isCapsLock;
+        this._getRawKeys(this._KeyType, this._isCapsLock);
+    },
+
+    /**
+     * 특수키 변환을 한다.
+     */
+    special: function() {
+        console.log('special');
+        this._initContainer();
+        this._KeyType = (this._KeyType === 'number') ? 'special' : 'number';
+        this._getRawKeys(this._KeyType, this._isCapsLock);
+    },
+
+    /**
+     * 마지막으로 입력된 값을 삭제한다.
+     */
+    delete: function() {
+        if(this._inputString.length && this._inputString.length > 0) {
+            this._inputString.length -= 1;
+        }
+        console.log('delete', this._inputString);
+    },
+
+    /**
+     * 전체 입력값을 초기화한다.
+     */
+    clear: function() {
+        this._inputString.length = 0;
+        console.log('clear', this._inputString);
+    },
+
+    /**
+     * 공백문자를 입력한다.
+     */
+    space: function() {
+        console.log('space');
+        /**
+         * @todo
+         */
+    },
+
+    /**
+     * 가상키보드를 연다.
+     */
+    open: function() {
+        console.log('open');
+        this.shuffle();
         this._$container.show();
     },
 
     /**
-     * 가상키보드를 숨긴다.
+     * 가상키보드를 닫는다.
      */
-    hide: function() {
+    close: function() {
+        console.log('close');
+        this.clear();
         this._$container.hide();
+    },
+
+    /**
+     * 완료버튼을 처리한다.
+     */
+    done: function() {
+        console.log('done');
+        this.close();
     }
 });
