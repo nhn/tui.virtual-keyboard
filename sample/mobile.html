@@ -82,6 +82,13 @@
 <script type="text/javascript" src="../src/common.js"></script>
 <script type="text/javascript" src="../src/VirtualKeyboard.js"></script>
 <script>
+    var keys = {
+        english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", ""],
+        korean: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", ""],
+        symbol: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")", ""],
+        number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""]
+    };
+
     var keyPressCallback = function(index) {
         console.log('keyPressCallback', index);
     }
@@ -90,38 +97,49 @@
         console.log('deleteCallback', index);
     }
 
-    var getKeysCallback = function(keyType, _isCapsLock) {
-        var keys = {
-            english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", ""],
-            korean: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", ""],
-            special: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")", ""],
-            number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""]
-        },
-            rawKeys = keys[keyType] || keys['number'],
-            i = length = rawKeys.length,
+    var getKeysCallback = function(keyType, isCapsLock, isFixed) {
+        console.log(keyType, isCapsLock)
+        var rawKeys,
+            i,
+            length,
             key;
-        for (; i > 0; i--) {
-            key = rawKeys.splice(Math.floor(Math.random() * i), 1)[0]
-            key = !!_isCapsLock ? key.toUpperCase() : key.toLowerCase();
-            rawKeys[length - 1] = key;
+
+        if(isFixed) {
+            rawKeys = keys[keyType];
+            length = rawKeys.length;
+            for(i = 0; i < length; i++) {
+                if(rawKeys[i]) {
+                    key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
+                    keys[keyType][i] = rawKeys[i] = key;
+                }
+            }
+        } else {
+            rawKeys = keys[keyType] || keys['number'];
+            i = length = rawKeys.length;
+            for (; i > 0; i--) {
+                key = rawKeys.splice(Math.floor(Math.random() * i), 1)[0];
+                key = isCapsLock ? key.toUpperCase() : key.toLowerCase();
+                keys[keyType][length - 1] = rawKeys[length - 1] = key;
+            }
         }
         return rawKeys;
     }
 
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
-        specials: {
+        keyType: 'number',
+        functions: {
             shuffle: 0,
             language: 2,
             caps: 3,
-            special: 4,
+            symbol: 4,
             delete: 5,
             clear: 9,
             space: 10,
             close: 11,
             done: 20,
         },
-        keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""],
+        keys: getKeysCallback('number'),
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
