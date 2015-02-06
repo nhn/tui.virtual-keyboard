@@ -83,7 +83,7 @@
 <script type="text/javascript" src="../src/VirtualKeyboard.js"></script>
 <script>
     var keyPressCallback = function(index) {
-        consolel.log('keyPressCallbakc', index);
+        console.log('keyPressCallbakc', index);
     }
 
     var shuffleCallback = function() {
@@ -98,9 +98,9 @@
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
         specials: {
-            shuffle: 12,
-            space: 13,
-            delete: 14
+            shuffle: 3,
+            space: 4,
+            delete: 5
         },
         keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""],
         template: {

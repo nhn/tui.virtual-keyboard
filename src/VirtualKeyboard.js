@@ -32,16 +32,40 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     },
 
     /**
+     * 고정위치를 갖는 키들의 위치 인덱스 맵데이터
+     * @type {object}
+     */
+    _fixedKeys: {},
+
+    /**
+     * 유동위치를 갖는 키들의 배열순서
+     * @type {array}
+     */
+    _rawKeys: [],
+
+    /**
+     * 각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서
+     * @type {array}
+     */
+    _identifiedRawKeys: [],
+
+    /**
      * 가상 키보드의 키 맵데이터
      * @type {object}
      */
     _keyMap: {},
 
     /**
-     * 가상 키보드의 키 배열순서
+     * 가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서
      * @type {array}
      */
     _keySequences: [],
+
+    /**
+     * 키타입별 수행해야하는 콜백함수 맵데이터
+     * @type {object}
+     */
+    _callback: {},
 
     /**
      * 사용자 입력값
@@ -61,6 +85,8 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
         this._initKeyboard(options.container);
 
         this._attachEvent();
+
+        console.log(this._keyMap)
     },
 
     /**
@@ -100,9 +126,10 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
         }
 
         inputValue = targetButton.value;
-        index = this._keyMap[inputValue].index;
-        if(ne.util.isExisty(index)) {
+        index = this._keyMap[inputValue].keyIndex;
+        if(this._getKeyType(inputValue) === 'key') {
             this._inputString.push(index);
+            this._callback.key(index);
         } else {
             this[inputValue]();
         }
@@ -127,33 +154,80 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * @private
      */
     _arrangeKeySequence: function() {
-        var tempArray,
-            blankCount = 0;
+        var sortedKeys;
         this._keySequences.length = 0;
 
-        // 고정위치의 키배열을 정렬한다.
-        tempArray = ne.util.keys(this._fixedKeys);
-        tempArray.sort($.proxy(function(a, b) {
-            return this._fixedKeys[a] - this._fixedKeys[b];
-        }, this));
+        // 고정위치의 키배열을 인덱스 순으로 정렬한다.
+        sortedKeys = this._sortFixedKeys();
 
         // 전달받은 키배열을 복사한다.
-        ne.util.forEach(this._rawKeys, function(value, index) {
-            if(value === '') {
-                value = 'blank' + blankCount;
-                blankCount++;
-            }
-            this._keySequences[index] = value;
-            //this._rawKeys[index] = value;
-        }, this);
+        this._identifyRawKeys();
+        this._copyArray(this._identifiedRawKeys, this._keySequences);
 
         // 고정키를 고정위치에 삽입한다.
-        ne.util.forEach(tempArray, function(value, index) {
+        ne.util.forEach(sortedKeys, function(value, index) {
             if(ne.util.isExisty(value)) {
                 this._keySequences.splice(this._fixedKeys[value], 0, value);
             }
         }, this);
         console.log("this._keySequences", this._keySequences)
+    },
+
+    /**
+     * 공백키를 구분할수 있게 키값을 부여한다.
+     * @private
+     */
+    _identifyRawKeys: function() {
+        var blankCount = 0;
+        ne.util.forEach(this._rawKeys, function(value, index) {
+            if(this._getKeyType(value) === 'blank') {
+                value = 'blank' + blankCount;
+                blankCount++;
+            }
+            this._identifiedRawKeys[index] = value;
+        }, this);
+    },
+
+    /**
+     * 배열을 복사한다. (deep copy는 지원하지 않는다. 덮어쓰기 한다.)
+     * @param {array} originalArray 원본배열
+     * @param {array} copyArray 복사본배열
+     * @returns {*} 복사본배열
+     * @private
+     */
+    _copyArray: function(originalArray, copyArray) {
+        if(!ne.util.isExisty(originalArray)) {
+            return false;
+        }
+        if(!ne.util.isArray(originalArray)) {
+            originalArray = [originalArray];
+        }
+        if(!ne.util.isExisty(copyArray) || !ne.util.isArray(copyArray)) {
+            copyArray = [];
+        }
+
+        ne.util.forEach(originalArray, function(value, index) {
+            copyArray[index] = value;
+        }, this);
+
+        return copyArray;
+    },
+
+    /**
+     * 고정위치의 키배열을 정렬한다.
+     * @returns {Array} 인덱스 순으로 정렬된 고정위치 키목록
+     * @private
+     */
+    _sortFixedKeys : function() {
+        var sortedKeys;
+        this._keySequences.length = 0;
+
+        sortedKeys = ne.util.keys(this._fixedKeys) || [];
+        sortedKeys.sort($.proxy(function(a, b) {
+            return this._fixedKeys[a] - this._fixedKeys[b];
+        }, this));
+
+        return sortedKeys;
     },
 
     /**
@@ -175,7 +249,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
                 key: key,
                 keyIndex: null,
                 positionIndex: value,
-                keyType: key
+                keyType: this._getKeyType(key)
             };
         }, this);
     },
@@ -185,31 +259,40 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * @private
      */
     _refineFloatingKeys: function() {
-        var blankCount = 0,
-            key,
-            keyType;
-
-        ne.util.forEach(this._rawKeys, function(value, index) {
-            if(value === '') {
-                key = 'blank' + blankCount;
-                keyType = 'blank'
-                blankCount++;
+        ne.util.forEach(this._identifiedRawKeys, function(value, index) {
+            if(ne.util.isExisty(this._keyMap[value])) {
+                // 이미 맵데이터는 생성되있는 상태에서 자판재배열등으로 포지션인덱스만 바뀌는 경우
+                this._keyMap[value].positionIndex = this._getPositionIndex(value);
             } else {
-                key = value;
-                keyType = 'key';
-            }
-
-            if(ne.util.isExisty(this._keyMap[key])) {
-                this._keyMap[key].positionIndex = this._getPositionIndex(key);
-            } else {
-                this._keyMap[key] = {
-                    key: key,
+                // 맵데이터를 최초 생성하는 경우
+                this._keyMap[value] = {
+                    key: value,
                     keyIndex: index,
-                    positionIndex: this._getPositionIndex(key),
-                    keyType: keyType
+                    positionIndex: this._getPositionIndex(value),
+                    keyType: this._getKeyType(this._rawKeys[index])
                 };
             }
         }, this);
+    },
+
+    /**
+     * 해당 키의 키타입을 반환한다.
+     * @param key 키값
+     * @returns {string} 키타입
+     * @private
+     */
+    _getKeyType: function(key) {
+        var keyType;
+        if(ne.util.isExisty(this._fixedKeys[key])) {
+            keyType = 'special';
+        } else {
+            if(key === '') {
+                keyType = 'blank';
+            } else {
+                keyType = 'key';
+            }
+        }
+        return keyType;
     },
 
     /**
@@ -340,6 +423,19 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     },
 
     /**
+     * 자판을 재배열한다.
+     */
+    shuffle: function() {
+        var suffledKeys;
+        if(ne.util.isExisty(this._callback, 'shuffle') && ne.util.isFunction(this._callback.shuffle)) {
+            suffledKeys = this._callback.shuffle();
+        }
+        if(ne.util.isArray(suffledKeys)) {
+            this._shuffleKeys(suffledKeys);
+        }
+    },
+
+    /**
      * 가상키보드를 보여준다.
      */
     show: function() {
@@ -351,18 +447,5 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      */
     hide: function() {
         this._$container.hide();
-    },
-
-    /**
-     * 자판을 재배열한다.
-     */
-    shuffle: function() {
-        var suffledKeys;
-        if(ne.util.isExisty(this._callback, 'shuffle') && ne.util.isFunction(this._callback.shuffle)) {
-            suffledKeys = this._callback.shuffle();
-        }
-        if(ne.util.isArray(suffledKeys)) {
-            this._shuffleKeys(suffledKeys);
-        }
     }
 });
