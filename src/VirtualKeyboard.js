@@ -4,7 +4,6 @@
  * @dependency jquery-1.8.3.min.js, common.js
  */
 
-/* istanbul ignore next */
 if (!ne.component) {
     ne.component = {};
 }
@@ -150,7 +149,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
             return false;
         }
 
-        inputValue = targetButton.value;
+        inputValue = $(targetButton).text();
         index = this._keyMap[inputValue].rawIndex;
         keyGroup = this._getKeyGroup(inputValue);
 
@@ -538,7 +537,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     /**
      * 마지막으로 입력된 값을 삭제한다.
      */
-    delete: function() {
+    remove: function() {
         console.log('delete');
     },
 
@@ -563,7 +562,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 가상키보드를 연다.
      */
     open: function() {
-        console.log('open');
         this.shuffle();
         this._$container.show();
     },
@@ -572,7 +570,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 가상키보드를 닫는다.
      */
     close: function() {
-        console.log('close');
         this.clear();
         this._$container.hide();
     },
@@ -581,7 +578,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 완료버튼을 처리한다.
      */
     done: function() {
-        console.log('done');
         this.close();
     }
 });
