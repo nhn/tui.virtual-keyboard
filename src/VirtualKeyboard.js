@@ -149,7 +149,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
             return false;
         }
 
-        inputValue = $(targetButton).text();
+        inputValue = $(targetButton).val();
         index = this._keyMap[inputValue].rawIndex;
         keyGroup = this._getKeyGroup(inputValue);
 
@@ -538,24 +538,18 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 마지막으로 입력된 값을 삭제한다.
      */
     remove: function() {
-        console.log('delete');
     },
 
     /**
      * 전체 입력값을 초기화한다.
      */
     clear: function() {
-        console.log('clear');
     },
 
     /**
      * 공백문자를 입력한다.
      */
     space: function() {
-        console.log('space');
-        /**
-         * @todo
-         */
     },
 
     /**
