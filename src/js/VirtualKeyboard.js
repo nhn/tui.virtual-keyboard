@@ -1,5 +1,5 @@
 /**
- * @fileoverview 유저의 키입력 시간 정보를 캡쳐하는 모듈
+ * @fileoverview 유저의 키입력 정보를 캡쳐하는 모듈
  * @author FE개발팀 이제인 <jein.yi@nhnent.com>
  * @dependency jquery-1.8.3.min.js, common.js
  */
@@ -15,7 +15,31 @@ if (!ne.component) {
  * // 인스턴스 생성
  * // 자판 배열을 받아와 가상키보드를 생성한다.
  * var vkeyboard = new ne.component.VirtualKeyboard({
- * @todo
+ *      container: 'vkeyboard', // 컨테이너 엘리먼트 아이디
+ *      keyType: 'number', // 키보드 타입
+ *      functions: { // 기능키 위치
+ *          shuffle: 0,
+ *          language: 2,
+ *          caps: 3,
+ *          symbol: 4,
+ *          remove: 5,
+ *          clear: 9,
+ *          space: 10,
+ *          close: 11,
+ *          done: 20
+ *      },
+ *      keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // 사용키값
+ *      template: { // 기능키 템플릿
+ *          key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
+ *          blank: '<li class="subcon"><span class="btn_key"></span></li>',
+ *          shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button" value="shuffle">재배열</button></span></li>',
+ *          remove: '<li class="subcon last"><span class="btn btn_del"><button type="button" value="remove"><span class="sp">삭제</span></button></span></li>'
+ *      },
+ *      callback: { // 기능키 동작 콜백
+ *          key: function() { //run },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+ *          remove: function() { //run },
+ *          getKeys: function() { //run }        // 재배열시 키목록을 새로 요청하는 콜백
+ *      }
  * });
  * @constructor ne.component.VirtualKeyboard
  */
@@ -495,7 +519,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 자판을 재배열한다.
      */
     shuffle: function() {
-        console.log('shuffle');
         // 기존 입력값 초기화
         this._keySequences.length = 0;
         this._initContainer();
@@ -506,7 +529,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 한/영 자판을 변환한다.
      */
     language: function() {
-        console.log('language');
         this._initContainer();
         this._isEnglish = !this._isEnglish;
         this._currentKeyType = this._isEnglish ? 'english' : 'korean'
@@ -517,7 +539,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 대소문자 변환을 한다.
      */
     caps: function() {
-        console.log('caps');
         this._initContainer();
         this._isCapsLock = !this._isCapsLock;
         this._getRawKeys(true);
@@ -527,7 +548,6 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 특수키/숫자키 변환을 한다.
      */
     symbol: function() {
-        console.log('symbol');
         this._initContainer();
         this._isSymbol = !this._isSymbol;
         this._currentKeyType = this._isSymbol ? 'symbol' : 'number';

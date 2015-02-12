@@ -79,8 +79,7 @@
     </div>
 </div>
 <script type="text/javascript" src="jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../src/common.js"></script>
-<script type="text/javascript" src="../src/VirtualKeyboard.js"></script>
+<script type="text/javascript" src="../dist/Component-VirtualKeyboard.js"></script>
 <script>
     var keys = {
         english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", ""],
@@ -133,7 +132,7 @@
             }
         }
         return rawKeys;
-    }
+    };
 
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
@@ -143,22 +142,22 @@
             language: 2,
             caps: 3,
             symbol: 4,
-            delete: 5,
+            remove: 5,
             clear: 9,
             space: 10,
             close: 11,
-            done: 20,
+            done: 20
         },
         keys: getKeysCallback('number'),
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
             shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button">재배열</button></span></li>',
-            delete: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
+            remove: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
         },
         callback: {
             key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
-            delete: deleteCallback,
+            remove: deleteCallback,
             getKeys: getKeysCallback        // 재배열시 키목록을 새로 요청하는 콜백
         }
     });
