@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/checkout_popup.css">
     <title>결제 비밀번호 변경</title>
 </head>
-<body style="width:320px;height:548px;"> <!-- [D] 모바일 유입시 .m 추가, style 속성값은 팝업 사이즈입니다. -->
+<body class="m"> <!-- [D] 모바일 유입시 .m 추가, style 속성값은 팝업 사이즈입니다. -->
 <div id="wrap" class="wrap">
     <div id="header" class="header">
         <h1 class="m_tit"><span class="payco">payco</span></h1>
@@ -17,9 +17,7 @@
         <div class="cont_header">
             <div class="tit_area">
                 <h2 class="tit">결제 비밀번호를 입력해주세요.</h2>
-
             </div>
-
             <p class="pw_line">
                 <span class="ico_pw on">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span>
             </p>
@@ -81,8 +79,7 @@
     </div>
 </div>
 <script type="text/javascript" src="jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../src/js/common.js"></script>
-<script type="text/javascript" src="../dist/Component-VirtualKeyboard.js"></script>
+<script type="text/javascript" src="js/Component-VirtualKeyboard.js"></script>
 <script>
     var keys = {
         english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", ""],
@@ -102,9 +99,9 @@
     var getKeysCallback = function(keyType, isCapsLock, isFixed) {
         console.log(keyType, isCapsLock)
         var rawKeys,
-                i,
-                length,
-                key;
+            i,
+            length,
+            key;
 
         if(isFixed) {
             rawKeys = keys[keyType];
@@ -155,8 +152,8 @@
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
-            shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button" value="shuffle">재배열</button></span></li>',
-            remove: '<li class="subcon last"><span class="btn btn_del"><button type="button" value="remove"><span class="sp">삭제</span></button></span></li>'
+            shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button">재배열</button></span></li>',
+            remove: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
         },
         callback: {
             key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
@@ -167,3 +164,6 @@
 </script>
 </body>
 </html>
+
+
+
