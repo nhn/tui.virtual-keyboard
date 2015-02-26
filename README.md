@@ -22,6 +22,6 @@ VirtualKeyboard
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| 0.0.1 | 최초개발 | 2014.11 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
+| 0.0.1 | 최초개발 | 2015.02 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
 
 
