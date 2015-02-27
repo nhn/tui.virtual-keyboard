@@ -37,7 +37,7 @@ module.exports = function(config) {
         files: [
             'bower_components/jquery/jquery.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-            'src/js/common.js',
+            'src/common/common.js',
             'src/js/VirtualKeyboard.js',
             'test/*.js',
             {
