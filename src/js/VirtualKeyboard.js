@@ -173,7 +173,8 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
             return false;
         }
 
-        inputValue = $(targetButton).val();
+        //inputValue = $(targetButton).val();
+        inputValue = $(targetButton).text();
         index = this._keyMap[inputValue].rawIndex;
         keyGroup = this._getKeyGroup(inputValue);
 
