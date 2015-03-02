@@ -21,7 +21,7 @@
     </div>
 
     <div class="body">
-        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">데스크탑예제</a></li><li class="item"><a href="tutorial-mobile.html">모바일예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"><span class="subtitle">Members</span><li><a href="ne.component.VirtualKeyboard.html#_callback">_callback</a></li><li><a href="ne.component.VirtualKeyboard.html#_currentKeyType">_currentKeyType</a></li><li><a href="ne.component.VirtualKeyboard.html#_documentFragment">_documentFragment</a></li><li><a href="ne.component.VirtualKeyboard.html#_fixedKeys">_fixedKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_identifiedRawKeys">_identifiedRawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_isCapsLock">_isCapsLock</a></li><li><a href="ne.component.VirtualKeyboard.html#_isEnglish">_isEnglish</a></li><li><a href="ne.component.VirtualKeyboard.html#_isSymbol">_isSymbol</a></li><li><a href="ne.component.VirtualKeyboard.html#_keyMap">_keyMap</a></li><li><a href="ne.component.VirtualKeyboard.html#_keySequences">_keySequences</a></li><li><a href="ne.component.VirtualKeyboard.html#_rawKeys">_rawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_template">_template</a></li></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#_getTime">_getTime</a></li><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
+        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">데스크탑예제</a></li><li class="item"><a href="tutorial-mobile.html">모바일예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
         <div id="main" class="main"><section>
 <header>
     
@@ -31,9 +31,17 @@
 
 <article>
 	
-    <iframe id="exampleFrame" width="500" height="700" frameborder="0" src=tutorials/desktop.html onload="autoResize()"></iframe>
+    <a href="tutorials/desktop.html" target="_blank">새창으로 열기</a><br/>
+    <iframe id="exampleFrame" width="500" height="700" frameborder="0" src=tutorials/desktop.html onload="onIframeLoad()"></iframe>
+    <br/>
+    <div id='codeArea'>
 </article>
 <script>
+function onIframeLoad() {
+	generateCode();
+	autoResize();
+}
+
 function autoResize() {
     var ef = document.getElementById('exampleFrame'),
     doc;
@@ -46,6 +54,26 @@ function autoResize() {
     ef.width = document.getElementById('main').clientWidth - 40;
     ef.height = doc.body.clientHeight + 40;
 }
+
+function generateCode() {
+	var ef = document.getElementById('exampleFrame'),
+		codeArea = document.getElementById('codeArea'),
+        doc = ef.contentDocument || ef.contentWindow.document,
+        scripts;
+
+	if (doc) {
+		scripts = doc.getElementsByTagName('script');
+		console.log(scripts[scripts.length-1].innerText);
+		codeArea.innerHTML = '<pre>' + encodeHTMLEntity(scripts[scripts.length-1].innerText) + '</pre>';
+	}
+}
+
+function encodeHTMLEntity(html) {
+	 var entities = {'"': 'quot', '&': 'amp', '<': 'lt', '>': 'gt', '\'': '#39'};
+	 return html.replace(/[<>&"']/g, function(m0) {
+		 return entities[m0] ? '&' + entities[m0] + ';' : m0;
+	 });
+ }
 </script>
 
 </section></div>

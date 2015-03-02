@@ -2,28 +2,27 @@
 /* HIVELAB Web Standard 1 ok*/
 
 @font-face {
-    font-family: ng;
-    font-style: normal;
-    font-weight: 400;
-    src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
-    src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
+  font-family: ng;
+  font-style: normal;
+  font-weight: 400;
+  src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot);
+  src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff2) format('woff2'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.woff) format('woff'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Regular.ttf) format('truetype');
 }
 @font-face {
-    font-family: ng;
-    font-style: bold;
-    font-weight: 700;
-    src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
-    src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
-    url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
+  font-family: ng;
+  font-style: bold;
+  font-weight: 700;
+  src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot);
+  src: url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff2) format('woff2'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.woff) format('woff'),
+       url(http://fonts.gstatic.com/ea/nanumgothic/v5/NanumGothic-Bold.ttf) format('truetype');
 }
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,legend,textarea,p,th,td,input,select,textarea,button{margin:0;padding:0;}
-html,body{width:100%;height:100%}
 body{overflow:hidden;font-family:'나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,sans-serif;font-size:16px;color:#373941;background-color:#f6f7f9;-webkit-text-size-adjust:none}
 /*모바일 유입 시*/
 body.m{font-family:sans-serif}
@@ -43,7 +42,7 @@ input::-ms-clear{display:none}
 button[disabled],input[type="text"][disabled]{opacity:0.4}
 
 .blind,legend{overflow:hidden;position:absolute;top:0;left:0;width:1px;height:1px;font-size:0;line-height:100px;white-space:nowrap}
-.payco,.radio-mark,.fcb-checkbox,.btn .ico,.sp{overflow:hidden;display:inline-block;line-height:200px;vertical-align:top;background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/sp.png) no-repeat}
+.payco,.radio-mark,.fcb-checkbox,.btn .ico,.sp{overflow:hidden;display:inline-block;line-height:200px;vertical-align:top;background:url(../img/sp.png) no-repeat}
 .vt{vertical-align:top !important}
 
 .header{position:relative;height:46px;padding:0;line-height:46px;background:#fff;border-bottom:1px solid #dcdcdf}
@@ -53,7 +52,7 @@ button[disabled],input[type="text"][disabled]{opacity:0.4}
 .m .payco{font-size:1px;line-height:1px;color:transparent}
 .header .m_tit{text-align:center;*height:46px;}
 .wrap{position:relative}
-.content{min-height:498px;padding-bottom:50px;background:#f6f7f9}
+.content{min-height:250px;padding-bottom:50px;background:#f6f7f9}
 
 /* checkbox, radio button */
 .fcb-checkbox-unit .fcb-checkbox{width:21px;height:21px;background-position:-23px -44px;border:0;cursor:pointer}
@@ -110,10 +109,10 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 .btn .ico_arl{margin-right:7px}
 .btn .ico_arr{margin-left:7px}
 
-.btn_agree{height:44px;margin-top:20px;font-size:15px;font-weight:400;line-height:44px;color:#fff}
+/*.btn_agree{height:44px;margin-top:20px;font-size:15px;font-weight:400;line-height:44px;color:#fff}
 .ico_agree{display:none;width:15px;height:11px;margin:2px 10px 0 0;vertical-align:middle;background-position:-3px -52px}
 .btn_agree.on{font-weight:700}
-.btn_agree.on .ico_agree{display:inline-block}
+.btn_agree.on .ico_agree{display:inline-block}*/
 
 .btn_close{position:absolute;width:46px;height:48px;top:0;right:0;cursor:pointer}
 .btn_close span{position:absolute;width:16px;height:16px;top:50%;left:50%;margin:-8px 0 0 -8px;background-position:-48px -20px;cursor:pointer}
@@ -141,30 +140,33 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 .input_auth .input_txt{width:107px}
 .input_txt_area .input_txt{}
 
-.agree_wrap{margin:20px 20px 0}
+.agree_wrap{margin:15px 18px 0}
+.agree_wrap .checkbox_area{margin-top:15px;padding:10px;background:#e7e8eb}
 .agree_wrap li{position:relative;margin-top:14px}
 .agree_wrap li:first-child{margin-top:0}
 .agree_wrap .agree{overflow:hidden;}
+.agree_wrap .agree_top{overflow:hidden;font-weight:bold}
 .agree_wrap .lbl_agree{display:inline-block;margin-left:7px;font-size:13px;vertical-align:middle;color:#383838;cursor:pointer}
 .agree_wrap .btn_detail{display:inline-block;width:18px;height:21px;text-align:center;line-height:21px;}
-.agree_wrap .btn_detail .sp{margin-top:5px;width:5px;height:9px;background-position:-46px -53px}
+.agree_wrap .btn_detail .sp{margin-top:7px;width:5px;height:9px;background-position:-46px -53px}
 .agree_wrap .agree_txt{float:left}
-.agree_wrap .btn_area{position:static}
+.agree_wrap .btn_area{position:static;margin-top:0}
 
 /*신용카드*/
 .tag_cp{position:absolute;top:50%;right:15px;height:18px;margin-top:-9px}
-.tag_cp img{height:100%}
-.input_full,.input_auth2{padding-left:30px}
+.tag_cp img{height:100%}  
+.input_full,.input_auth2{padding-left:20px}
 .input_full input{width:185px}
-.input_full .input_lbl,.input_auth2 .input_lbl{left:30px}
-.input_auth2 input{width:58px}
+.input_full .input_lbl,.input_auth2 .input_lbl{left:20px}
+.input_auth2 input{width:58px}  
 .pw_lbl{margin-left:2px;color:#373941}
 
 /* 결제수단 선택 */
 .row_sel{display:block;height:60px;font-size:15px;line-height:60px;text-align:center;color:#383838}
 .row_sel:active,.row_sel:focus,.row_sel:visited,.row_sel:hover{color:#383838}
 .lst_sub{display:none;overflow:hidden;margin-right:-1px;background-color:#e7e8ec}
-.lst_sub .subcon{float:left;width:33.3333%;*width:106px;height:45px;border-bottom:1px solid #eeeff2}
+.lst_sub .subcon{float:left;width:9.09090909%;*width:106px;height:45px;border-bottom:1px solid #eeeff2}
+.lst_sub .space{float:left;width:72.7%;height:25px;border-bottom:1px solid #eeeff2}
 .subcon.last{border-bottom:0}
 .radio_bx{overflow:hidden;height:45px;margin-left:-1px;border-left:1px solid #eeeff2}
 .radio_bx .radio_btn{display:block;height:100%;font-size:13px;line-height:44px;text-align:center;background-color:#e7e8ec;color:#383838;cursor:pointer}
@@ -184,9 +186,11 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 
 /* 출금 계좌정보 입력 */
 .fc{*position:static}
-.form_row.free{height:auto;border-bottom:0}
-.info_wrap .info_txt{display:block;margin-left:18px;height:43px;font-size:12px;font-weight:400;line-height:43px;color:#373941}
+.form_row.free{height:auto}
+.info_wrap{margin-left:18px;padding:11px 0}
+.info_wrap .info_txt{display:block;font-size:12px;font-weight:400;line-height:normal;color:#373941}
 .noti_bx{display:block;margin:0 20px;font-size:15px;line-height:41px}
+.info_txt2{display:block;margin-top:6px;font-size:15px;line-height:normal;color:#ff4c52}
 .form_row .col_full{float:none;margin-left:90px}
 .form_row .col_full .input_area{float:none}
 /*.sel_full{width:100%} [D] 전체 너비 먹을때
@@ -194,58 +198,129 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 .sel_full{width:215px}
 
 /* 보안 키패드 */
-.keypad{min-height:496px}
+.keypad{min-height:250px}
 .cont_header{height:224px;text-align:center}
 .cont_header .tit_area{height:108px;padding:0;text-align:center;background:transparent}
-.cont_header .tit{padding-top:52px;font-size:13px;line-height:17px;font-weight:700}
+.cont_header .tit{padding-top:52px;font-size:15px;line-height:17px;font-weight:700}
 .cont_header .add_txt{display:inline-block;margin-top:22px;font-size:12px;text-decoration:underline;vertical-align:top;color:#828388}
 .pw_line{height:45px;line-height:45px;text-align:center}
-.ico_pw{overflow:hidden;display:inline-block;width:22px;height:20px;margin-left:15px;line-height:200px;vertical-align:middle;background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/sp_num.png) no-repeat -22px 0}
+.ico_pw{overflow:hidden;display:inline-block;width:22px;height:20px;margin-left:15px;line-height:200px;vertical-align:middle;background:url(../img/sp_num.png) no-repeat -22px 0}
 .ico_pw.on{background-position:0 0}
 .ico_pw:first-child{margin-left:0}
 .lst_keypad{display:block;background-color:#fff}
-.lst_keypad .subcon{height:55px;border-bottom:1px solid #f6f7f9}
+.lst_keypad .subcon{height:25px;border-bottom:1px solid #f6f7f9}
 .lst_keypad .btn_key,.lst_keypad .btn{display:block;height:100%;border-left:1px solid #f6f7f9}
-.btn_key button,.btn_del button,.btn_reload button{display:block;width:100%;height:100%;font-size:23px;text-align:center;line-height:55px}
+.btn_key button,.btn_del button,.btn_reload button{display:block;width:100%;height:100%;font-size:14px;text-align:center;line-height:25px}
 .btn_key:hover button,.btn_key button:active,.btn_key button:focus,.btn_del button:hover,.btn_del button:active,
 .btn_del button:focus,.btn_reload button:hover,.btn_reload button:active,.btn_reload button:focus{color:#fff;background:#ff4c52}
+.btn_key button:visited,.btn_reload button:visited,.btn_del button:visited{background:#fff}
+.btn_key .special {background:#4a95e5;color:#fff;font-size:9pt;}
 .lst_keypad .btn_last{margin-left:33.3333%}
 .btn_del .sp{width:26px;height:17px;vertical-align:middle;background-position:0 -78px}
 .btn_reload button{font-size:13px}
 
 .dimmed{position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;width:100%;height:100%;background:#000;opacity:.6;filter:alpha(opacity=60);-ms-filter:'progid:DXImageTransform.Microsoft.Alpha(Opacity=60)';z-index:200;}
-.ly_pop{position:fixed;top:50%;left:50%;margin:-150px 0 0 -135px;width:270px;height:320px;background:#fff;border-top:3px solid #ff1414;z-index:200}
-.ly_pop .tit{height:44px;padding:0 15px;font-size:15px;line-height:44px}
-.ly_pop .btn_close{overflow:hidden;position:absolute;width:34px;height:34px;top:-37px;right:-8px;line-height:200px;z-index:200;}
-.ly_pop_cont .cont{overflow-x:hidden;overflow-y:auto;height:290px;margin:15px 10px;-webkit-overflow-scrolling:touch}
+.ly_pop{position:fixed;top:50%;left:50%;margin:-156px 0 0 -142px;width:285px;z-index:200}
+.ly_pop .ly_pop_cont{overflow:hidden;height:100%;background:#fff}
+.ly_pop .tit{height:45px;line-height:45px;padding:0 15px;font-size:15px;color:#383838}
+.ly_btn_close{position:absolute;width:47px;height:47px;top:0;right:0;cursor:pointer}
+.ly_btn_close span{position:absolute;width:18px;height:18px;top:50%;left:50%;margin:-9px 0 0 -9px;background-position:-28px -78px}
+.ly_pop .ly_pay_bx{padding:15px 20px 0;background:#fafafa;border:1px solid #e6e6e6;border-width:1px 0}
+.ly_info_bx .sel_area a{line-height:41px}
+.ly_info_bx .sel_area .sel_lst{top:43px}
+.ly_pay_bx .input_area{float:none;height:auto}
+.ly_info_bx{padding:15px 0 20px;*zoom:1}
+.ly_info_bx:after{display:block;clear:both;content:''}
+.ly_info_bx .sel_area{margin-bottom:5px}
+.ly_info_bx .sel_area + .input_area{padding-left:0}
+.ly_info_bx .sel_area + .input_area .input_lbl{left:0}
+.ly_info_bx .input_txt{width:243px;height:41px;line-height:41px;border:1px solid #e7e8ec;background:#fff}
+.ly_info_bx .input_lbl{line-height:41px;padding-left:10px}
+.input_area .input_radio label{font-size:13px;letter-spacing:-1px}
+.ly_info_bx .input_area.v1{float:left;width:71px;margin-right:7px}
+.ly_info_bx .input_area.v2{float:left;width:57px;margin-right:7px}
+.ly_info_bx .input_area.v3{float:left;width:101px}
+.input_area.v1 .input_txt{width:71px}
+.input_area.v2 .input_txt{width:57px}
+.input_area.v3 .input_txt{width:101px}
+
+.ly_pop_cont .checkbox_row{padding:15px 20px 8px}
+.ly_pop_cont .fcb-checkbox-label{color:#383838;font-size:13px;vertical-align:middle;cursor:pointer;line-height:21px}
+.ly_pop_cont .fcb-checkbox{vertical-align:middle}
+.ly_pop_cont .txt_dsc{font-size:12px;padding:0 20px 0;letter-spacing:-1px;line-height:17px}
+.ly_pop_cont .txt_dsc2{font-size:13px;padding:24px 0 6px;line-height:20px;text-align:center;font-weight:normal}
+.ly_pop_cont .btn_area{margin:0 5px;padding:13px 0 10px;*zoom:1}
+.ly_pop_cont .btn_area:after{display:block;clear:both;content:''}
+.ly_pop_cont .btn_area li{width:50%;float:left;*width:137px}
+.ly_pop_cont .btn_area .btn{display:block;color:#fff;margin:0 5px;height:40px;line-height:40px}
+.btn_area .btn_ok{background:#ff4c52}
+.btn_area .btn_cancel{background:#515360}
 
 /* 결제완료 */
 .noti_area2{position:relative;min-height:413px}
 .noti_area2 .noti_bx{margin:0 auto 0;width:250px;height:185px;padding-top:88px}
-.noti_bx .tit{font-size:13px;text-align:center;line-height:normal}
+.noti_bx .tit{font-size:15px;text-align:center;line-height:normal}
 .noti_bx .dsc_area{width:250px;margin:25px auto 0;height:147px;color:#fff}
-.dsc_area .dsc_tit{display:block;padding-top:17px;margin-left:15px;font-size:19px;line-height:normal}
+.dsc_area .dsc_tit{display:block;padding-top:16px;margin-left:15px;font-size:19px;font-weight:700;line-height:normal}
 .dsc_area .dsc_num{height:110px;text-align:center;color:#fff}
-.dsc_area .dsc_num .txt{display:inline-block;font-size:16px;line-height:23px;vertical-align:middle}
-.card_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_card.png) no-repeat}
-.phone_area,.account_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_phone.png) no-repeat}
-.passbook_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_passbook.png) no-repeat}
-.nfc_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_nfc.png) no-repeat}
-.gift_area{position:relative;background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_gift.png) no-repeat}
+.dsc_area .dsc_num .txt{display:inline-block;font-size:21px;line-height:23px;vertical-align:middle}
+.card_area{background:url(../img/bg_card.png) no-repeat}
+.phone_area,.account_area{background:url(../img/bg_phone.png) no-repeat} 
+.passbook_area{background:url(../img/bg_passbook.png) no-repeat}
+.nfc_area{background:url(../img/bg_nfc.png) no-repeat}
+.gift_area{position:relative;background:url(../img/bg_gift.png) no-repeat}
 .gift_area .sel_area{position:absolute;bottom:20px;left:23px;width:203px}
 .aligner{display:inline-block;width:0;height:100%;vertical-align:middle}
 
 /* 간편터치 */
-.noti_area{margin:42px auto 0;text-align:center}
-.noti_area .tit{font-size:13px;line-height:17px}
+.noti_area{width:250px;margin:36px auto 0;text-align:center}
+.noti_area .tit{font-size:15px;line-height:19px}
+.ars .noti_area{width:100%;margin-top:63px}
+.ars2 .noti_area{width:100%;margin-top:24px}
+.ars2 .noti_area .tit{font-size:14px}
+.m .ars2 .noti_area .tit{font-size:15px}
+
 .ico_paycoapp{width:45px;height:45px;background-position:-66px 0}
-.noti_area .noti_txt_area{width:193px;height:165px;margin:29px auto 0;padding:28px 0 0;background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_waiting.png) no-repeat}
+.noti_area .noti_txt_area{position:relative;width:234px;height:234px;margin:23px auto 0;background:url(../img/bg_waiting.png) no-repeat}
 .noti_txt_area .txt_noti{margin-top:10px;font-size:12px;line-height:17px}
 .noti_txt_area .txt_noti .time{display:block;margin-top:8px;font-size:15px;font-weight:700;line-height:21px;color:#ff4c52}
-.lst_noti{margin-top:28px;padding:0 37px;text-align:left}
-.lst_noti li{font-size:12px;line-height:17px;color:#828388;}
-.btn_rows{width:171px;margin:10px auto 0}
-.btn_rows .btn{display:block;width:100%;height:43px;margin-top:5px;font-size:13px;line-height:43px}
+.noti_txt_area .img_area{position:absolute;display:block;top:74px;left:50%;width:175px;margin-left:-87px}
+.noti_txt_area .img_area img{width:100%}
+.noti_txt_area .failed{top:54px}
+.noti_txt_area .failed img{width:54px}
+.img_area .time{display:block;margin-top:20px;font-size:13px;font-weight:700;color:#c5c7cc}
+.img_area .time em{display:block;font-size:20px;color:#ff4c52}
+.lst_noti{margin:28px 0 0 0;text-align:left}
+.lst_noti li,p.lst_noti{font-size:12px;line-height:17px;text-align:center;color:#828388}
+.noti_txt_area .btn_failed{display:inline-block;width:116px;height:44px;margin-top:22px;font-size:13px;vertical-align:top;border:1px solid #e7e8ec}
+.btn_failed button{width:100%;height:100%;font-size:13px;color:#373941}
+.ars2 .lst_noti{margin-top:14px}
+.btn_touch_area{margin-top:7px}
+.ars .btn_touch_area{padding-top:26px;width:290px;margin:0 auto}
+.btn_touch{display:block;height:42px;font-size:13px;font-weight:400;line-height:42px;background:#fff;border:1px solid #e7e8ec}
+.btn_touch.btn_em span{color:#ff4c52}
+ul.btn_half{overflow:hidden;margin:0 29px}
+ul.btn_half li{float:left;width:50%}
+ul.btn_half .btn{margin:0 0 0 3px}
+ul.btn_half li:first-child .btn{margin:0 3px 0 0}
+.btn_touch_area.multi{padding-top:6px}
+.multi .btn_half{margin:6px 29px 0}
+.multi .btn_half:first-child{margin-top:0}
+.multi .btn_half li:first-child .input_txt{}
+.multi .input_area{width:auto;height:100%;padding-right:3px;*width:100%;}
+.multi .input_area .input_txt{width:100%;height:42px;text-align:center;line-height:42px;vertical-align:top;background:#fff;border:1px solid #e7e8ec;*width:113px;*float:left}
+/* 무통장입금 */
+.ico_help{width:18px;height:18px;vertical-align:middle;background-position:-66px -47px}
+.txt_dscadd{font-size:13px;vertical-align:middle}
+.txt_dscadd .ico_help{margin-left:7px}
+.checkbox .fcb-checkbox-cont{height:auto}
+.checkbox .fcb-checkbox-unit{line-height:normal}
+.checkbox .fcb-checkbox{margin-right:10px;vertical-align:middle}
+.checkbox .fcb-checkbox-label{font-size:13px;vertical-align:middle;color:#373941}
+.col_cont .checkbox .fcb-checkbox-unit{line-height:43px}
+
+.add_link{float:right;margin:13px 15px 0 0;font-size:12px;text-decoration:underline}
+.add_link:hover,.add_link:focus,.add_link:visited,.add_link:active{text-decoration:underline}
 
 /* 이용약관 */
 .m_tit .txt{font-size:15px;font-weight:400;vertical-align:top}
@@ -257,14 +332,14 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 .agreement p + ul,.agreement h2:first-child,.agreement p:first-child,.agreement ul:first-child{margin-top:0}
 
 @media screen and (-webkit-min-device-pixel-ratio:1.5){
-    .payco,.radio-mark,.fcb-checkbox,.btn .ico,.sp{background-image:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/sp_2x.png);-webkit-background-size:120px auto;background-size:120px auto}
-    .ly_pop .btn_close span{line-height:normal;color:transparent;}
-    .ico_pw{background-image:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/sp_num_2x.png);-webkit-background-size:43px auto;background-size:43px auto}
-    .card_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_card_2x.png) no-repeat}
-    .phone_area,.account_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_phone_2x.png) no-repeat}
-    .passbook_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_passbook_2x.png) no-repeat}
-    .nfc_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_nfc_2x.png) no-repeat}
-    .gift_area{position:relative;background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_gift_2x.png) no-repeat}
-    .dsc_area{-webkit-background-size:100% auto;background-size:100% auto}
-    .noti_area .noti_txt_area{background:url(http://ui-dev.nhnent.com/svnview/hivelab/paycoid/branches/checkout_pop/img/bg_waiting_2x.png) no-repeat;-webkit-background-size:100% auto;background-size:100% auto}
+	.payco,.radio-mark,.fcb-checkbox,.btn .ico,.sp{background-image:url(../img/sp_2x.png);-webkit-background-size:120px auto;background-size:120px auto}
+	.ly_pop .btn_close span{line-height:normal;color:transparent;}
+  .ico_pw{background-image:url(../img/sp_num_2x.png);-webkit-background-size:43px auto;background-size:43px auto}
+  .card_area{background:url(../img/bg_card_2x.png) no-repeat}
+  .phone_area,.account_area{background:url(../img/bg_phone_2x.png) no-repeat} 
+  .passbook_area{background:url(../img/bg_passbook_2x.png) no-repeat}
+  .nfc_area{background:url(../img/bg_nfc_2x.png) no-repeat}
+  .gift_area{position:relative;background:url(../img/bg_gift_2x.png) no-repeat}
+  .dsc_area{-webkit-background-size:100% auto;background-size:100% auto}
+  .noti_area .noti_txt_area{background:url(../img/bg_waiting_2x.png) no-repeat;-webkit-background-size:100% auto;background-size:100% auto}
 }
