@@ -13,6 +13,7 @@
 </head>
 <body>
 <div id="wrap" class="wrap" style="width:300px;">
+    <input type="password" id="keyboardInput" class="inputText" style="width:200px;" />
     <div id="content" class="content keypad">
         <div class="form_lst form_lst_card">
             <div class="form_row">
@@ -70,6 +71,46 @@
         number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
     };
 
+    var crntkeyType = 'number',
+        selectedType = 'number';
+
+    // keypress
+    var keyPressCallback = function(index) {
+        var str = keys[selectedType][index];
+        var dec = encodeURIComponent($('#keyboardInput').val());
+        dec =  dec + encodeURIComponent(str);
+        $('#keyboardInput').val(decodeURIComponent(dec));
+    };
+
+    // delete
+    var deleteCallback = function(index) {
+        var str = $('#keyboardInput').val();
+        str = str.substr(0, str.length-1);
+        $('#keyboardInput').val(str);
+    };
+
+    // symbol
+    var symbolCallback = function() {
+        if(crntkeyType === 'symbol') {
+            $('.symbolic').html('숫자')
+        } else {
+            $('.symbolic').html('#+=');
+        }
+    };
+
+    // clear
+    var clearCallback = function() {
+        $('#keyboardInput').val('');
+    };
+
+    //shuffle, language, caps, symbol
+    var getKeysCallback = function(keyType) {
+        crntkeyType = keyType;
+        return keys[keyType];
+
+    };
+
+    // 생성
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
         keyType: 'number',
@@ -83,8 +124,17 @@
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
-            shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button">재배열</button></span></li>',
-            remove: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
+            shuffle: '<li class="subcon last"><span class="btn_key"><button class="special shuffles" type="button">SHUFFLE</button></span></li>',
+            symbol: '<li class="subcon"><span class="btn_key"><button class="special symbolic" type="button">#+=</button></span></li>',
+            remove: '<li class="subcon"><span class="btn_key"><button class="special" type="button">DEL</button></span></li>',
+            clear: '<li class="subcon"><span class="btn_key"><button class="special" type="button">CLEAR</button></span></li>'
+        },
+        callback: {
+            key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+            remove: deleteCallback,
+            symbol: symbolCallback,
+            clear: clearCallback,
+            getKeys: getKeysCallback
         }
     });
 </script>
