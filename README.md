@@ -14,7 +14,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 
 ## Sample Image
 * 일반 가상키보드<br>
-![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
+![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vknormal.png)
 * 숫자용 가상키보드<br>
 ![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
 
