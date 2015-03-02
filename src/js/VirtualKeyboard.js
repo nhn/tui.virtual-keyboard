@@ -48,6 +48,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 디폴트 템플릿
      * @readonly
      * @type {object}
+     * @private
      */
     _template: {
         key: '<li><button type="button" value="{KEY}">{KEY}</button></li>',
@@ -57,66 +58,77 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     /**
      * 고정위치를 갖는 키들의 위치 인덱스 맵데이터
      * @type {object}
+     * @private
      */
     _fixedKeys: {},
 
     /**
      * 유동위치를 갖는 키들의 배열순서
      * @type {array}
+     * @private
      */
     _rawKeys: [],
 
     /**
      * 각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서
      * @type {array}
+     * @private
      */
     _identifiedRawKeys: [],
 
     /**
      * 가상 키보드의 키 맵데이터
      * @type {object}
+     * @private
      */
     _keyMap: {},
 
     /**
      * 가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서
      * @type {array}
+     * @private
      */
     _keySequences: [],
 
     /**
      * 키타입별 수행해야하는 콜백함수 맵데이터
      * @type {object}
+     * @private
      */
     _callback: {},
 
     /**
      * 현재 키패드의 키타입
      * @type {string}
+     * @private
      */
     _currentKeyType: null,
 
     /**
      * 영문 여부
      * @type {boolean}
+     * @private
      */
     _isEnglish: false,
 
     /**
      * 특수문자 여부
      * @type {boolean}
+     * @private
      */
     _isSymbol: false,
 
     /**
      * caps lock 여부
      * @type {boolean}
+     * @private
      */
     _isCapsLock: false,
 
     /**
      * 키 엘리먼트의 pool로 사용할 documentFragment
      * @type {element}
+     * @private
      */
     _documentFragment: null,
 
@@ -404,6 +416,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     /**
      * 현재 시간을 반환하는 함수
      * @returns {millisecond} 현재 시간의 millisecond
+     * @private
      */
     _getTime: function() {
         var timeStamp;
