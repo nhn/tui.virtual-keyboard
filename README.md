@@ -4,6 +4,8 @@ VirtualKeyboard
 실제 키보드가 아닌 가상의 키보드를 만들어, 숫자, 영문, 한글, 특수문자 등의 키 입력 효과를 제공합니다.<br>
 PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 터치를 이용합니다.
 
+![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
+
 ## Feature
 * 가상의 키보드를 이용한 키입력을 제공
 * 모바일, 데스크탑 환경을 모두 지원
