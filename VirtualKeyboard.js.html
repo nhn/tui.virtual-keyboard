@@ -21,7 +21,7 @@
     </div>
 
     <div class="body">
-        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-mobile.html">가상키보드예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"><span class="subtitle">Members</span><li><a href="ne.component.VirtualKeyboard.html#_callback">_callback</a></li><li><a href="ne.component.VirtualKeyboard.html#_currentKeyType">_currentKeyType</a></li><li><a href="ne.component.VirtualKeyboard.html#_documentFragment">_documentFragment</a></li><li><a href="ne.component.VirtualKeyboard.html#_fixedKeys">_fixedKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_identifiedRawKeys">_identifiedRawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_isCapsLock">_isCapsLock</a></li><li><a href="ne.component.VirtualKeyboard.html#_isEnglish">_isEnglish</a></li><li><a href="ne.component.VirtualKeyboard.html#_isSymbol">_isSymbol</a></li><li><a href="ne.component.VirtualKeyboard.html#_keyMap">_keyMap</a></li><li><a href="ne.component.VirtualKeyboard.html#_keySequences">_keySequences</a></li><li><a href="ne.component.VirtualKeyboard.html#_rawKeys">_rawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_template">_template</a></li></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#_getTime">_getTime</a></li><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
+        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-mobile.html">가상키보드예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
         <div id="main" class="main">
 
 
@@ -79,6 +79,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
      * 디폴트 템플릿
      * @readonly
      * @type {object}
+     * @private
      */
     _template: {
         key: '&lt;li>&lt;button type="button" value="{KEY}">{KEY}&lt;/button>&lt;/li>',
@@ -88,66 +89,77 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     /**
      * 고정위치를 갖는 키들의 위치 인덱스 맵데이터
      * @type {object}
+     * @private
      */
     _fixedKeys: {},
 
     /**
      * 유동위치를 갖는 키들의 배열순서
      * @type {array}
+     * @private
      */
     _rawKeys: [],
 
     /**
      * 각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서
      * @type {array}
+     * @private
      */
     _identifiedRawKeys: [],
 
     /**
      * 가상 키보드의 키 맵데이터
      * @type {object}
+     * @private
      */
     _keyMap: {},
 
     /**
      * 가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서
      * @type {array}
+     * @private
      */
     _keySequences: [],
 
     /**
      * 키타입별 수행해야하는 콜백함수 맵데이터
      * @type {object}
+     * @private
      */
     _callback: {},
 
     /**
      * 현재 키패드의 키타입
      * @type {string}
+     * @private
      */
     _currentKeyType: null,
 
     /**
      * 영문 여부
      * @type {boolean}
+     * @private
      */
     _isEnglish: false,
 
     /**
      * 특수문자 여부
      * @type {boolean}
+     * @private
      */
     _isSymbol: false,
 
     /**
      * caps lock 여부
      * @type {boolean}
+     * @private
      */
     _isCapsLock: false,
 
     /**
      * 키 엘리먼트의 pool로 사용할 documentFragment
      * @type {element}
+     * @private
      */
     _documentFragment: null,
 
@@ -204,7 +216,8 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
             return false;
         }
 
-        inputValue = $(targetButton).val();
+        //inputValue = $(targetButton).val();
+        inputValue = $(targetButton).text();
         index = this._keyMap[inputValue].rawIndex;
         keyGroup = this._getKeyGroup(inputValue);
 
@@ -434,6 +447,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     /**
      * 현재 시간을 반환하는 함수
      * @returns {millisecond} 현재 시간의 millisecond
+     * @private
      */
     _getTime: function() {
         var timeStamp;
