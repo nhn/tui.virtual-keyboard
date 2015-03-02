@@ -51,7 +51,7 @@ button[disabled],input[type="text"][disabled]{opacity:0.4}
 /*android 4.1.x image fix*/
 .m .payco{font-size:1px;line-height:1px;color:transparent}
 .header .m_tit{text-align:center;*height:46px;}
-.wrap{position:relative}
+.wrap{position:relative; margin:0 auto; }
 .content{min-height:250px;padding-bottom:50px;background:#f6f7f9}
 
 /* checkbox, radio button */
@@ -343,3 +343,5 @@ ul.btn_half li:first-child .btn{margin:0 3px 0 0}
   .dsc_area{-webkit-background-size:100% auto;background-size:100% auto}
   .noti_area .noti_txt_area{background:url(../img/bg_waiting_2x.png) no-repeat;-webkit-background-size:100% auto;background-size:100% auto}
 }
+
+.inputText { width: 500px;border-radius: 5px; border: 1px solid #eee; padding:10px; font-size:15px; font-family:'나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,sans-serif; margin:0 auto; display: block; margin-bottom:20px; }
