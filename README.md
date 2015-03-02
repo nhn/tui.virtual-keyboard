@@ -12,6 +12,12 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * 키가 입력될 때마다 등록된 콜백함수로 입력된 값이 인덱스를 전달
 * 가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능
 
+## Sample Image
+* 일반 가상키보드<br>
+![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
+* 숫자용 가상키보드<br>
+![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
+
 ## Documentation
 * **API** - <a href='https://github.nhnent.com/pages/fe/component-virtual-keyboard' target='_blank'>https://github.nhnent.com/pages/fe/component-virtual-keyboard/</a>
 * **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/tutorial-mobile.html
