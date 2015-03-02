@@ -7,15 +7,13 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" type="text/css" href="css/checkout_popup.css">
     <title>결제 비밀번호 변경</title>
+    <style>
+        .lst_keypad .subcon {width:33.3%; height:30px;}
+    </style>
 </head>
 <body>
-<div id="wrap" class="wrap">
-    <div id="content" class="content keypad" style="width:300px;">
-        <div class="cont_header" style="height:100px;">
-            <p class="pw_line">
-                <span class="ico_pw on">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span>
-            </p>
-        </div>
+<div id="wrap" class="wrap" style="width:300px;">
+    <div id="content" class="content keypad">
         <div class="form_lst form_lst_card">
             <div class="form_row">
                 <ul id="vkeyboard" class="lst_sub lst_keypad">
@@ -72,52 +70,6 @@
         number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
     };
 
-    var keyPressCallback = function(index) {
-        console.log('keyPressCallback', index);
-    }
-
-    var deleteCallback = function(index) {
-        console.log('deleteCallback', index);
-    }
-
-    var getKeysCallback = function(keyType, isCapsLock, isFixed) {
-        console.log(keyType, isCapsLock)
-        var rawKeys,
-            i,
-            length,
-            key;
-
-        if(isFixed) {
-            rawKeys = keys[keyType];
-            length = rawKeys.length;
-            for(i = 0; i < length; i++) {
-                if(rawKeys[i]) {
-                    if(keyType === 'english') {
-                        key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
-                    } else if(keyType === 'korean') {
-                        if(isCapsLock) {
-                            key = rawKeys[i].replace('ㄱ', 'ㄲ').replace('ㅂ', 'ㅃ').replace('ㅅ', 'ㅆ').replace('ㅈ', 'ㅉ');
-                        } else {
-                            key = rawKeys[i].replace('ㄲ', 'ㄱ').replace('ㅃ', 'ㅂ').replace('ㅆ', 'ㅅ').replace('ㅉ', 'ㅈ');
-                        }
-                    } else {
-                        key = rawKeys[i];
-                    }
-                    keys[keyType][i] = rawKeys[i] = key;
-                }
-            }
-        } else {
-            rawKeys = keys[keyType] || keys['number'];
-            i = length = rawKeys.length;
-            for (; i > 0; i--) {
-                key = rawKeys.splice(Math.floor(Math.random() * i), 1)[0];
-                key = isCapsLock ? key.toUpperCase() : key.toLowerCase();
-                keys[keyType][length - 1] = rawKeys[length - 1] = key;
-            }
-        }
-        return rawKeys;
-    };
-
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
         keyType: 'number',
@@ -127,17 +79,12 @@
             clear: 13,
             shuffle: 14
         },
-        keys: getKeysCallback('number'),
+        keys: keys.number,
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
             shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button">재배열</button></span></li>',
             remove: '<li class="subcon last"><span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span></li>'
-        },
-        callback: {
-            key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
-            remove: deleteCallback,
-            getKeys: getKeysCallback        // 재배열시 키목록을 새로 요청하는 콜백
         }
     });
 </script>
