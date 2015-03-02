@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,12 +7,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" type="text/css" href="css/checkout_popup.css">
+    <style>
+        .lst_sub .subcon { width:10%;}
+    </style>
     <title>결제 비밀번호 변경</title>
 </head>
-<body>
+<body class="m"> <!-- [D] 모바일 유입시 .m 추가, style 속성값은 팝업 사이즈입니다. -->
 <div id="wrap" class="wrap">
-    <div id="content" class="content keypad" style="width:300px;">
-        <div class="cont_header" style="height:100px;">
+    <div id="content" class="content keypad">
+        <div class="cont_header" style="height:100px">
             <p class="pw_line">
                 <span class="ico_pw on">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span><span class="ico_pw">*</span>
             </p>
@@ -19,45 +23,6 @@
         <div class="form_lst form_lst_card">
             <div class="form_row">
                 <ul id="vkeyboard" class="lst_sub lst_keypad">
-                    <!-- [D] 키의 배열은 li내 span.btn_key 요소로 제어해주시면 됩니다. -->
-                    <!--
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">1</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">2</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">3</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">4</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">5</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">6</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">7</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">8</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">9</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn btn_reload"><button type="button">재배열</button></span>
-                        </li>
-                        <li class="subcon">
-                            <span class="btn_key"><button type="button">0</button></span>
-                        </li>
-                        <li class="subcon last">
-                        <span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span>
-                        </li>
-                        -->
                 </ul>
             </div>
         </div>
@@ -68,8 +33,10 @@
 <script type="text/javascript" src="js/Component-VirtualKeyboard.js"></script>
 <script>
     var keys = {
-        symbol: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")"],
-        number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
+        english: ["a", "b", "c", "d", "", "e", "f", "g", "h", "i", "j", "", 'k', 'l', 'm', 'n', 'o', 'p', 'q', '', 'r', '', 's','t','u','v','w','x','', 'y', 'z'],
+        korean: ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "", "ㅁ", "ㅂ", "ㅅ", "ㅇ", '' , "ㅈ", "ㅊ", "", 'ㅋ', 'ㅌ', '', 'ㅍ', 'ㅎ', 'ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', '', 'ㅜ', 'ㅠ','ㅡ', '', 'ㅣ', ''],
+        symbol: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+        number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
     };
 
     var keyPressCallback = function(index) {
@@ -83,9 +50,9 @@
     var getKeysCallback = function(keyType, isCapsLock, isFixed) {
         console.log(keyType, isCapsLock)
         var rawKeys,
-            i,
-            length,
-            key;
+                i,
+                length,
+                key;
 
         if(isFixed) {
             rawKeys = keys[keyType];
@@ -120,14 +87,19 @@
 
     var vkeyboard = new ne.component.VirtualKeyboard({
         container: 'vkeyboard',
-        keyType: 'number',
+        keyType: 'english',
         functions: {
-            symbol: 12,
-            remove: 2,
-            clear: 13,
-            shuffle: 14
+            shuffle: 0,
+            caps: 30,
+            symbol: 31,
+            remove: 19,
+            clear: 9,
+            space: 29,
+            close: 38,
+            language: 32,
+            done: 39
         },
-        keys: getKeysCallback('number'),
+        keys: getKeysCallback('english'),
         template: {
             key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
             blank: '<li class="subcon"><span class="btn_key"></span></li>',
