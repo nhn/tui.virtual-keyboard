@@ -1,8 +1,8 @@
 {
   "mobile": {
-    "title": "모바일예제"
+    "title": "숫자용가상키보드"
   },
   "desktop": {
-    "title": "데스크탑예제"
+    "title": "일반가상키보드"
   }
 }
