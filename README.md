@@ -13,7 +13,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * 가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능
 
 ## Documentation
-* **API** - <a href='https://github.nhnent.com/pages/fe/component-virtual-keyboard'>https://github.nhnent.com/pages/fe/component-virtual-keyboard/</a>
+* **API** - <a href=''https://github.nhnent.com/pages/fe/component-virtual-keyboard' target='_blank'>https://github.nhnent.com/pages/fe/component-virtual-keyboard/</a>
 * **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/tutorial-mobile.html
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
 
