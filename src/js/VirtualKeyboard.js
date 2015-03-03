@@ -545,7 +545,7 @@ ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.Virtu
     language: function() {
         this._initContainer();
         this._isEnglish = !this._isEnglish;
-        this._currentKeyType = this._isEnglish ? 'english' : 'korean'
+        this._currentKeyType = this._isEnglish ? 'english' : 'korean';
         this._getRawKeys();
     },
 
