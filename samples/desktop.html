@@ -133,24 +133,37 @@
 
         length = rawKeys.length;
         for(i = 0; i < length; i++) {
-                if(rawKeys[i]) {
-                        if(keyType === 'english') {
-                                key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
-                            } else if(keyType === 'korean') {
-                                if(isCapsLock) {
-                                        key = rawKeys[i].replace('ㄱ', 'ㄲ').replace('ㅂ', 'ㅃ').replace('ㅅ', 'ㅆ').replace('ㅈ', 'ㅉ');
-                                    } else {
-                                        key = rawKeys[i].replace('ㄲ', 'ㄱ').replace('ㅃ', 'ㅂ').replace('ㅆ', 'ㅅ').replace('ㅉ', 'ㅈ');
-                                    }
+            if(rawKeys[i]) {
+                if(keyType === 'english') {
+                        key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
+                    } else if(keyType === 'korean') {
+                        if(isCapsLock) {
+                                key = rawKeys[i].replace('ㄱ', 'ㄲ').replace('ㅂ', 'ㅃ').replace('ㅅ', 'ㅆ').replace('ㅈ', 'ㅉ');
                             } else {
-                                key = rawKeys[i];
+                                key = rawKeys[i].replace('ㄲ', 'ㄱ').replace('ㅃ', 'ㅂ').replace('ㅆ', 'ㅅ').replace('ㅉ', 'ㅈ');
                             }
-                        keys[keyType][i] = rawKeys[i] = key;
+                    } else {
+                        key = rawKeys[i];
                     }
+                keys[keyType][i] = rawKeys[i] = key;
+            }
         }
 
-        return rawKeys;
+        return shuffle(rawKeys);
 
+    };
+
+    // temp
+    function shuffle(o){ //v1.0
+        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    };
+
+    var spaceCallback = function() {
+        var str = ' ';
+        var dec = encodeURIComponent($('#keyboardInput').val());
+        dec =  dec + encodeURIComponent(str);
+        $('#keyboardInput').val(decodeURIComponent(dec));
     };
 
     // 생성
@@ -180,7 +193,8 @@
             key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
             remove: deleteCallback,
             getKeys: getKeysCallback,
-            language: languageCallback
+            language: languageCallback,
+            space: spaceCallback
         }
     });
 </script>
