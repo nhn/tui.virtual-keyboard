@@ -26,6 +26,8 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 ## Download/Install
 * Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#version"`
 * Download: https://github.nhnent.com/fe/component-virtual-keyboard
+  * Component-VirtualKeyboard.js(FE common code snippets 포함)
+  * Component-VirtualKeyboard.core.js(FE common code snippets 미포함)
 
 ## History
 | Version | Description | Date | Developer |
