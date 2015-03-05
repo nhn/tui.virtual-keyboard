@@ -23,7 +23,7 @@
 }
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,fieldset,legend,textarea,p,th,td,input,select,textarea,button{margin:0;padding:0;}
-body{overflow:hidden;font-family:'나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,sans-serif;font-size:16px;color:#373941;background-color:#f6f7f9;-webkit-text-size-adjust:none}
+body{overflow:hidden;font-family:'나눔고딕',NanumGothic,ng,'돋움',dotum,Helvetica,sans-serif;font-size:16px;color:#373941;-webkit-text-size-adjust:none}
 /*모바일 유입 시*/
 body.m{font-family:sans-serif}
 fieldset,img{border:0 none;vertical-align:top}
@@ -52,7 +52,8 @@ button[disabled],input[type="text"][disabled]{opacity:0.4}
 .m .payco{font-size:1px;line-height:1px;color:transparent}
 .header .m_tit{text-align:center;*height:46px;}
 .wrap{position:relative; margin:0 auto; }
-.content{min-height:250px;padding-bottom:50px;background:#f6f7f9}
+.content{min-height:250px;padding-bottom:50px;}
+
 
 /* checkbox, radio button */
 .fcb-checkbox-unit .fcb-checkbox{width:21px;height:21px;background-position:-23px -44px;border:0;cursor:pointer}
@@ -207,7 +208,7 @@ a.btn_pg:hover,a.btn_pg:focus,a.btn_pg:active,a.btn_pg:visited{color:#fff}
 .ico_pw{overflow:hidden;display:inline-block;width:22px;height:20px;margin-left:15px;line-height:200px;vertical-align:middle;background:url(../img/sp_num.png) no-repeat -22px 0}
 .ico_pw.on{background-position:0 0}
 .ico_pw:first-child{margin-left:0}
-.lst_keypad{display:block;background-color:#fff}
+.lst_keypad{display:block;background-color:#fff; border:1px solid #eee}
 .lst_keypad .subcon{height:25px;border-bottom:1px solid #f6f7f9}
 .lst_keypad .btn_key,.lst_keypad .btn{display:block;height:100%;border-left:1px solid #f6f7f9}
 .btn_key button,.btn_del button,.btn_reload button{display:block;width:100%;height:100%;font-size:14px;text-align:center;line-height:25px}
