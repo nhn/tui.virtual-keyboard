@@ -4,7 +4,7 @@
   "authors": [
     "FE개발팀 이제인 <jein.yi@nhnent.com>"
   ],
-  "main": "component-vertual-keyboard.js",
+  "main": "component-virtual-keyboard.js",
   "license": "MIT",
   "private": true,
   "ignore": [
