@@ -28,7 +28,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * jquer 1.8.3
 
 ## Download/Install
-* Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git[#tag]"`
+* Bower: `bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
 * Download: https://github.nhnent.com/fe/component-virtual-keyboard
 
 ## History
