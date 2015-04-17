@@ -1,10 +1,10 @@
 {
-  "name": "Component-VirtualKeyboard",
+  "name": "component-virtual-keyboard",
   "version": "1.0.0",
   "authors": [
     "FE개발팀 이제인 <jein.yi@nhnent.com>"
   ],
-  "main": "Component-VirtualKeyboard.js",
+  "main": "component-virtual-keyboard.js",
   "license": "MIT",
   "private": true,
   "ignore": [
