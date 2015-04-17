@@ -21,6 +21,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 ## Documentation
 * **API** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/
 * **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-mobile.html
+* **Tutorial** - https://github.nhnent.com/fe/component-virtual-keyboard/wiki/%EA%B0%80%EC%83%81%ED%82%A4%EB%B3%B4%EB%93%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%A0%81%EC%9A%A9%EB%B0%A9%EB%B2%95
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
 
 ## Dependency
