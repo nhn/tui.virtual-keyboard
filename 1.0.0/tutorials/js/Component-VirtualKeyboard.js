@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: common.js</title>
-    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-fe2.css">
-</head>
-<body>
-
-<div id="wrap">
-
-    <div class="header">
-
-        <div class="container-fluid">
-            <h3><a href="index.html">API Documentation</a> <small>FE개발팀</small></h3>
-        </div>
-
-    </div>
-
-    <div class="body">
-        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">데스크탑예제</a></li><li class="item"><a href="tutorial-mobile.html">모바일예제</a></li></ul><h3>Modules</h3><ul class="list modules"><li class="item" id="module:browser"><span class="title"><a href="module-browser.html">browser</a></span><ul class="sublist methods module:browser"><span class="subtitle">Methods</span><li><a href="module-browser.html#~decodeHTMLEntity">decodeHTMLEntity</a></li><li><a href="module-browser.html#~encodeHTMLEntity">encodeHTMLEntity</a></li><li><a href="module-browser.html#~getFormElement">getFormElement</a></li><li><a href="module-browser.html#~getPopupList">getPopupList</a></li><li><a href="module-browser.html#~setFormData">setFormData</a></li></ul></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="CustomEvents"><span class="title"><a href="CustomEvents.html">CustomEvents</a></span><ul class="sublist members CustomEvents"></ul><ul class="sublist division CustomEvents"><li></li></ul><ul class="sublist methods CustomEvents"><span class="subtitle">Methods</span><li><a href="CustomEvents.html#.mixin">mixin</a></li></ul></li><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"><span class="subtitle">Members</span><li><a href="ne.component.VirtualKeyboard.html#_callback">_callback</a></li><li><a href="ne.component.VirtualKeyboard.html#_currentKeyType">_currentKeyType</a></li><li><a href="ne.component.VirtualKeyboard.html#_documentFragment">_documentFragment</a></li><li><a href="ne.component.VirtualKeyboard.html#_fixedKeys">_fixedKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_identifiedRawKeys">_identifiedRawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_isCapsLock">_isCapsLock</a></li><li><a href="ne.component.VirtualKeyboard.html#_isEnglish">_isEnglish</a></li><li><a href="ne.component.VirtualKeyboard.html#_isSymbol">_isSymbol</a></li><li><a href="ne.component.VirtualKeyboard.html#_keyMap">_keyMap</a></li><li><a href="ne.component.VirtualKeyboard.html#_keySequences">_keySequences</a></li><li><a href="ne.component.VirtualKeyboard.html#_rawKeys">_rawKeys</a></li><li><a href="ne.component.VirtualKeyboard.html#_template">_template</a></li></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#_getTime">_getTime</a></li><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li><li class="item" id="Popup"><span class="title"><a href="Popup.html">Popup</a></span><ul class="sublist members Popup"><span class="subtitle">Members</span><li><a href="Popup.html#closeWithParentPopup">closeWithParentPopup</a></li><li><a href="Popup.html#openedPopup">openedPopup</a></li><li><a href="Popup.html#postDataBridgeUrl">postDataBridgeUrl</a></li></ul><ul class="sublist division Popup"><li></li></ul><ul class="sublist methods Popup"><span class="subtitle">Methods</span><li><a href="Popup.html#close">close</a></li><li><a href="Popup.html#closeAllPopup">closeAllPopup</a></li><li><a href="Popup.html#createForm">createForm</a></li><li><a href="Popup.html#focus">focus</a></li><li><a href="Popup.html#openPopup">openPopup</a></li></ul></li></ul></div>
-        <div id="main" class="main">
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**********
+/*!Component-VirtualKeyboard v0.0.1 | NHN Entertainment*/
+(function() {
+/**********
  * browser.js
  **********/
 
@@ -57,11 +28,11 @@
      *
      * @module browser
      * @example
-     * if (browser.msie &amp;&amp; browser.version === 7) {
+     * if (browser.msie && browser.version === 7) {
      *     // IE7일 경우의 루틴
      * }
      *
-     * if (browser.chrome &amp;&amp; browser.version >= 32) {
+     * if (browser.chrome && browser.version >= 32) {
      *     // Chrome 32버전 이상일 때의 루틴
      * }
      */
@@ -106,7 +77,7 @@
                 for (key in versionRegex) {
                     if (versionRegex.hasOwnProperty(key)) {
                         tmp = userAgent.match(versionRegex[key]);
-                        if (tmp &amp;&amp; tmp.length > 1) {
+                        if (tmp && tmp.length > 1) {
                             browser[key] = detected = true;
                             browser.version = parseFloat(tmp[1] || 0);
                             break;
@@ -167,7 +138,7 @@
         var index = 0,
             len = arr.length;
 
-        for (; index &lt; len; index++) {
+        for (; index < len; index++) {
             if (iteratee.call(context || null, arr[index], index, arr) === false) {
                 break;
             }
@@ -235,7 +206,7 @@
             len;
 
         if (ne.util.isArray(obj)) {
-            for (key = 0, len = obj.length; key &lt; len; key++) {
+            for (key = 0, len = obj.length; key < len; key++) {
                 iteratee.call(context || null, obj[key], key, obj);
             }
         } else {
@@ -296,7 +267,7 @@
 
         store = obj[keys ? keys[index++] : index++];
 
-        for (; index &lt; length; index++) {
+        for (; index < length; index++) {
             store = iteratee.call(context || null, store, obj[keys ? keys[index] : index]);
         }
 
@@ -417,7 +388,7 @@
         index = (fromIndex > -1) ? fromIndex : 0;
 
         //array에서 value 탐색하여 index반환
-        for (i = index; i &lt; arrLen; i++) {
+        for (i = index; i < arrLen; i++) {
             if (array[i] === value) {
                 return i;
             }
@@ -460,7 +431,7 @@
     /**
      * 이벤트 핸들러에 저장되는 단위
      * @typedef {object} eventItem
-     * @property {object.&lt;string, object>} eventObject
+     * @property {object.<string, object>} eventObject
      * @property {function()} eventObject.fn 이벤트 핸들러 함수
      * @property {*} [eventObject.ctx] 이벤트 핸들러 실행 시 컨텍스트 지정가능
      */
@@ -476,7 +447,7 @@
 
         /**
          * 이벤트 핸들러를 저장하는 객체
-         * @type {object.&lt;string, eventItem>}
+         * @type {object.<string, eventItem>}
          * @private
          */
         this._events = {};
@@ -563,7 +534,7 @@
          * 핸들러가 이미 this바인딩이 되어 있고 핸들러를 사용하는 object가 같은 종류가 동시다발적으로 생성/삭제되는 경우에는 context인자를
          * 전달하여 해시의 빠른 접근 속도를 이용하는 것이 좋다.
          *
-         * @param {(object.&lt;string, function()>|string)} type - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
+         * @param {(object.<string, function()>|string)} type - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
          * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
          * @param {function()} fn - 이벤트 핸들러
          * @param {*=} context
@@ -571,7 +542,7 @@
          */
         _on: function(type, fn, context) {
             var events = this._events = this._events || {},
-                contextId = context &amp;&amp; (context !== this) &amp;&amp; ne.util.stamp(context);
+                contextId = context && (context !== this) && ne.util.stamp(context);
 
             if (contextId) {
                 /*
@@ -616,7 +587,7 @@
                 return;
             }
 
-            var contextId = context &amp;&amp; (context !== this) &amp;&amp; ne.util.stamp(context),
+            var contextId = context && (context !== this) && ne.util.stamp(context),
                 listeners,
                 id;
 
@@ -624,7 +595,7 @@
                 id = ne.util.stamp(fn) + '_' + contextId;
                 listeners = events[indexKey];
 
-                if (listeners &amp;&amp; listeners[id]) {
+                if (listeners && listeners[id]) {
                     listeners[id] = null;
                     events[indexLenKey] -= 1;
                 }
@@ -637,7 +608,7 @@
                 if (listeners) {
                     if(fn){
                         ne.util.forEach(listeners, function(listener, index) {
-                            if (ne.util.isExisty(listener) &amp;&amp; (listener.fn === fn)) {
+                            if (ne.util.isExisty(listener) && (listener.fn === fn)) {
                                 listeners.splice(index, 1);
                                 return true;
                             }
@@ -671,7 +642,7 @@
          * // 아래는 사용자의 서비스 코드
          * map.on({
          *     'beforeZoom': function() {
-         *         if (that.disabled &amp;&amp; this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+         *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
          *             return false;
          *         }
          *         return true;
@@ -740,7 +711,7 @@
             var events = this._events,
                 existyFunc = ne.util.isExisty;
 
-            return existyFunc(events) &amp;&amp; (existyFunc(events[type]) || events[type + '_len']);
+            return existyFunc(events) && (existyFunc(events[type]) || events[type + '_len']);
         },
 
         /**
@@ -762,7 +733,7 @@
             types = events[type];
             len = events[lenKey];
 
-            length += (ne.util.isExisty(types) &amp;&amp; ne.util.isArray(types)) ? types.length : 0;
+            length += (ne.util.isExisty(types) && ne.util.isArray(types)) ? types.length : 0;
             length += ne.util.isExisty(len) ? len : 0;
 
             return length;
@@ -891,7 +862,7 @@
 
         obj = props.init || function(){};
 
-        parent &amp;&amp; ne.util.inherit(obj, parent);
+        parent && ne.util.inherit(obj, parent);
 
         if (props.hasOwnProperty('static')) {
             ne.util.extend(obj, props.static);
@@ -1043,7 +1014,7 @@
      */
     function getFormElement($form, elementName) {
         var formElement;
-        if ($form &amp;&amp; $form.length) {
+        if ($form && $form.length) {
             if (elementName) {
                 formElement = $form.prop('elements')[elementName + ''];
             } else {
@@ -1635,7 +1606,7 @@
             i,
             len;
 
-        for (i = 1, len = arguments.length; i &lt; len; i++) {
+        for (i = 1, len = arguments.length; i < len; i++) {
             source = arguments[i];
             for (prop in source) {
                 if (hasOwnProp.call(source, prop)) {
@@ -1717,9 +1688,9 @@
 
             // remember that NaN === NaN returns false
             // and isNaN(undefined) returns true
-            if (isNaN(x) &amp;&amp;
-                isNaN(y) &amp;&amp;
-                ne.util.isNumber(x) &amp;&amp;
+            if (isNaN(x) &&
+                isNaN(y) &&
+                ne.util.isNumber(x) &&
                 ne.util.isNumber(y)) {
                 return true;
             }
@@ -1734,16 +1705,16 @@
             // Works in case when functions are created in constructor.
             // Comparing dates is a common scenario. Another built-ins?
             // We can even handle functions passed across iframes
-            if ((ne.util.isFunction(x) &amp;&amp; ne.util.isFunction(y)) ||
-                (x instanceof Date &amp;&amp; y instanceof Date) ||
-                (x instanceof RegExp &amp;&amp; y instanceof RegExp) ||
-                (x instanceof String &amp;&amp; y instanceof String) ||
-                (x instanceof Number &amp;&amp; y instanceof Number)) {
+            if ((ne.util.isFunction(x) && ne.util.isFunction(y)) ||
+                (x instanceof Date && y instanceof Date) ||
+                (x instanceof RegExp && y instanceof RegExp) ||
+                (x instanceof String && y instanceof String) ||
+                (x instanceof Number && y instanceof Number)) {
                 return x.toString() === y.toString();
             }
 
             // At last checking prototypes as good a we can
-            if (!(x instanceof Object &amp;&amp; y instanceof Object)) {
+            if (!(x instanceof Object && y instanceof Object)) {
                 return false;
             }
 
@@ -1798,11 +1769,11 @@
             return true;
         }
 
-        if (argsLen &lt; 1) {
+        if (argsLen < 1) {
             return true;
         }
 
-        for (i = 1; i &lt; argsLen; i++) {
+        for (i = 1; i < argsLen; i++) {
             leftChain = [];
             rightChain = [];
 
@@ -1864,12 +1835,12 @@
      * @param {String} htmlEntity HTML Entity 타입의 문자열
      * @return {String} 원래 문자로 변환된 문자열
      * @example
-     var htmlEntityString = "A &amp;#39;quote&amp;#39; is &amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;"
-     var result = decodeHTMLEntity(htmlEntityString); //결과값 : "A 'quote' is &lt;b>bold&lt;/b>"
+     var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
+     var result = decodeHTMLEntity(htmlEntityString); //결과값 : "A 'quote' is <b>bold</b>"
      */
     function decodeHTMLEntity(htmlEntity) {
-        var entities = {'&amp;quot;' : '"', '&amp;amp;' : '&amp;', '&amp;lt;' : '&lt;', '&amp;gt;' : '>', '&amp;#39;' : '\'', '&amp;nbsp;' : ' '};
-        return htmlEntity.replace(/&amp;amp;|&amp;lt;|&amp;gt;|&amp;quot;|&amp;#39;|&amp;nbsp;/g, function(m0) {
+        var entities = {'&quot;' : '"', '&amp;' : '&', '&lt;' : '<', '&gt;' : '>', '&#39;' : '\'', '&nbsp;' : ' '};
+        return htmlEntity.replace(/&amp;|&lt;|&gt;|&quot;|&#39;|&nbsp;/g, function(m0) {
             return entities[m0] ? entities[m0] : m0;
         });
     }
@@ -1879,14 +1850,14 @@
      * @param {String} html HTML 문자열
      * @return {String} HTML Entity 타입의 문자열로 변환된 문자열
      * @example
-     var htmlEntityString = "&lt;script> alert('test');&lt;/script>&lt;a href='test'>";
+     var htmlEntityString = "<script> alert('test');</script><a href='test'>";
      var result = encodeHTMLEntity(htmlEntityString);
-     //결과값 : "&amp;lt;script&amp;gt; alert(&amp;#39;test&amp;#39;);&amp;lt;/script&amp;gt;&amp;lt;a href=&amp;#39;test&amp;#39;&amp;gt;"
+     //결과값 : "&lt;script&gt; alert(&#39;test&#39;);&lt;/script&gt;&lt;a href=&#39;test&#39;&gt;"
      */
     function encodeHTMLEntity(html) {
-        var entities = {'"': 'quot', '&amp;': 'amp', '&lt;': 'lt', '>': 'gt', '\'': '#39'};
-        return html.replace(/[&lt;>&amp;"']/g, function(m0) {
-            return entities[m0] ? '&amp;' + entities[m0] + ';' : m0;
+        var entities = {'"': 'quot', '&': 'amp', '<': 'lt', '>': 'gt', '\'': '#39'};
+        return html.replace(/[<>&"']/g, function(m0) {
+            return entities[m0] ? '&' + entities[m0] + ';' : m0;
         });
     }
     /**
@@ -1895,7 +1866,7 @@
      * @return {boolean}
      */
     function hasEncodableString(string) {
-        return /[&lt;>&amp;"']/.test(string);
+        return /[<>&"']/.test(string);
     }
 
     ne.util.decodeHTMLEntity = decodeHTMLEntity;
@@ -1944,8 +1915,8 @@
      * => false;
      */
     function isExisty(obj, key) {
-        if (arguments.length &lt; 2) {
-            return !isNull(obj) &amp;&amp; !isUndefined(obj);
+        if (arguments.length < 2) {
+            return !isNull(obj) && !isUndefined(obj);
         }
         if (!isObject(obj)) {
             return false;
@@ -1964,7 +1935,7 @@
             }
             return acc[a];
         });
-        return !isNull(res) &amp;&amp; !isUndefined(res);
+        return !isNull(res) && !isUndefined(res);
     }
 
     /**
@@ -1993,7 +1964,7 @@
      * @return {boolean}
      */
     function isTruthy(obj) {
-        return isExisty(obj) &amp;&amp; obj !== false;
+        return isExisty(obj) && obj !== false;
     }
 
     /**
@@ -2015,7 +1986,7 @@
      * @return {boolean}
      */
     function isArguments(obj) {
-        var result = isExisty(obj) &amp;&amp;
+        var result = isExisty(obj) &&
             ((toString.call(obj) === '[object Arguments]') || 'callee' in obj);
 
         return result;
@@ -2082,9 +2053,9 @@
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
-            return (html &amp;&amp; (html instanceof HTMLElement || !!html.nodeType));
+            return (html && (html instanceof HTMLElement || !!html.nodeType));
         }
-        return !!(html &amp;&amp; html.nodeType);
+        return !!(html && html.nodeType);
     }
     /**
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
@@ -2093,9 +2064,9 @@
      */
     function isHTMLTag(html) {
         if (typeof(HTMLElement) === 'object') {
-            return (html &amp;&amp; (html instanceof HTMLElement));
+            return (html && (html instanceof HTMLElement));
         }
-        return !!(html &amp;&amp; html.nodeType &amp;&amp; html.nodeType === 1);
+        return !!(html && html.nodeType && html.nodeType === 1);
     }
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
@@ -2114,7 +2085,7 @@
             return obj.length === 0;
         }
 
-        if (isObject(obj) &amp;&amp; !isFunction(obj)) {
+        if (isObject(obj) && !isFunction(obj)) {
             ne.util.forEachOwnProperties(obj, function() {
                 hasKey = true;
                 return false;
@@ -2275,8 +2246,8 @@
 
         var popup,
             formElement,
-            useIEPostBridge = options.method === 'POST' &amp;&amp; options.param &amp;&amp;
-                ne.util.browser.msie &amp;&amp; ne.util.browser.version === 11;
+            useIEPostBridge = options.method === 'POST' && options.param &&
+                ne.util.browser.msie && ne.util.browser.version === 11;
 
         if (!ne.util.isExisty(url)) {
             throw new Error('Popup#open() 팝업 URL이 입력되지 않았습니다');
@@ -2287,7 +2258,7 @@
         // 폼 전송 기능 이용 시 팝업 열기 전 폼을 생성하고 팝업이 열림과 동시에 폼을 전송한 후 폼을 제거한다.
         if (options.param) {
             if (options.method === 'GET') {
-                url = url + (/\?/.test(url) ? '&amp;' : '?') + this._parameterize(options.param);
+                url = url + (/\?/.test(url) ? '&' : '?') + this._parameterize(options.param);
             } else if (options.method === 'POST') {
                 if (!useIEPostBridge) {
                     formElement = this.createForm(url, options.param, options.method, options.popupName);
@@ -2321,7 +2292,7 @@
             alert('브라우저에 팝업을 막는 기능이 활성화 상태이기 때문에 서비스 이용에 문제가 있을 수 있습니다. 해당 기능을 비활성화 해 주세요');
         }
 
-        if (options.param &amp;&amp; options.method === 'POST' &amp;&amp; !useIEPostBridge) {
+        if (options.param && options.method === 'POST' && !useIEPostBridge) {
             if (popup) {
                 formElement.submit();
             }
@@ -2361,7 +2332,7 @@
         var hasArg = ne.util.isExisty(closeWithParent);
 
         ne.util.forEachOwnProperties(this.openedPopup, function(popup, key) {
-            if ((hasArg &amp;&amp; this.closeWithParentPopup[key]) || !hasArg) {
+            if ((hasArg && this.closeWithParentPopup[key]) || !hasArg) {
                 this.close(false, popup);
             }
         }, this);
@@ -2386,7 +2357,7 @@
             param = {};
 
         search = window.location.search.substr(1);
-        ne.util.forEachArray(search.split('&amp;'), function(part) {
+        ne.util.forEachArray(search.split('&'), function(part) {
             pair = part.split('=');
             param[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
         });
@@ -2444,7 +2415,7 @@
             query.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
         });
 
-        return query.join('&amp;');
+        return query.join('&');
     };
 
     /**
@@ -2462,7 +2433,7 @@
 
         if (useIEPostBridge) {
             url = this.postDataBridgeUrl + '?storageKey=' + encodeURIComponent(popupName) +
-                '&amp;redirectUrl=' + encodeURIComponent(url);
+                '&redirectUrl=' + encodeURIComponent(url);
             if (!window.localStorage) {
                 alert('IE11브라우저의 문제로 인해 이 기능은 브라우저의 LocalStorage 기능을 활성화 하셔야 이용하실 수 있습니다');
             } else {
@@ -2481,75 +2452,602 @@
     ne.util.popup = new Popup();
 
 })(window.ne);
-</code></pre>
-        </article>
-    </section>
 
+/**
+ * @fileoverview 유저의 키입력 시간 정보를 캡쳐하는 모듈
+ * @author FE개발팀 이제인 <jein.yi@nhnent.com>
+ * @dependency jquery-1.8.3.min.js, common.js
+ */
 
-
-</div>
-        <div class="clearfix"></div>
-    </div>
-
-</div>
-<script>
-(function() {
-// 영역 height 설정
-var height = (window.innerHeight || document.documentElement.clientHeight || document.getElementByTagName('body')[0].clientHeight) - 50;
-var navigation = document.getElementById('navigation');
-var main = document.getElementById('main');
-navigation.style.height = height + 'px';
-main.style.height = height + 'px';
-
-// IE 7,8을 위한 getElementsByClassName 구현
-var getElementsByClassName = function(className, parentElement) {
-	if(document.getElementsByClassName) {
-		return (parentElement || document).getElementsByClassName(className);
-	}
-
-    var regEx = new RegExp('(^| )'+className+'( |$)');
-	var nodes = new Array();
-    var elements = (parentElement || document.body).getElementsByTagName("*");
-    for(var i = 0, len = elements.length; i < len ; i++) {
-        if(regEx.test(elements[i].className)) {
-			nodes.push(elements[i]);
-		}
-	}
-	elements = null;
-    return nodes;
+if (!ne.component) {
+    ne.component = {};
 }
 
-// url 파싱후 해당 카테고리만 display:block 처리
-var url = location.href;
-var path = url.lastIndexOf('/');
-var fileName = url.substring(path+1);
-var fullName = fileName.split('.');
-fullName.length -= 1;
-fullName = fullName.join('.');
-fullName = fullName.split('-');
-fullName = fullName[fullName.length - 1];
-var lnbList = getElementsByClassName(fullName);
-if(lnbList.length && lnbList.length > 0) {
-    for(var i = 0, len = lnbList.length; i < len; i++) {
-        lnbList[i].className += ' selected';
+/**
+ * 클릭 또는 터치로 사용자 입력을 받는 가상키보드 컴포넌트
+ * @example
+ *
+ * // 인스턴스 생성
+ * // 자판 배열을 받아와 가상키보드를 생성한다.
+ * var vkeyboard = new ne.component.VirtualKeyboard({
+ *      container: 'vkeyboard', // 컨테이너 엘리먼트 아이디
+ *      keyType: 'number', // 키보드 타입
+ *      functions: { // 기능키 위치
+ *          shuffle: 0,
+ *          language: 2,
+ *          caps: 3,
+ *          symbol: 4,
+ *          remove: 5,
+ *          clear: 9,
+ *          space: 10,
+ *          close: 11,
+ *          done: 20
+ *      },
+ *      keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // 사용키값
+ *      template: { // 기능키 템플릿
+ *          key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
+ *          blank: '<li class="subcon"><span class="btn_key"></span></li>',
+ *          shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button" value="shuffle">재배열</button></span></li>',
+ *          remove: '<li class="subcon last"><span class="btn btn_del"><button type="button" value="remove"><span class="sp">삭제</span></button></span></li>'
+ *      },
+ *      callback: { // 기능키 동작 콜백
+ *          key: function() { //run },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+ *          remove: function() { //run },
+ *          getKeys: function() { //run }        // 재배열시 키목록을 새로 요청하는 콜백
+ *      }
+ * });
+ * @constructor ne.component.VirtualKeyboard
+ */
+ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboard.prototype */{
+    /**
+     * 디폴트 템플릿
+     * @readonly
+     * @type {object}
+     */
+    _template: {
+        key: '<li><button type="button" value="{KEY}">{KEY}</button></li>',
+        blank: '<li></li>'
+    },
+
+    /**
+     * 고정위치를 갖는 키들의 위치 인덱스 맵데이터
+     * @type {object}
+     */
+    _fixedKeys: {},
+
+    /**
+     * 유동위치를 갖는 키들의 배열순서
+     * @type {array}
+     */
+    _rawKeys: [],
+
+    /**
+     * 각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서
+     * @type {array}
+     */
+    _identifiedRawKeys: [],
+
+    /**
+     * 가상 키보드의 키 맵데이터
+     * @type {object}
+     */
+    _keyMap: {},
+
+    /**
+     * 가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서
+     * @type {array}
+     */
+    _keySequences: [],
+
+    /**
+     * 키타입별 수행해야하는 콜백함수 맵데이터
+     * @type {object}
+     */
+    _callback: {},
+
+    /**
+     * 현재 키패드의 키타입
+     * @type {string}
+     */
+    _currentKeyType: null,
+
+    /**
+     * 영문 여부
+     * @type {boolean}
+     */
+    _isEnglish: false,
+
+    /**
+     * 특수문자 여부
+     * @type {boolean}
+     */
+    _isSymbol: false,
+
+    /**
+     * caps lock 여부
+     * @type {boolean}
+     */
+    _isCapsLock: false,
+
+    /**
+     * 키 엘리먼트의 pool로 사용할 documentFragment
+     * @type {element}
+     */
+    _documentFragment: null,
+
+    /**
+     * 초기화 함수
+     * @param {object} options 가상키보드를 초기화 옵션
+     */
+    init: function(options) {
+        this._initVariables(options || {});
+
+        this._arrangeKeySequence();
+        this._refineKeyMap();
+        this._initKeyboard(options.container);
+
+        this._attachEvent();
+    },
+
+    /**
+     * 변수 초기화 함수
+     * @param {object} options 가상키보드를 초기화 옵션
+     * @private
+     */
+    _initVariables: function(options) {
+        this._currentKeyType = options.keyType || 'english';
+        this._fixedKeys = options.functions || {};
+        this._rawKeys = this._copyArray(options.keys);
+        this._template = ne.util.extend(this._template, options.template);
+        this._callback = options.callback || {};
+        this._documentFragment = document.createDocumentFragment();
+    },
+
+    /**
+     * 이벤트 바인딩
+     * @private
+     */
+    _attachEvent: function() {
+        // touch event 지원여부 확
+        var isSupportTouch = ('createTouch' in document) || ('ontouchstart' in document);
+        var eventType = isSupportTouch ? 'touchstart' : 'click';
+        this._$container.on(eventType, $.proxy(this._pressKeyHandler, this));
+    },
+
+    /**
+     * 버튼 클릭/터치 이벤트 처리함수
+     * @param event 이벤트 객체
+     * @private
+     */
+    _pressKeyHandler: function(event) {
+        var targetButton = this._getTargetButton(event.target),
+            inputValue,
+            index,
+            keyGroup;
+        if(!ne.util.isExisty(targetButton)) {
+            return false;
+        }
+
+        inputValue = $(targetButton).val();
+        index = this._keyMap[inputValue].rawIndex;
+        keyGroup = this._getKeyGroup(inputValue);
+
+        if(keyGroup === 'key') {
+            this._excuteCallback(keyGroup, index);
+        } else {
+            this[inputValue]();
+            this._excuteCallback(inputValue);
+        }
+    },
+
+    /**
+     * 클릭/터치된 키의 버튼 엘리먼트를 반환한다.
+     * @param {element} targetElement 클릭/터치된 타켓 엘리먼트
+     * @returns {*}
+     * @private
+     */
+    _getTargetButton: function(targetElement) {
+        if(targetElement.tagName.toUpperCase() === 'BUTTON') {
+            return targetElement;
+        } else {
+            return $(targetElement).parent('button')[0];
+        }
+    },
+
+    /**
+     * 가상키보드의 자판을 배열정보를 생성한다.
+     * @private
+     */
+    _arrangeKeySequence: function() {
+        var sortedKeys;
+
+        // 고정위치의 키배열을 인덱스 순으로 정렬한다.
+        sortedKeys = this._sortFixedKeys();
+
+        // 전달받은 키배열을 복사한다.
+        this._identifyRawKeys();
+        this._copyArray(this._identifiedRawKeys, this._keySequences);
+
+        // 고정키를 고정위치에 삽입한다.
+        ne.util.forEach(sortedKeys, function(value, index) {
+            if(ne.util.isExisty(value)) {
+                this._keySequences.splice(this._fixedKeys[value], 0, value);
+            }
+        }, this);
+    },
+
+    /**
+     * 공백키를 구분할수 있게 키값을 부여한다.
+     * @private
+     */
+    _identifyRawKeys: function() {
+        var blankCount = 0;
+        ne.util.forEach(this._rawKeys, function(value, index) {
+            if(this._getKeyGroup(value) === 'blank') {
+                value = 'blank' + blankCount;
+                blankCount++;
+            }
+            this._identifiedRawKeys[index] = value;
+        }, this);
+    },
+
+    /**
+     * 배열을 복사한다. (deep copy는 지원하지 않는다. 덮어쓰기 한다.)
+     * @param {array} originalArray 원본배열
+     * @param {array} copyArray 복사본배열
+     * @returns {*} 복사본배열
+     * @private
+     */
+    _copyArray: function(originalArray, copyArray) {
+        if(!ne.util.isExisty(originalArray)) {
+            return false;
+        }
+        if(!ne.util.isArray(originalArray)) {
+            originalArray = [originalArray];
+        }
+        if(!ne.util.isExisty(copyArray) || !ne.util.isArray(copyArray)) {
+            copyArray = [];
+        }
+
+        ne.util.forEach(originalArray, function(value, index) {
+            copyArray[index] = value;
+        }, this);
+
+        return copyArray;
+    },
+
+    /**
+     * 고정위치의 키배열을 정렬한다.
+     * @returns {Array} 인덱스 순으로 정렬된 고정위치 키목록
+     * @private
+     */
+    _sortFixedKeys : function() {
+        var sortedKeys;
+        this._keySequences.length = 0;
+
+        sortedKeys = ne.util.keys(this._fixedKeys) || [];
+        sortedKeys.sort($.proxy(function(a, b) {
+            return this._fixedKeys[a] - this._fixedKeys[b];
+        }, this));
+
+        return sortedKeys;
+    },
+
+    /**
+     * 키정보를 가공하여 맵데이터를 만든다.
+     * @private
+     */
+    _refineKeyMap: function() {
+        this._refineFixedKeys();
+        this._refineFloatingKeys();
+    },
+
+    /**
+     * 고정키 정보를 가공하여 맵데이터를 만든다.
+     * @private
+     */
+    _refineFixedKeys: function() {
+        ne.util.forEach(this._fixedKeys, function(value, key) {
+            this._keyMap[key] = {
+                key: key,
+                rawIndex: null,
+                positionIndex: value,
+                keyGroup: this._getKeyGroup(key)
+            };
+        }, this);
+    },
+
+    /**
+     * 유동키 정보를 가공하여 맵데이터를 만든다.
+     * @private
+     */
+    _refineFloatingKeys: function() {
+        ne.util.forEach(this._identifiedRawKeys, function(value, index) {
+            if(ne.util.isExisty(this._keyMap[value])) {
+                // 이미 맵데이터는 생성되있는 상태에서 자판재배열등으로 포지션인덱스만 바뀌는 경우
+                this._keyMap[value].positionIndex = this._getPositionIndex(value);
+            } else {
+                // 맵데이터를 최초 생성하는 경우
+                this._keyMap[value] = {
+                    key: value,
+                    rawIndex: index,
+                    positionIndex: this._getPositionIndex(value),
+                    keyGroup: this._getKeyGroup(this._rawKeys[index])
+                };
+            }
+        }, this);
+    },
+
+    /**
+     * 해당 키의 키타입을 반환한다.
+     * @param key 키값
+     * @returns {string} 키타입
+     * @private
+     */
+    _getKeyGroup: function(key) {
+        var keyGroup;
+        if(ne.util.isExisty(this._fixedKeys[key])) {
+            keyGroup = 'function';
+        } else {
+            if(key === '') {
+                keyGroup = 'blank';
+            } else {
+                keyGroup = 'key';
+            }
+        }
+        return keyGroup;
+    },
+
+    /**
+     * 가상키보드내 위치 인덱스를 반환한다.
+     * @param key 키값
+     * @returns {number} 위치인덱스
+     * @private
+     */
+    _getPositionIndex: function(key) {
+        var i = 0,
+            length = this._keySequences.length;
+
+        for(; i < length; i++) {
+            if(key === this._keySequences[i]) {
+                return i;
+            }
+        }
+    },
+
+    /**
+     * 가상 키보드를 초기화 한다.
+     * @param {string} containerId 키보드 컨테이너
+     * @private
+     */
+    _initKeyboard: function(containerId) {
+        this._initContainer(containerId);
+        this._arrangeKeys();
+    },
+
+    /**
+     * 가상 키보드 컨테이너를 초기화 한다.
+     * @param {string} containerId 키보드 컨테이너
+     * @private
+     */
+    _initContainer: function(containerId) {
+        if(this._$container) {
+            ne.util.forEach(this._identifiedRawKeys, function(value) {
+                this._documentFragment.appendChild(this._keyMap[value].element);
+            }, this);
+        } else {
+            this._$container = $('#' + containerId);
+            if(!ne.util.isHTMLTag(this._$container[0])) {
+                this._$container = this._createContainer();
+            }
+        }
+    },
+
+    /**
+     * 가상 키보드의 컨테이너를 생성한다.
+     * @returns {element}
+     * @private
+     */
+    _createContainer: function() {
+        var containerId = 'vk-' + this._getTime(),
+            container = $('<ul id=' + containerId + '>');
+        $(document.body).append(container);
+        return container;
+    },
+
+    /**
+     * 현재 시간을 반환하는 함수
+     * @returns {millisecond} 현재 시간의 millisecond
+     */
+    _getTime: function() {
+        var timeStamp;
+        if(Date.now) {
+            timeStamp = Date.now() || new Date().getTime();
+        }
+        return timeStamp;
+    },
+
+    /**
+     * 가상 키보드 안에 키를 배열한다.
+     * @private
+     */
+    _arrangeKeys: function() {
+        var keyElement;
+        ne.util.forEach(this._keySequences, function(value) {
+            keyElement = this._keyMap[value].element;
+            if(!ne.util.isHTMLTag(keyElement)) {
+                this._keyMap[value].element = keyElement = this._createKeyElement(value);
+            }
+            this._$container.append(keyElement);
+        }, this);
+    },
+
+    /**
+     * 해당 키의 템플릿을 반환한다.
+     * @param keyGroup 생성할 키 타입
+     * @param key 생성할 키 값
+     * @returns {string}
+     * @private
+     */
+    _getTemplate: function(keyGroup, key) {
+        var template;
+
+        if(keyGroup === 'blank') {
+            template = this._template.blank;
+        } else {
+            template = this._template[key] || this._template.key;
+        }
+
+        if(ne.util.isExisty(key)) {
+            template = template.replace(/{KEY}/g, key);
+        }
+        return template;
+    },
+
+    /**
+     * 키 버튼을 생성하고, 반환한다.
+     * @param key 생성할 키 값
+     * @returns {element} 키 버튼 엘리먼트
+     * @private
+     */
+    _createKeyElement: function(key) {
+        var keyGroup = this._keyMap[key].keyGroup,
+            template = this._getTemplate(keyGroup, key),
+            keyElement = $(template);
+        var buttonElement = keyElement.find('button');
+        if(!buttonElement.val() && ne.util.isExisty(key)) {
+            buttonElement.val(key);
+        }
+        return keyElement[0];
+    },
+
+    /**
+     * 자판 재배열을 처리한다.
+     * @param {array} rawKeys 재배열된 키배열
+     * @private
+     */
+    _reArrangeKeys: function(rawKeys) {
+        // 기존 키 정보 초기화
+        this._rawKeys.length = 0;
+        this._keySequences.length = 0;
+
+        this._copyArray(rawKeys, this._rawKeys);
+        this._arrangeKeySequence();
+        this._refineFloatingKeys();
+        this._arrangeKeys();
+    },
+
+    /**
+     * 사용자 등록 콜백 수행함수
+     * @param {string} callbackKey 수행할 콜백함수 키
+     * @param {number} rawIndex 입력된 값의 인덱스 번호
+     * @private
+     */
+    _excuteCallback: function(callbackKey, rawIndex) {
+        if(ne.util.isExisty(this._callback, callbackKey) && ne.util.isFunction(this._callback[callbackKey])) {
+            this._callback[callbackKey](rawIndex);
+        }
+    },
+
+    /**
+     * 자판의 배열정보를 받아온다.
+     * @param {boolean} isCaseToggle 대소문자 변환할지 여부
+     * @private
+     */
+    _getRawKeys: function(isCaseToggle) {
+        var rawKeys;
+        if(ne.util.isExisty(this._callback, 'getKeys') && ne.util.isFunction(this._callback.getKeys)) {
+            if(isCaseToggle) {
+                // 자판의 위치는 바꾸지 않고 대소문자 변환만한 배열정보를 받아온다.
+                rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock, true);
+            } else {
+                // 자판의 배열정보를 새로 받아온다.
+                rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock);
+            }
+        }
+        if(ne.util.isArray(rawKeys)) {
+            this._reArrangeKeys(rawKeys);
+        }
+    },
+
+    /**
+     * 자판을 재배열한다.
+     */
+    shuffle: function() {
+        // 기존 입력값 초기화
+        this._keySequences.length = 0;
+        this._initContainer();
+        this._getRawKeys();
+    },
+
+    /**
+     * 한/영 자판을 변환한다.
+     */
+    language: function() {
+        this._initContainer();
+        this._isEnglish = !this._isEnglish;
+        this._currentKeyType = this._isEnglish ? 'english' : 'korean'
+        this._getRawKeys();
+    },
+
+    /**
+     * 대소문자 변환을 한다.
+     */
+    caps: function() {
+        this._initContainer();
+        this._isCapsLock = !this._isCapsLock;
+        this._getRawKeys(true);
+    },
+
+    /**
+     * 특수키/숫자키 변환을 한다.
+     */
+    symbol: function() {
+        this._initContainer();
+        this._isSymbol = !this._isSymbol;
+        this._currentKeyType = this._isSymbol ? 'symbol' : 'number';
+        this._getRawKeys();
+    },
+
+    /**
+     * 마지막으로 입력된 값을 삭제한다.
+     */
+    remove: function() {
+    },
+
+    /**
+     * 전체 입력값을 초기화한다.
+     */
+    clear: function() {
+    },
+
+    /**
+     * 공백문자를 입력한다.
+     */
+    space: function() {
+    },
+
+    /**
+     * 가상키보드를 연다.
+     */
+    open: function() {
+        this.shuffle();
+        this._$container.show();
+    },
+
+    /**
+     * 가상키보드를 닫는다.
+     */
+    close: function() {
+        this.clear();
+        this._$container.hide();
+    },
+
+    /**
+     * 완료버튼을 처리한다.
+     */
+    done: function() {
+        this.close();
     }
-}
-
-var title = document.getElementById(fullName);
-if(title) {
-    title.className += ' selected';
-    title.innerHTML = '<span class="arrow">▶</span>' + title.innerHTML;
-
-    var static = getElementsByClassName('static', title);
-    if(static) {
-        static[0].className += ' selected';
-    }
-}
+});
 })();
-</script>
-<script type="text/javascript" src="scripts/prettify/prettify.js"></script>
-<script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
-<script type="text/javascript">prettyPrint();</script>
-<script type="text/javascript" src="scripts/linenumber.js"></script>
-</body>
-</html>
