@@ -28,6 +28,12 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * code-snippet : https://github.nhnent.com/fe/share-code-snippet
 * jquer 1.8.3
 
+## Test environment
+* browser : 
+   * IE7~11
+   * Chrome
+   * Firefox
+   
 ## Download/Install
 * Bower: 
    * 최신버전`bower install "git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
