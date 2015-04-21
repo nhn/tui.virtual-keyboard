@@ -26,7 +26,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 
 ## Dependency
 * code-snippet : https://github.nhnent.com/fe/share-code-snippet
-* jquer 1.8.3
+* jquery 1.8.3
 
 ## Test environment
 * browser : 
