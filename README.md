@@ -25,7 +25,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * **CI** - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
 
 ## Dependency
-* code-snippet : https://github.nhnent.com/fe/share-code-snippet
+* code-snippet : https://github.nhnent.com/fe/code-snippet
 * jquery 1.8.3
 
 ## Test environment
