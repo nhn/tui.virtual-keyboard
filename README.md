@@ -14,36 +14,33 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 
 ## Sample Image
 * 일반 가상키보드<br>
-![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vknormal.png)<br><br>
+![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vknormal.png)<br><br>
 * 숫자용 가상키보드<br>
-![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
+![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png)
 
 ## Documentation
-* **API** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/
-* **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-mobile.html
-* **Tutorial** - https://github.nhnent.com/fe/component-virtual-keyboard/wiki/%EA%B0%80%EC%83%81%ED%82%A4%EB%B3%B4%EB%93%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%A0%81%EC%9A%A9%EB%B0%A9%EB%B2%95
-* **CI** - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
+* **API** - https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/
+* **Sample** - https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/tutorial-mobile.html
+* **Tutorial** - https://github.com/nhnent/fe.component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
 
 ## Dependency
-* code-snippet : https://github.nhnent.com/fe/code-snippet
+* code-snippet : https://github.com/nhnent/fe.code-snippet
 * jquery 1.8.3
 
 ## Test environment
-* browser : 
+* browser :
    * IE7~11
    * Chrome
    * Firefox
-   
+
 ## Download/Install
-* Bower: 
-   * 최신버전`bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
-   * 특정버전 `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git[#tag]"`
-* Download: https://github.nhnent.com/fe/component-virtual-keyboard
+* Bower:
+   * 최신버전 `bower install ne-component-virtual-keyboard#master
+   * 특정버전 `bower install ne-component-virtual-keyboard[#tag]
+* Download: https://github.com/nhnent/fe.component-virtual-keyboard
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/">1.0.0</a> | 배포 | 2015.03 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
+| <a href="https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/">1.0.0</a> | 배포 | 2015.03 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
 | 0.1.0 | 최초개발 | 2015.02 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
-
-

@@ -1,12 +1,11 @@
 {
-  "name": "component-virtual-keyboard",
+  "name": "ne-component-virtual-keyboard",
   "version": "1.0.0",
   "authors": [
     "FE개발팀 이제인 <jein.yi@nhnent.com>"
   ],
   "main": "component-virtual-keyboard.js",
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     ".*",
@@ -24,6 +23,6 @@
   ],
   "dependencies": {
     "jquery": "~1.8.3",
-    "code-snippet": "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/code-snippet.git#1.0.0"
+    "ne-code-snippet": "~1.0.0"
   }
 }
