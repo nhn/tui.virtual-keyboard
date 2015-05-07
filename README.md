@@ -25,7 +25,7 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 
 ## Dependency
 * code-snippet : https://github.com/nhnent/fe.code-snippet
-* jquery 1.8.3
+* jquery 1.8.3 : https://github.com/jquery/jquery/tree/1.8.3
 
 ## Test environment
 * browser :
@@ -35,8 +35,8 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 
 ## Download/Install
 * Bower:
-   * 최신버전 `bower install ne-component-virtual-keyboard#master
-   * 특정버전 `bower install ne-component-virtual-keyboard[#tag]
+   * 최신버전 `bower install ne-component-virtual-keyboard#master`
+   * 특정버전 `bower install ne-component-virtual-keyboard[#tag]``
 * Download: https://github.com/nhnent/fe.component-virtual-keyboard
 
 ## History
