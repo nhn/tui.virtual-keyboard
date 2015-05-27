@@ -1,3 +1,4 @@
+/*!code-snippet v1.0.1 | NHN Entertainment*/
 /**********
  * browser.js
  **********/
@@ -7,32 +8,35 @@
  * @author FE개발팀
  */
 
+/** @namespace ne */
+/** @namespace ne.util */
+
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
 
     /**
-     * 다음의 브라우저에 한하여 종류와 버전을 제공하는 모듈
+     * 다음 브라우저들에 한해 종류와 버전 정보를 제공
      *
      * - ie7 ~ ie11
      * - chrome
      * - firefox
      * - safari
-     *
-     * @module browser
      * @example
-     * if (browser.msie && browser.version === 7) {
-     *     // IE7일 경우의 루틴
-     * }
-     *
-     * if (browser.chrome && browser.version >= 32) {
-     *     // Chrome 32버전 이상일 때의 루틴
-     * }
+     * ne.util.browser.chrome === true;    // chrome
+     * ne.util.browser.firefox === true;    // firefox
+     * ne.util.browser.safari === true;    // safari
+     * ne.util.browser.msie === true;    // IE
+     * ne.util.browser.other === true;    // other browser
+     * ne.util.browser.version;    // 브라우저 버전 type: Number
+     * @memberof ne.util
      */
     var browser = {
         chrome: false,
@@ -117,11 +121,19 @@
     }
 
     /**
-     * 배열나 유사배열를 순회하며 콜백함수에 전달한다.
+     * Array 의 prototype 에 indexOf 가 존재하는지 여부를 저장한다.
+     * 페이지 로드 시 한번만 확인하면 되므로, 변수에 캐싱한다.
+     * @type {boolean}
+     */
+    var hasIndexOf = !!Array.prototype.indexOf;
+
+    /**
+     * 배열이나 유사배열을 순회하며 콜백함수에 전달한다.
      * 콜백함수가 false를 리턴하면 순회를 종료한다.
      * @param {Array} arr
      * @param {Function} iteratee  값이 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      *
      * var sum = 0;
@@ -136,8 +148,10 @@
         var index = 0,
             len = arr.length;
 
+        context = context || null;
+
         for (; index < len; index++) {
-            if (iteratee.call(context || null, arr[index], index, arr) === false) {
+            if (iteratee.call(context, arr[index], index, arr) === false) {
                 break;
             }
         }
@@ -150,6 +164,7 @@
      * @param {object} obj
      * @param {Function} iteratee  프로퍼티가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      * var sum = 0;
      *
@@ -162,9 +177,11 @@
     function forEachOwnProperties(obj, iteratee, context) {
         var key;
 
+        context = context || null;
+
         for (key in obj) {
             if (obj.hasOwnProperty(key)) {
-                if (iteratee.call(context || null, obj[key], key, obj) === false) {
+                if (iteratee.call(context, obj[key], key, obj) === false) {
                     break;
                 }
             }
@@ -178,6 +195,7 @@
      * @param {*} obj 순회할 객체
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
+     * @memberof ne.util
      * @example
      *
      * //ex1)
@@ -203,9 +221,11 @@
         var key,
             len;
 
+        context = context || null;
+
         if (ne.util.isArray(obj)) {
             for (key = 0, len = obj.length; key < len; key++) {
-                iteratee.call(context || null, obj[key], key, obj);
+                iteratee.call(context, obj[key], key, obj);
             }
         } else {
             ne.util.forEachOwnProperties(obj, iteratee, context);
@@ -219,6 +239,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {Array}
+     * @memberof ne.util
      * @example
      * map([0,1,2,3], function(value) {
      *     return value + 1;
@@ -229,8 +250,10 @@
     function map(obj, iteratee, context) {
         var resultArray = [];
 
+        context = context || null;
+
         ne.util.forEach(obj, function() {
-            resultArray.push(iteratee.apply(context || null, arguments));
+            resultArray.push(iteratee.apply(context, arguments));
         });
 
         return resultArray;
@@ -243,6 +266,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
+     * @memberof ne.util
      * @example
      * reduce([0,1,2,3], function(stored, value) {
      *     return stored + value;
@@ -256,6 +280,7 @@
             length,
             store;
 
+        context = context || null;
 
         if (!ne.util.isArray(obj)) {
             keys = ne.util.keys(obj);
@@ -266,7 +291,7 @@
         store = obj[keys ? keys[index++] : index++];
 
         for (; index < length; index++) {
-            store = iteratee.call(context || null, store, obj[keys ? keys[index] : index]);
+            store = iteratee.call(context, store, obj[keys ? keys[index] : index]);
         }
 
         return store;
@@ -276,6 +301,7 @@
      * - IE 8 이하 버전에서 Array.prototype.slice.call 이 오류가 나는 경우가 있어 try-catch 로 예외 처리를 한다.
      * @param {*} arrayLike 유사배열
      * @return {Array}
+     * @memberof ne.util
      * @example
 
 
@@ -310,6 +336,7 @@
      * @param {Function} iteratee 데이터가 전달될 콜백함수
      * @param {*} [context] 콜백함수의 컨텍스트
      * @returns {*}
+     * @memberof ne.util
      * @example
      * filter([0,1,2,3], function(value) {
      *     return (value % 2 === 0);
@@ -323,23 +350,30 @@
      * => {a: 1, c: 3};
      */
     var filter = function(obj, iteratee, context) {
-        var result = ne.util.isArray(obj) ? [] : {},
-            value,
-            key;
+        var result,
+            add;
+
+        context = context || null;
 
         if (!ne.util.isObject(obj) || !ne.util.isFunction(iteratee)) {
             throw new Error('wrong parameter');
         }
 
+        if (ne.util.isArray(obj)) {
+            result = [];
+            add = function(result, args) {
+                result.push(args[0]);
+            };
+        } else {
+            result = {};
+            add = function(result, args) {
+                result[args[1]] = args[0];
+            };
+        }
+
         ne.util.forEach(obj, function() {
-            if (iteratee.apply(context || null, arguments)) {
-                value = arguments[0];
-                key = arguments[1];
-                if (ne.util.isArray(obj)) {
-                    result.push(value);
-                } else {
-                    result[key] = value;
-                }
+            if (iteratee.apply(context, arguments)) {
+                add(result, arguments);
             }
         }, context);
 
@@ -350,8 +384,8 @@
      * 배열 내의 값을 찾아서 인덱스를 반환한다. 찾고자 하는 값이 없으면 -1 반환.
      * @param {*} value 배열 내에서 찾고자 하는 값
      * @param {array} array 검색 대상 배열
-     * @param {number} fromIndex 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
-     *
+     * @param {number} index 검색이 시작될 배열 인덱스. 지정하지 않으면 기본은 0이고 전체 배열 검색.
+     * @memberof ne.util
      * @return {number} targetValue가 발견된 array내에서의 index값
      * @example
      *
@@ -362,31 +396,27 @@
      *   ne.util.inArray('one', arr);
      *      => return 0
      */
-    var inArray = function(value, array, fromIndex) {
+    var inArray = function(value, array, index) {
         if (!ne.util.isArray(array)) {
             return -1;
         }
 
-        if (Array.prototype.indexOf) {
-            return Array.prototype.indexOf.call(array, value, fromIndex);
+        if (hasIndexOf) {
+            return Array.prototype.indexOf.call(array, value, index);
         }
 
         var i,
-            index,
-            arrLen = array.length;
+            length = array.length;
 
-        //fromIndex를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
-        if (ne.util.isUndefined(fromIndex)) {
-            fromIndex = 0;
-        } else if (fromIndex >= arrLen) {
+        //index를 지정하되 array 길이보다 같거나 큰 숫자로 지정하면 오류이므로 -1을 리턴한다.
+        if (ne.util.isUndefined(index)) {
+            index = 0;
+        } else if (index >= length || index < 0) {
             return -1;
         }
 
-        //fromIndex값을 참고하여 배열을 순회할 시작index를 정한다.
-        index = (fromIndex > -1) ? fromIndex : 0;
-
         //array에서 value 탐색하여 index반환
-        for (i = index; i < arrLen; i++) {
+        for (i = index; i < length; i++) {
             if (array[i] === value) {
                 return i;
             }
@@ -422,350 +452,46 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
 
     /**
-     * 이벤트 핸들러에 저장되는 단위
-     * @typedef {object} eventItem
-     * @property {object.<string, object>} eventObject
-     * @property {function()} eventObject.fn 이벤트 핸들러 함수
-     * @property {*} [eventObject.ctx] 이벤트 핸들러 실행 시 컨텍스트 지정가능
+     * 이벤트 핸들러 저장 단위
+     * @ignore
+     * @typedef {{fn: function, ctx: *}} handlerItem
      */
-
 
     /**
-     * 커스텀 이벤트 클래스
+     * 컨텍스트 별로 저장하기 위한 데이터 구조
+     * @ignore
+     * @typedef {object.<string, handlerItem>} ctxEvents
+     */
+
+    /**
      * @constructor
-     * @exports CustomEvents
-     * @class
+     * @memberof ne.util
      */
     function CustomEvents() {
-
         /**
-         * 이벤트 핸들러를 저장하는 객체
-         * @type {object.<string, eventItem>}
+         * 일반 핸들러 캐싱
+         * @type {object.<string, handlerItem[]>}
          * @private
          */
-        this._events = {};
+        this._events = null;
+
+        /**
+         * 컨텍스트 핸들러 캐싱
+         * @type {ctxEvents}
+         * @private
+         */
+        this._ctxEvents = null;
     }
 
-    var CustomEventMethod = /** @lends CustomEvents */ {
-        /**
-         * 인스턴스가 발생하는 이벤트에 핸들러를 등록하는 메서드
-         * @param {(object|String)} types - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
-         * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
-         * @param {function()=} fn - 이벤트 핸들러 목록
-         * @param {*=} context
-         * @example
-         * // 첫 번째 인자에 이벤트명:핸들러 데이터 객체를 넘긴 경우
-         * instance.on({
-         *     zoom: function() {},
-         *     pan: function() {}
-         * }, this);
-         *
-         * // 여러 이벤트를 한 핸들러로 처리할 수 있도록 함
-         * instance.on('zoom pan', function() {});
-         */
-        on: function(types, fn, context) {
-            this._toggle(true, types, fn, context);
-        },
-
-        /**
-         * 인스턴스에 등록했던 이벤트 핸들러를 해제할 수 있다.
-         * @param {(object|string)=} types 등록 해지를 원하는 이벤트 객체 또는 타입명. 아무 인자도 전달하지 않으면 모든 이벤트를 해제한다.
-         * @param {Function=} fn 삭제할 핸들러, 핸들러를 전달하지 않으면 types 해당 이벤트가 모두 삭제된다.
-         * @param {*=} context
-         * @example
-         * // zoom 이벤트만 해제
-         * instance.off('zoom', onZoom);
-         *
-         * // pan 이벤트 해제 (이벤트 바인딩 시에 context를 넘겼으면 그대로 넘겨주어야 한다)
-         * instance.off('pan', onPan, this);
-         *
-         * // 인스턴스 내 모든 이벤트 해제
-         * instance.off();
-         */
-        off: function(types, fn, context) {
-            if (!ne.util.isExisty(types)) {
-                this._events = null;
-                return;
-            }
-
-            this._toggle(false, types, fn, context);
-        },
-
-        /**
-         * on, off 메서드의 중복 코드를 줄이기 위해 만든 on토글 메서드
-         * @param {boolean} isOn
-         * @param {(Object|String)} types - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
-         * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
-         * @param {function()=} fn - 이벤트 핸들러 목록
-         * @param {*=} context
-         * @private
-         */
-        _toggle: function(isOn, types, fn, context) {
-            var methodName = isOn ? '_on' : '_off',
-                method = this[methodName];
-
-            if (ne.util.isObject(types)) {
-                ne.util.forEachOwnProperties(types, function(handler, type) {
-                    method.call(this, type, handler, fn);
-                }, this);
-            } else {
-                types = types.split(' ');
-
-                ne.util.forEach(types, function(type) {
-                    method.call(this, type, fn, context);
-                }, this);
-            }
-        },
-
-        /**
-         * 내부적으로 실제로 이벤트를 등록하는 로직을 담는 메서드.
-         *
-         * 옵션에 따라 이벤트를 배열에 등록하기도 하고 해시에 등록하기도 한다.
-         *
-         * 두개를 사용하는 기준:
-         *
-         * 핸들러가 이미 this바인딩이 되어 있고 핸들러를 사용하는 object가 같은 종류가 동시다발적으로 생성/삭제되는 경우에는 context인자를
-         * 전달하여 해시의 빠른 접근 속도를 이용하는 것이 좋다.
-         *
-         * @param {(object.<string, function()>|string)} type - 이벤트 타입 (타입과 함수 쌍으로 된 객체를 전달할 수도 있고 타입만
-         * 전달할 수 있다. 후자의 경우 두 번째 인자에 핸들러를 전달해야 한다.)
-         * @param {function()} fn - 이벤트 핸들러
-         * @param {*=} context
-         * @private
-         */
-        _on: function(type, fn, context) {
-            var events = this._events = this._events || {},
-                contextId = context && (context !== this) && ne.util.stamp(context);
-
-            if (contextId) {
-                /*
-                 context가 현재 인스턴스와 다를 때 context의 아이디로 내부의 해시에서 빠르게 해당 핸들러를 컨트롤 하기 위한 로직.
-                 이렇게 하면 동시에 많은 이벤트를 발생시키거나 제거할 때 성능면에서 많은 이점을 제공한다.
-                 특히 동시에 많은 엘리먼트들이 추가되거나 해제될 때 도움이 될 수 있다.
-                 */
-                var indexKey = type + '_idx',
-                    indexLenKey = type + '_len',
-                    typeIndex = events[indexKey] = events[indexKey] || {},
-                    id = ne.util.stamp(fn) + '_' + contextId; // 핸들러의 id + context의 id
-
-                if (!typeIndex[id]) {
-                    typeIndex[id] = {
-                        fn: fn,
-                        ctx: context
-                    };
-
-                    // 할당된 이벤트의 갯수를 추적해 두고 할당된 핸들러가 없는지 여부를 빠르게 확인하기 위해 사용한다
-                    events[indexLenKey] = (events[indexLenKey] || 0) + 1;
-                }
-            } else {
-                // fn이 이미 this 바인딩이 된 상태에서 올 경우 단순하게 처리해준다
-                events[type] = events[type] || [];
-                events[type].push({fn: fn});
-            }
-        },
-
-        /**
-         * 실제로 구독을 해제하는 메서드
-         * @param {(object|string)=} type 등록 해지를 원하는 핸들러명
-         * @param {function} [fn]
-         * @param {*} context
-         * @private
-         */
-        _off: function(type, fn, context) {
-            var events = this._events,
-                indexKey = type + '_idx',
-                indexLenKey = type + '_len';
-
-            if (!events) {
-                return;
-            }
-
-            var contextId = context && (context !== this) && ne.util.stamp(context),
-                listeners,
-                id;
-
-            if (contextId) {
-                id = ne.util.stamp(fn) + '_' + contextId;
-                listeners = events[indexKey];
-
-                if (listeners && listeners[id]) {
-                    listeners[id] = null;
-                    events[indexLenKey] -= 1;
-                }
-
-            } else if(!fn) {
-                events[type] = null;
-            } else {
-                listeners = events[type];
-
-                if (listeners) {
-                    if(fn){
-                        ne.util.forEach(listeners, function(listener, index) {
-                            if (ne.util.isExisty(listener) && (listener.fn === fn)) {
-                                listeners.splice(index, 1);
-                                return true;
-                            }
-                        });
-                    }
-                }
-            }
-        },
-
-        /**
-         * 이벤트를 발생시키는 메서드
-         *
-         * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
-         *
-         * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
-         *
-         * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
-         *
-         * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
-         * @param {string} type
-         * @param {*...} data
-         * @returns {*}
-         * @example
-         * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
-         * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
-         *     // 리스너의 실행결과가 true 일 경우
-         *     // doSomething
-         * }
-         *
-         * //
-         * // 아래는 사용자의 서비스 코드
-         * map.on({
-         *     'beforeZoom': function() {
-         *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
-         *             return false;
-         *         }
-         *         return true;
-         *     }
-         * });
-         */
-        invoke: function(type, data) {
-            if (!this.hasListener(type)) {
-                return true;
-            }
-
-            var args = Array.prototype.slice.call(arguments, 1),
-                events = this._events;
-
-            if (!events) {
-                return true;
-            }
-
-            var typeIndex = events[type + '_idx'],
-                listeners,
-                result = true;
-
-            if (events[type]) {
-                listeners = events[type].slice();
-
-                ne.util.forEach(listeners, function(listener) {
-                    if (listener.fn.apply(this, args) === false) {
-                        result = false;
-                    }
-                }, this);
-            }
-
-            ne.util.forEachOwnProperties(typeIndex, function(eventItem) {
-                if (eventItem.fn.apply(eventItem.ctx, args) === false) {
-                    result = false;
-                }
-            });
-
-            return result;
-        },
-
-        /**
-         * 이벤트를 발생시키는 메서드
-         * @param {string} type 이벤트 타입명
-         * @param {(object|string)=} data 발생과 함께 전달할 이벤트 데이터
-         * @return {*}
-         * @example
-         * instance.fire('move', { direction: 'left' });
-         *
-         * // 이벤트 핸들러 처리
-         * instance.on('move', function(moveEvent) {
-         *     var direction = moveEvent.direction;
-         * });
-         */
-        fire: function(type, data) {
-            this.invoke.apply(this, arguments);
-            return this;
-        },
-
-        /**
-         * 이벤트 핸들러 존재 여부 확인
-         * @param {string} type 핸들러명
-         * @return {boolean}
-         */
-        hasListener: function(type) {
-            var events = this._events,
-                existyFunc = ne.util.isExisty;
-
-            return existyFunc(events) && (existyFunc(events[type]) || events[type + '_len']);
-        },
-
-        /**
-         * 등록된 이벤트 핸들러의 갯수 반환
-         * @param {string} type
-         * @returns {number}
-         */
-        getListenerLength: function(type) {
-            var events = this._events,
-                lenKey = type + '_len',
-                length = 0,
-                types,
-                len;
-
-            if (!ne.util.isExisty(events)) {
-                return 0;
-            }
-
-            types = events[type];
-            len = events[lenKey];
-
-            length += (ne.util.isExisty(types) && ne.util.isArray(types)) ? types.length : 0;
-            length += ne.util.isExisty(len) ? len : 0;
-
-            return length;
-        },
-
-        /**
-         * 단발성 커스텀 이벤트 핸들러 등록 시 사용
-         * @param {(object|string)} types 이벤트명:핸들러 객체 또는 이벤트명
-         * @param {function()=} fn 핸들러 함수
-         * @param {*=} context
-         */
-        once: function(types, fn, context) {
-            var that = this;
-
-            if (ne.util.isObject(types)) {
-                ne.util.forEachOwnProperties(types, function(handler, type) {
-                    this.once(type, handler, fn);
-                }, this);
-
-                return;
-            }
-
-            function onceHandler() {
-                fn.apply(context, arguments);
-                that.off(types, onceHandler, context);
-            }
-
-            this.on(types, onceHandler, context);
-        }
-
-    };
-
-    CustomEvents.prototype = CustomEventMethod;
-    CustomEvents.prototype.constructor = CustomEvents;
+    /**********
+     * static props
+     **********/
 
     /**
      * 커스텀 이벤트 기능을 믹스인할 때 사용하는 메서드
@@ -783,7 +509,601 @@
      * model.on('changed', function() {}, this);
      */
     CustomEvents.mixin = function(func) {
-        ne.util.extend(func.prototype, CustomEventMethod);
+        ne.util.extend(func.prototype, CustomEvents.prototype);
+    };
+
+    /**********
+     * private props
+     **********/
+
+    /**
+     * 배열 반복자를 실행시키되 전체 순회 수를 감소시키는 메서드를 제공한다
+     * @param {Array} arr
+     * @param {function} iteratee
+     */
+    CustomEvents.prototype._forEachArraySplice = function(arr, iteratee) {
+        var i,
+            len,
+            item,
+            decrease = function() {
+                arr.splice(i, 1);
+                len -= 1;
+                i -= 1;
+            };
+
+        if (!ne.util.isExisty(arr) || !ne.util.isArray(arr)) {
+            return;
+        }
+
+        for (i = 0, len = arr.length; i < len; i++) {
+            item = arr[i];
+
+            if (iteratee(item, i, arr, decrease) === false) {
+                return;
+            }
+        }
+    };
+
+    /**********
+     * context event handler
+     **********/
+
+    /**
+     * 컨텍스트 핸들러 캐시 데이터 구조를 순회하며 반복자 수행
+     * @param {function(ctxEvents, eventKey)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachCtxEvents = function(iteratee) {
+        var events = this._ctxEvents;
+        ne.util.forEachOwnProperties(events, iteratee);
+    };
+
+    /**
+     * ctxEvents 구조에서 id문자열을 포함하는 핸들러를 순회하며 반복자를 수행
+     *
+     * 커스텀 이벤트 데이터 내에서 각 핸들러를 순회할 때 사용한다
+     * @param {ctxEvents} ctxEvents
+     * @param {string} id
+     * @param {function(handlerItem, handlerItemId)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachCtxHandlerItemByContainId = function(ctxEvents, id, iteratee) {
+        ne.util.forEachOwnProperties(ctxEvents, function(handlerItem, handlerItemId) {
+            if (handlerItemId.indexOf(id) > -1) {
+                iteratee(handlerItem, handlerItemId);
+            }
+        });
+    };
+
+    /**
+     * 핸들러를 받아 핸들러가 포함된 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행함
+     * @param {function} handler
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachCtxEventByHandler = function(handler, iteratee) {
+        var handlerId = ne.util.stamp(handler),
+            eachById = this._eachCtxHandlerItemByContainId;
+
+        this._eachCtxEvents(function(ctxEvents, eventKey) {
+            eachById(ctxEvents, handlerId, function(handlerItem, handlerItemId) {
+                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
+            });
+        });
+    };
+
+    /**
+     * 컨텍스트를 기준으로 할당된 이벤트 핸들러를 순회하며 반복자를 수행
+     * @param {*} context
+     * @param {function(handlerItem, ctxEventId, ctxEvents, eventKey)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachCtxEventByContext = function(context, iteratee) {
+        var contextId = ne.util.stamp(context),
+            eachById = this._eachCtxHandlerItemByContainId;
+
+        this._eachCtxEvents(function(ctxEvents, eventKey) {
+            eachById(ctxEvents, contextId, function(handlerItem, handlerItemId) {
+                iteratee(handlerItem, handlerItemId, ctxEvents, eventKey);
+            });
+        });
+    };
+
+    /**
+     * 이벤트 이름 기준으로 컨텍스트 이벤트 핸들러를 순회하며 반복자를 실행
+     * @param {string} name
+     * @param {function(handlerItem, handlerItemId, ctxEvents, eventKey)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachCtxEventByEventName = function(name, iteratee) {
+        if (!this._ctxEvents) {
+            return;
+        }
+
+        var key = this._getCtxKey(name),
+            ctxEvents = this._ctxEvents[key],
+            args;
+
+        ne.util.forEachOwnProperties(ctxEvents, function() {
+            args = Array.prototype.slice.call(arguments);
+            args.push(key);
+            iteratee.apply(null, args);
+        });
+    };
+
+    /**********
+     * normal event handler
+     **********/
+
+    /**
+     * 핸들러를 받아 핸들러가 포함된 일반 이벤트 핸들러를 순회하며 반복자를 수행
+     * @param {function} handler
+     * @param {function(handlerItem, index, eventList[], eventKey, decrease)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachEventByHandler = function(handler, iteratee) {
+        var events = this._events,
+            forEachArrayDecrease = this._forEachArraySplice,
+            idx = 0;
+
+        ne.util.forEachOwnProperties(events, function(eventList, eventKey) {
+            forEachArrayDecrease(eventList, function(handlerItem, index, eventList, decrease) {
+                if (handlerItem.fn === handler) {
+                    iteratee(handlerItem, idx++, eventList, eventKey, decrease);
+                }
+            });
+        });
+    };
+
+    /**
+     * 이벤트명 기준으로 일반 이벤트를 순회하며 반복자를 수행
+     * @param {string} name
+     * @param {function(handlerItem, index, itemList[], decrease)} iteratee
+     * @private
+     */
+    CustomEvents.prototype._eachEventByEventName = function(name, iteratee) {
+        if (!this._events) {
+            return;
+        }
+
+        var events = this._events[name];
+
+        if (!ne.util.isExisty(events)) {
+            return;
+        }
+
+        this._forEachArraySplice(events, iteratee);
+    };
+
+    /**
+     * 컨텍스트 핸들러 저장용 키를 만든다
+     * @param {string} name 이벤트명
+     * @returns {string}
+     * @private
+     */
+    CustomEvents.prototype._getCtxKey = function(name) {
+        return name + '_idx';
+    };
+
+    /**
+     * 컨텍스트 핸들러 등록 개수 저장용 키를 만든다
+     * @param {string} name 이벤트명
+     * @returns {string}
+     * @private
+     */
+    CustomEvents.prototype._getCtxLenKey = function(name) {
+        return name + '_len';
+    };
+
+    /**
+     * 핸들러 저장용 키를 만든다
+     * @param {function} func 이벤트 핸들러
+     * @param {*} ctx 핸들러 실행 컨텍스트
+     * @returns {string}
+     * @private
+     */
+    CustomEvents.prototype._getHandlerKey = function(func, ctx) {
+        return ne.util.stamp(func) + '_' + ne.util.stamp(ctx);
+    };
+
+
+    /**
+     * 컨텍스트 이벤트 핸들러의 갯수를 카운팅
+     * @param {string} lenKey 컨텍스트 이벤트 갯수를 저장하기 위한 프로퍼티 명 (getCtxLenKey메서드로 계산가능)
+     * @param {number} change 증감 값
+     * @private
+     */
+    CustomEvents.prototype._setCtxLen = function(lenKey, change) {
+        var events = this._ctxEvents;
+
+        if (!ne.util.isExisty(events[lenKey])) {
+            events[lenKey] = 0;
+        }
+
+        events[lenKey] += change;
+    };
+
+
+    /**
+     * 컨텍스트용 이벤트 캐시 구조로 저장한다
+     * @param {string} name 이벤트명
+     * @param {*} context 핸들러에 바인딩할 컨텍스트
+     * @param {function} handler 핸들러 함수
+     * @private
+     */
+    CustomEvents.prototype._addCtxEvent = function(name, context, handler) {
+        var events = this._ctxEvents,
+            key = this._getCtxKey(name),
+            event;
+
+        // 핸들러 등록
+        if (!ne.util.isExisty(events)) {
+            events = this._ctxEvents = {};
+        }
+
+        event = events[key];
+        if (!ne.util.isExisty(event)) {
+            event = events[key] = {};
+        }
+
+        var lenKey = this._getCtxLenKey(name),
+            handlerItemId = this._getHandlerKey(handler, context);
+
+        event[handlerItemId] = {
+            fn: handler,
+            ctx: context
+        };
+
+        // 핸들러 갯수 설정
+        this._setCtxLen(lenKey, +1);
+    };
+
+    /**
+     * 일반 이벤트 등록
+     * @param {string} name 이벤트명
+     * @param {function} handler 이벤트 핸들러
+     * @private
+     */
+    CustomEvents.prototype._addNormalEvent = function(name, handler) {
+        var events = this._events,
+            event;
+
+        if (!ne.util.isExisty(events)) {
+            events = this._events = {};
+        }
+
+        event = events[name];
+        if (!ne.util.isExisty(event)) {
+            event = events[name] = [];
+        }
+
+        event.push({ fn: handler });
+    };
+
+
+    /**
+     * 핸들러 함수로 이벤트 해제
+     * @param {function} handler 이벤트 핸들러 함수
+     * @private
+     */
+    CustomEvents.prototype._offByHandler = function(handler) {
+        var ctxEvents = this._ctxEvents,
+            lenKey;
+
+        this._eachCtxEventByHandler(handler, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+            delete ctxItems[hanId];
+            ctxEvents[lenKey] -= 1;
+        });
+
+        this._eachEventByHandler(handler, function(handlerItem, index, items, eventKey, decrease) {
+            items.splice(index, 1);
+            decrease();
+        });
+    };
+
+    /**
+     * 컨텍스트로 이벤트 해제
+     * @param {*} context
+     * @param {(string|function)} [eventName]
+     * @private
+     */
+    CustomEvents.prototype._offByContext = function(context, eventName) {
+        var ctxEvents = this._ctxEvents,
+            hasArgs = ne.util.isExisty(eventName),
+            matchEventName,
+            matchHandler,
+            lenKey;
+
+        this._eachCtxEventByContext(context, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+
+            matchEventName = hasArgs && ne.util.isString(eventName) && eventKey.indexOf(eventName) > -1;
+            matchHandler = hasArgs && ne.util.isFunction(eventName) && handlerItem.fn === eventName;
+
+            if (!hasArgs || (matchEventName || matchHandler)) {
+                delete ctxItems[hanId];
+                ctxEvents[lenKey] -= 1;
+            }
+        });
+    };
+
+    /**
+     * 이벤트명으로 이벤트 해제
+     * @param {string} eventName 이벤트명
+     * @param {function} [handler] 이벤트 핸들러
+     * @private
+     */
+    CustomEvents.prototype._offByEventName = function(eventName, handler) {
+        var ctxEvents = this._ctxEvents,
+            hasHandler = ne.util.isExisty(handler),
+            lenKey;
+
+        this._eachCtxEventByEventName(eventName, function(handlerItem, hanId, ctxItems, eventKey) {
+            lenKey = eventKey.replace('_idx', '_len');
+            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
+                delete ctxItems[hanId];
+                ctxEvents[lenKey] -= 1;
+            }
+        });
+
+        this._eachEventByEventName(eventName, function(handlerItem, index, items, decrease) {
+            if (!hasHandler || (hasHandler && handlerItem.fn === handler)) {
+                items.splice(index, 1);
+                decrease();
+            }
+        });
+
+    };
+
+    /**********
+     * public props
+     **********/
+
+    /**
+     * 이벤트를 등록한다
+     * @param {(string|{name:string, handler:function})} name 등록할 이벤트명 또는 {이벤트명: 핸들러} 객체
+     * @param {(function|*)} [handler] 핸들러 함수 또는 context
+     * @param {*} [context] 핸들러 함수의 context 지정 가능
+     * @example
+     * // 1. 기본적인 등록
+     * customEvent.on('onload', handler);
+     *
+     * // 2. 컨텍스트 전달
+     * customEvent.on('onload', handler, myObj);
+     *
+     * // 3. 이벤트명: 핸들러 객체로 등록
+     * customEvent.on({
+     *   'play': handler,
+     *   'pause': handler2
+     * });
+     *
+     * // 4. 이벤트명: 핸들러 + 컨텍스트
+     * customEvent.on({
+     *   'play': handler
+     * }, myObj);
+     */
+    CustomEvents.prototype.on = function(name, handler, context) {
+        var names;
+
+        if (ne.util.isObject(name)) {
+            // 이벤트명: 핸들러 전달
+            context = handler;
+            ne.util.forEachOwnProperties(name, function(handler, name) {
+                this.on(name, handler, context);
+            }, this);
+            return;
+        } else if (ne.util.isString(name) && name.indexOf(' ') > -1) {
+            // 공백으로 여러 이벤트 처리
+            names = name.split(' ');
+            ne.util.forEachArray(names, function(name) {
+                this.on(name, handler, context);
+            }, this);
+            return;
+        }
+
+        var ctxId;
+
+        if (ne.util.isExisty(context)) {
+            ctxId = ne.util.stamp(context);
+        }
+
+        if (ne.util.isExisty(ctxId)) {
+            // 컨텍스트 전달
+            this._addCtxEvent(name, context, handler);
+        } else {
+            // 일반 이벤트 등록
+            this._addNormalEvent(name, handler);
+        }
+    };
+
+    /**
+     * 등록된 이벤트를 해제한다
+     * @param {(string|function|{name:string, handler:function})} name 이벤트명 또는 핸들러 또는 {이벤트명: 핸들러} 객체
+     * @param {function} [handler] 핸들러 함수
+     * @example
+     * // 1. 컨텍스트 전달
+     * customEvent.off(myObj);
+     *
+     * // 2. 이벤트명 전달
+     * customEvent.off('onload');
+     *
+     * // 3. 핸들러 전달
+     * customEvent.off(handler);
+     *
+     * // 4. 이벤트명, 핸들러 전달
+     * customEvent.off('play', handler);
+     *
+     * // 5. 컨텍스트, 핸들러 전달
+     * customEvent.off(myObj, handler);
+     *
+     * // 6. 컨텍스트, 이벤트명 전달
+     * customEvent.off(myObj, 'onload');
+     *
+     * // 7. 이벤트명: 핸들러 전달 (특정 핸들러만 해제 원할때)
+     * customEvent.off({
+     *   'play': handler,
+     *   'pause': handler2
+     * });
+     *
+     * // 8. 모든 등록 핸들러 제거
+     * customEvent.off();
+     */
+    CustomEvents.prototype.off = function(name, handler) {
+        if (!arguments.length) {
+            // 8. 모든 핸들러 제거
+            this._events = null;
+            this._ctxEvents = null;
+            return;
+        }
+
+        if (ne.util.isFunction(name)) {
+            // 3. 핸들러 기준
+            this._offByHandler(name);
+
+        } else if (ne.util.isObject(name)) {
+            if (ne.util.hasStamp(name)) {
+                // 1, 5, 6 컨텍스트 기준
+                this._offByContext(name, handler);
+            } else {
+                // 4. 이벤트명: 핸들러 전달
+                ne.util.forEachOwnProperties(name, function(handler, name) {
+                    this.off(name, handler);
+                }, this);
+            }
+
+        } else {
+            // 2, 4 이벤트명 기준
+            this._offByEventName(name, handler);
+
+        }
+    };
+
+    /**
+     * 이벤트 등록 수 반환
+     * @param {string} eventName
+     * @returns {*}
+     */
+    CustomEvents.prototype.getListenerLength = function(eventName) {
+        var ctxEvents = this._ctxEvents,
+            events = this._events,
+            existy = ne.util.isExisty,
+            lenKey = this._getCtxLenKey(eventName);
+
+        var normal = (existy(events) && ne.util.isArray(events[eventName])) ? events[eventName].length : 0,
+            ctx = (existy(ctxEvents) && existy(ctxEvents[lenKey])) ? ctxEvents[lenKey] : 0;
+
+        return normal + ctx;
+    };
+
+    /**
+     * 이벤트 등록 여부 반환
+     * @param {string} eventName 이벤트명
+     * @returns {boolean}
+     */
+    CustomEvents.prototype.hasListener = function(eventName) {
+        return this.getListenerLength(eventName) > 0;
+    };
+
+
+
+    /**
+     * 이벤트를 발생시키는 메서드
+     *
+     * 등록한 리스너들의 실행 결과를 boolean AND 연산하여
+     *
+     * 반환한다는 점에서 {@link CustomEvents#fire} 와 차이가 있다
+     *
+     * 보통 컴포넌트 레벨에서 before 이벤트로 사용자에게
+     *
+     * 이벤트를 취소할 수 있게 해 주는 기능에서 사용한다.
+     * @param {string} eventName
+     * @param {...*} data
+     * @returns {*}
+     * @example
+     * // 확대 기능을 지원하는 컴포넌트 내부 코드라 가정
+     * if (this.invoke('beforeZoom')) {    // 사용자가 등록한 리스너 결과 체크
+     *     // 리스너의 실행결과가 true 일 경우
+     *     // doSomething
+     * }
+     *
+     * //
+     * // 아래는 사용자의 서비스 코드
+     * map.on({
+     *     'beforeZoom': function() {
+     *         if (that.disabled && this.getState()) {    //서비스 페이지에서 어떤 조건에 의해 이벤트를 취소해야한다
+     *             return false;
+     *         }
+     *         return true;
+     *     }
+     * });
+     */
+    CustomEvents.prototype.invoke = function(eventName, data) {
+        if (!this.hasListener(eventName)) {
+            return true;
+        }
+
+        var args = Array.prototype.slice.call(arguments, 1),
+            self = this,
+            result = true,
+            existy = ne.util.isExisty;
+
+        this._eachEventByEventName(eventName, function(item) {
+            if (existy(item) && item.fn.apply(self, args) === false) {
+                result = false;
+            }
+        });
+
+        this._eachCtxEventByEventName(eventName, function(item) {
+            if (existy(item) && item.fn.apply(item.ctx, args) === false) {
+                result = false;
+            }
+        });
+
+        return result;
+    };
+
+    /**
+     * 이벤트를 발생시키는 메서드
+     * @param {string} eventName 이벤트 이름
+     * @param {...*} data 발생과 함께 전달할 이벤트 데이터 (래핑하지 않고 인자로 전달한다)
+     * @return {*}
+     * @example
+     * instance.fire('move', 'left');
+     *
+     * // 이벤트 핸들러 처리
+     * instance.on('move', function(direction) {
+     *     var direction = direction;
+     * });
+     */
+    CustomEvents.prototype.fire = function(eventName, data) {
+        this.invoke.apply(this, arguments);
+        return this;
+    };
+
+    /**
+     * 단발성 커스텀 이벤트 핸들러 등록 시 사용
+     * @param {(object|string)} eventName 이벤트명:핸들러 객체 또는 이벤트명
+     * @param {function()=} fn 핸들러 함수
+     * @param {*=} context
+     */
+    CustomEvents.prototype.once = function(eventName, fn, context) {
+        var that = this;
+
+        if (ne.util.isObject(eventName)) {
+            ne.util.forEachOwnProperties(eventName, function(handler, eventName) {
+                this.once(eventName, handler, fn);
+            }, this);
+
+            return;
+        }
+
+        function onceHandler() {
+            fn.apply(context, arguments);
+            that.off(eventName, onceHandler, context);
+        }
+
+        this.on(eventName, onceHandler, context);
     };
 
     ne.util.CustomEvents = CustomEvents;
@@ -802,9 +1122,11 @@
 
 (function(ne) {
     'use strict';
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
@@ -847,7 +1169,7 @@
      * var childInstance = new Child();
      * childInstance.method();
      * childInstance.method2();
-     *
+     * @memberof ne.util
      *
      */
     var defineClass = function(parent, props) {
@@ -860,7 +1182,9 @@
 
         obj = props.init || function(){};
 
-        parent && ne.util.inherit(obj, parent);
+        if(parent) {
+            ne.util.inherit(obj, parent);
+        }
 
         if (props.hasOwnProperty('static')) {
             ne.util.extend(obj, props.static);
@@ -877,17 +1201,110 @@
 })(window.ne);
 
 /**********
- * form.js
+ * defineNamespace.js
  **********/
 
 /**
- * @fileoverview Form 엘리먼트 헨들링 메서드
- * @author FE개발팀
- * @dependency jquery-1.8.3.js, collection.js, type.js
+ * @fileoverview define namespace
+ * @author FE Development Team
+ * @dependency inheritance.js, object.js, collection.js
+ */
+(function(ne) {
+
+    'use strict';
+    /* istanbul ignore if */
+    if (!ne) {
+        ne = window.ne = {};
+    }
+    /* istanbul ignore if */
+    if (!ne.util) {
+        ne.util = window.ne.util = {};
+    }
+
+    /**
+     * define namespace
+     * @param {string} name module name
+     * @param {(object|function)} props a set of modules or one module
+     * @param {boolean} isOverride flag what if module already define, override or not
+     * @returns {(object|function)} return defined module
+     * @example
+     * var neComp = defineNamespace('ne.component');
+     * neComp.listMenu = ne.util.defineClass({
+     *      init: function() {
+     *          // code
+     *      }
+     * });
+     */
+    var defineNamespace = function(name, props, isOverride) {
+        var namespace,
+            lastspace,
+            result,
+            module = getNamespace(name);
+
+        if (!isOverride && isValidType(module)) {
+            return module;
+        }
+
+        namespace = name.split('.');
+        lastspace = namespace.pop();
+        namespace.unshift(window);
+
+        result = ne.util.reduce(namespace, function(obj, name) {
+            obj[name] = obj[name] || {};
+            return obj[name];
+        });
+
+        result[lastspace] = isValidType(props) ? props : {};
+
+        return result[lastspace];
+
+    };
+
+    /**
+     * get namespace
+     * @param {string} name namespace
+     * @returns {*}
+     */
+    var getNamespace = function(name) {
+        var namespace,
+            result;
+
+        namespace = name.split('.');
+        namespace.unshift(window);
+
+        result = ne.util.reduce(namespace, function(obj, name) {
+            return obj && obj[name];
+        });
+        return result;
+    };
+
+    /**
+     * check valid type
+     * @param {*} module
+     * @returns {boolean}
+     */
+    var isValidType = function(module) {
+        return (ne.util.isObject(module) || ne.util.isFunction(module));
+    };
+
+    ne.util.defineNamespace = defineNamespace;
+
+})(window.ne);
+/**********
+ * enum.js
+ **********/
+
+/**
+ * @fileoverview Enum을 구현한 모듈이 정의 되어있다.
+ * @author 김성호 sungho-kim@nhnent.com
+ * @dependency type, collection.js
  */
 
 (function(ne) {
+
     'use strict';
+
+    /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
     }
@@ -896,192 +1313,156 @@
     }
 
     /**
-     * form 의 input 요소 값을 설정하기 위한 객체
+     * definedProperty지원 여부 체크
+     * @returns {boolean}
      */
-    var setInput = {
-        /**
-         * radio type 의 input 요소의 값을 설정한다.
-         * @param {HTMLElement} targetElement
-         * @param {String} formValue
-         */
-        'radio': function(targetElement, formValue) {
-            targetElement.checked = (targetElement.value === formValue);
-        },
-        /**
-         * radio type 의 input 요소의 값을 설정한다.
-         * @param {HTMLElement} targetElement
-         * @param {String} formValue
-         */
-        'checkbox': function(targetElement, formValue) {
-            if (ne.util.isArray(formValue)) {
-                targetElement.checked = $.inArray(targetElement.value, _changeToStringInArray(formValue)) !== -1;
-            } else {
-                targetElement.checked = (targetElement.value === formValue);
+    var isSupportDefinedProperty = (function () {
+        try {
+            Object.defineProperty({}, 'x', {});
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }());
+
+    /**
+     * 상수에 들어갈 임의의 값
+     * @type {number}
+     */
+    var enumValue = 0;
+
+    /**
+     * Enum
+     * 임의의 값이지만 중복되지 않는 값을 갖는 상수의 목록을 만든다
+     * IE8이하를 제외한 모던브라우저에서는
+     * 한번 결정된값은 추후 변경될수 없다(바꾸려고 시도해도 원래 값을 유지한다)
+     *
+     * @param {...string | string[]} itemList 상수목록, 스트링 배열 가능
+     * @exports Enum
+     * @constructor
+     * @class
+     * @memberof ne.util
+     * @examples
+     *
+     * //생성
+     * var MYENUM = new Enum('TYPE1', 'TYPE2');
+     * var MYENUM2 = new Enum(['TYPE1', 'TYPE2']);
+     *
+     * //사용
+     * if (value === MYENUM.TYPE1) {
+ *      ....
+ * }
+     *
+     * //추가하기(이미 정해진 상수명을 입력하는경우 무시된다)
+     * MYENUM.set('TYPE3', 'TYPE4');
+     *
+     * //값을 이용해 상수명을 얻어오는 방법
+     * MYENUM.getName(MYENUM.TYPE1); // 'TYPE1'이 리턴된다.
+     *
+     * //IE9이상의 브라우저와 기타 모던브라우저에서는 값이 변경되지 않는다.
+     * var originalValue = MYENUM.TYPE1;
+     * MYENUM.TYPE1 = 1234; // maybe TypeError
+     * MYENUM.TYPE1 === originalValue; // true
+     *
+     **/
+    function Enum(itemList) {
+        if (itemList) {
+            this.set.apply(this, arguments);
+        }
+    }
+
+    /**
+     * set
+     * 상수를 정의한다.
+     * @param {...string| string[]} itemList 상수목록, 스트링 배열도
+     */
+    Enum.prototype.set = function(itemList) {
+        var self = this;
+
+        if (!ne.util.isArray(itemList)) {
+            itemList = ne.util.toArray(arguments);
+        }
+
+        ne.util.forEach(itemList, function itemListIteratee(item) {
+            self._addItem(item);
+        });
+    };
+
+    /**
+     * getName
+     * 값을 넘기면 해당하는 상수의 키값을 리턴해준다.
+     * @param {number} value 비교할 값
+     * @returns {string} 상수의 키값
+     */
+    Enum.prototype.getName = function(value) {
+        var foundedKey,
+            self = this;
+
+        ne.util.forEach(this, function(itemValue, key) {
+            if (self._isEnumItem(key) && value === itemValue) {
+                foundedKey = key;
+                return false;
             }
-        },
-        /**
-         * select-one type 의 input 요소의 값을 설정한다.
-         * @param {HTMLElement} targetElement
-         * @param {String} formValue
-         */
-        'select-one': function(targetElement, formValue) {
-            var options = ne.util.toArray(targetElement.options),
-                index = -1;
+        });
 
-            ne.util.forEach(options, function(targetOption, i) {
-                if (targetOption.value === formValue || targetOption.text === formValue) {
-                    index = i;
-                    return false;
-                }
-            }, this);
+        return foundedKey;
+    };
 
-            targetElement.selectedIndex = index;
+    /**
+     * _addItem
+     * 상수를 생성한다
+     * @private
+     * @param {string} name 상수명
+     */
+    Enum.prototype._addItem = function(name) {
+        var value;
 
-        },
-        /**
-         * select-multiple type 의 input 요소의 값을 설정한다.
-         * @param {HTMLElement} targetElement
-         * @param {String|Array} formValue
-         */
-        'select-multiple': function(targetElement, formValue) {
-            var options = ne.util.toArray(targetElement.options);
+        if (!this.hasOwnProperty(name)) {
+            value = this._makeEnumValue();
 
-            if (ne.util.isArray(formValue)) {
-                formValue = _changeToStringInArray(formValue);
-                ne.util.forEach(options, function(targetOption) {
-                    targetOption.selected = $.inArray(targetOption.value, formValue) !== -1 ||
-                        $.inArray(targetOption.text, formValue) !== -1;
-                }, this);
+            if (isSupportDefinedProperty) {
+                Object.defineProperty(this, name, {
+                    enumerable: true,
+                    configurable: false,
+                    writable: false,
+                    value: value
+                });
             } else {
-                this['select-one'].apply(this, arguments);
+                this[name] = value;
             }
-        },
-        /**
-         * input 요소의 값을 설정하는 default 로직
-         * @param {HTMLElement} targetElement
-         * @param {String} formValue
-         */
-        'defaultAction': function(targetElement, formValue) {
-            targetElement.value = formValue;
         }
     };
+
     /**
-     * 배열의 값들을 전부 String 타입으로 변환한다.
+     * _makeEnumValue
+     * 상수에 대입할 임의의 중복되지 않는 값을 구한다.
      * @private
-     * @param {Array}  arr 변환할 배열
-     * @return {Array} 변환된 배열 결과 값
+     * @returns {number} 상수에 대입될 값
      */
-    function _changeToStringInArray(arr) {
-        ne.util.forEach(arr, function(value, i) {
-            arr[i] = String(value);
-        }, this);
-        return arr;
-    }
+    Enum.prototype._makeEnumValue = function() {
+        var value;
 
+        value = enumValue;
+        enumValue += 1;
+
+        return value;
+    };
 
     /**
-     * $form 에 정의된 인풋 엘리먼트들의 값을 모아서 DataObject 로 구성하여 반환한다.
-     * @param {jQuery} $form jQuery()로 감싼 폼엘리먼트
-     * @return {object} form 내의 데이터들을 key:value 형태의 DataObject 로 반환한다.
-     **/
-    function getFormData($form) {
-        var result = {},
-            valueList = $form.serializeArray();
-
-        ne.util.forEach(valueList, function(obj) {
-            var value = obj.value,
-                name = obj.name;
-            if (ne.util.isExisty(result[name])) {
-                if (!result[name].push) {
-                    result[name] = [result[name]];
-                }
-                result[name].push(value || '');
-            } else {
-                result[name] = value || '';
-            }
-        }, this);
-
-        return result;
-    }
-    /**
-     * 폼 안에 있는 모든 인풋 엘리먼트를 배열로 리턴하거나, elementName에 해당하는 인풋 엘리먼트를 리턴한다.
-     * @method getFormElement
-     * @param {jquery} $form jQuery()로 감싼 폼엘리먼트
-     * @param {String} [elementName] 특정 이름의 인풋 엘리먼트만 가져오고 싶은 경우 전달하며, 생략할 경우 모든 인풋 엘리먼트를 배열 형태로 리턴한다.
-     * @return {jQuery}  jQuery 로 감싼 엘리먼트를 반환한다.
+     * _isEnumItem
+     * 키의 이름을 입력받아 이 키에 해당하는 내용이 상수인지 아닌지를 판별한다
+     * @param {string} key 프로퍼티 키값
+     * @returns {boolean} 결과
+     * @private
      */
-    function getFormElement($form, elementName) {
-        var formElement;
-        if ($form && $form.length) {
-            if (elementName) {
-                formElement = $form.prop('elements')[elementName + ''];
-            } else {
-                formElement = $form.prop('elements');
-            }
-        }
-        return $(formElement);
-    }
-    /**
-     * 파라미터로 받은 데이터 객체를 이용하여 폼내에 해당하는 input 요소들의 값을 설정한다.
-     *
-     * @method setFormData
-     * @param {jQuery} $form jQuery()로 감싼 폼엘리먼트
-     * @param {Object} formData 폼에 설정할 폼 데이터 객체
-     **/
-    function setFormData($form, formData) {
-        ne.util.forEachOwnProperties(formData, function(value, property) {
-            setFormElementValue($form, property, value);
-        }, this);
-    }
-    /**
-     * elementName에 해당하는 인풋 엘리먼트에 formValue 값을 설정한다.
-     * -인풋 엘리먼트의 이름을 기준으로 하기에 라디오나 체크박스 엘리먼트에 대해서도 쉽게 값을 설정할 수 있다.
-     * @param {jQuery} $form jQuery()로 감싼 폼엘리먼트
-     * @param {String}  elementName 값을 설정할 인풋 엘리먼트의 이름
-     * @param {String|Array} formValue 인풋 엘리먼트에 설정할 값으로 체크박스나 멀티플 셀렉트박스인 경우에는 배열로 설정할 수 있다.
-     **/
-    function setFormElementValue($form, elementName, formValue) {
-        var type,
-            elementList = getFormElement($form, elementName);
+    Enum.prototype._isEnumItem = function(key) {
+        return ne.util.isNumber(this[key]);
+    };
 
-        if (!elementList) {
-            return;
-        }
-        if (!ne.util.isArray(formValue)) {
-            formValue = String(formValue);
-        }
-        elementList = ne.util.isHTMLTag(elementList) ? [elementList] : elementList;
-        elementList = ne.util.toArray(elementList);
-        ne.util.forEach(elementList, function(targetElement) {
-            type = setInput[targetElement.type] ? targetElement.type : 'defaultAction';
-            setInput[type](targetElement, formValue);
-        }, this);
-    }
-    /**
-     * input 타입의 엘리먼트의 커서를 가장 끝으로 이동한다.
-     * @param {HTMLElement} target HTML input 엘리먼트
-     */
-    function setCursorToEnd(target) {
-        target.focus();
-        var length = target.value.length;
+    ne.util.Enum = Enum;
 
-        if (target.setSelectionRange) {
-            target.setSelectionRange(length, length);
-        } else if (target.createTextRange) {
-            var range = target.createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', length);
-            range.moveStart('character', length);
-            range.select();
-        }
-    }
-
-    ne.util.getFormElement = getFormElement;
-    ne.util.getFormData = getFormData;
-    ne.util.setFormData = setFormData;
-    ne.util.setFormElementValue = setFormElementValue;
-    ne.util.setCursorToEnd = setCursorToEnd;
 })(window.ne);
+
 /**********
  * func.js
  **********/
@@ -1093,6 +1474,7 @@
 
 (function(ne) {
     'use strict';
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -1106,6 +1488,7 @@
      * @param {function()} fn
      * @param {*} obj - this로 사용될 객체
      * @return {function()}
+     * @memberof ne.util
      */
     function bind(fn, obj) {
         var slice = Array.prototype.slice;
@@ -1140,6 +1523,7 @@
 
 (function(ne) {
     'use strict';
+
     /* istanbul ignore if */
     if (!ne) {
         ne = window.ne = {};
@@ -1161,11 +1545,12 @@
      * 주의) length프로퍼티를 가지고있어 유사 배열을 length의 유무로 체크하는 로직에서 의도되지 않은 동작을 할수있다.
      * @param {Object} [obj] 인스턴스가 만들어질때 셋팅할 초기 데이터
      * @constructor
+     * @memberof ne.util
      * @example
      * var hm = new HashMap({
      *     'mydata': {
      *          'hello': 'imfine'
-     *      },
+     *      },ne.util.HashMap
      *     'what': 'time'
      * });
      */
@@ -1195,7 +1580,11 @@
      * });
      */
     HashMap.prototype.set = function(key, value) {
-        arguments.length === 2 ? this.setKeyValue(key, value) : this.setObject(key);
+        if(arguments.length === 2) {
+            this.setKeyValue(key, value);
+        } else {
+            this.setObject(key);
+        }
     };
 
     /**
@@ -1295,7 +1684,7 @@
 
     /**
      * 키나 키의 목록을 전달하여 데이터를 삭제한다.
-     * @param {String...|String[]} key
+     * @param {...String|String[]} key
      * @returns {String|String[]}
      * @example
      * var hm = new HashMap();
@@ -1469,7 +1858,7 @@
     HashMap.prototype.toArray = function() {
         var result = [];
 
-        this.each(function(v, i) {
+        this.each(function(v) {
             result.push(v);
         });
 
@@ -1495,21 +1884,25 @@
     if (!ne) {
         ne = window.ne = {};
     }
+    /* istanbul ignore if */
     if (!ne.util) {
         ne.util = window.ne.util = {};
     }
+
+
 
     /**
      * 전달된 객체를 prototype으로 사용하는 객체를 만들어 반환하는 메서드
      * @param {Object} obj
      * @return {Object}
+     * @memberof ne.util
      */
     function createObject() {
         function F() {}
 
         return function(obj) {
             F.prototype = obj;
-            return new F;
+            return new F();
         };
     }
 
@@ -1542,6 +1935,7 @@
      * };
      * @param {function} subType 자식 생성자 함수
      * @param {function} superType 부모 생성자 함수
+     * @memberof ne.util
      */
     function inherit(subType, superType) {
         var prototype = ne.util.createObject(superType.prototype);
@@ -1555,30 +1949,13 @@
 })(window.ne);
 
 /**********
- * layer.js
- **********/
-
-/**
- * @fileoverview
- * @author FE개발팀
- */
-
-(function(ne) {
-    'use strict';
-    if (!ne) {
-        ne = window.ne = {};
-    }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
-    }
-})(window.ne);
-/**********
  * object.js
  **********/
 
 /**
  * @fileoverview
  * @author FE개발팀
+ * @dependency type.js, collection.js
  */
 
 (function(ne) {
@@ -1596,6 +1973,7 @@
      * @param {object} target - 확장될 객체
      * @param {...object} objects - 프로퍼티를 복사할 객체들
      * @return {object}
+     * @memberOf ne.util
      */
     function extend(target, objects) {
         var source,
@@ -1624,10 +2002,21 @@
      * 객체에 unique한 ID를 프로퍼티로 할당한다.
      * @param {object} obj - ID를 할당할 객체
      * @return {number}
+     * @memberOf ne.util
      */
     function stamp(obj) {
         obj.__fe_id = obj.__fe_id || ++lastId;
         return obj.__fe_id;
+    }
+
+    /**
+     * object#stamp로 UniqueID를 부여했었는지 여부 확인
+     * @param {object} obj
+     * @returns {boolean}
+     * @memberOf ne.util
+     */
+    function hasStamp(obj) {
+        return ne.util.isExisty(ne.util.pick(obj, '__fe_id'));
     }
 
     function resetLastId() {
@@ -1638,8 +2027,9 @@
      * 객체를 전달받아 객체의 키목록을 배열로만들어 리턴해준다.
      * @param obj
      * @returns {Array}
+     * @memberOf ne.util
      */
-    var keys = function(obj) {
+    function keys(obj) {
         var keys = [],
             key;
 
@@ -1650,7 +2040,7 @@
         }
 
         return keys;
-    };
+    }
 
 
     /**
@@ -1674,6 +2064,8 @@
 
      ne.util.compareJSON(jsonObj4, jsonObj5);
      => return false
+
+     * @memberOf ne.util
      */
     function compareJSON(object) {
         var leftChain,
@@ -1783,30 +2175,57 @@
         return true;
     }
 
+    /**
+     * 인자로 받은 object 와 하위 프로퍼티 문자열로 해당 위치의 값을 반환한다.
+     * @param {object} 대상 객체
+     * @param {...string}   하위 프로퍼티 문자열
+     * @returns {*} 반환된 값
+     * @example
+     *
+     var obj = {
+            'key1': 1,
+            'nested' : {
+                'key1': 11,
+                'nested': {
+                    'key1': 21
+                }
+            }
+        };
+
+
+     ne.util.pick(obj, 'nested', 'nested', 'key1');
+     => 21
+
+     ne.util.pick(obj, 'nested', 'nested', 'key2');
+     => undefined
+
+     var arr = ['a', 'b', 'c'];
+
+     ne.util.pick(arr, 1);
+     => 'b'
+     */
+    function pick() {
+        var args = arguments,
+            target = args[0],
+            length = args.length,
+            i;
+        try {
+            for (i = 1; i < length; i++) {
+                target = target[args[i]];
+            }
+            return target;
+        } catch(e) {
+            return;
+        }
+    }
+
     ne.util.extend = extend;
     ne.util.stamp = stamp;
+    ne.util.hasStamp = hasStamp;
     ne.util._resetLastId = resetLastId;
     ne.util.keys = Object.keys || keys;
     ne.util.compareJSON = compareJSON;
-})(window.ne);
-
-/**********
- * simulation.js
- **********/
-
-/**
- * @fileoverview
- * @author FE개발팀
- */
-
-(function(ne) {
-    'use strict';
-    if (!ne) {
-        ne = window.ne = {};
-    }
-    if (!ne.util) {
-        ne.util = window.ne.util = {};
-    }
+    ne.util.pick = pick;
 })(window.ne);
 
 /**********
@@ -1820,6 +2239,7 @@
 
 (function(ne) {
     'use strict';
+
     if (!ne) {
         ne = window.ne = {};
     }
@@ -1829,9 +2249,9 @@
 
     /**
      * 전달된 문자열에 모든 HTML Entity 타입의 문자열을 원래의 문자로 반환
-     * @method decodeHTMLEntity
      * @param {String} htmlEntity HTML Entity 타입의 문자열
      * @return {String} 원래 문자로 변환된 문자열
+     * @memberof ne.util
      * @example
      var htmlEntityString = "A &#39;quote&#39; is &lt;b&gt;bold&lt;/b&gt;"
      var result = decodeHTMLEntity(htmlEntityString); //결과값 : "A 'quote' is <b>bold</b>"
@@ -1842,11 +2262,12 @@
             return entities[m0] ? entities[m0] : m0;
         });
     }
+
     /**
      * 전달된 문자열을 HTML Entity 타입의 문자열로 반환
-     * @method encodeHTMLEntity
      * @param {String} html HTML 문자열
      * @return {String} HTML Entity 타입의 문자열로 변환된 문자열
+     * @memberof ne.util
      * @example
      var htmlEntityString = "<script> alert('test');</script><a href='test'>";
      var result = encodeHTMLEntity(htmlEntityString);
@@ -1858,9 +2279,11 @@
             return entities[m0] ? '&' + entities[m0] + ';' : m0;
         });
     }
+
     /**
      * html Entity 로 변환할 수 있는 문자가 포함되었는지 확인
      * @param {String} string
+     * @memberof ne.util
      * @return {boolean}
      */
     function hasEncodableString(string) {
@@ -1879,6 +2302,7 @@
 /**
  * @fileoverview 타입체크 모듈
  * @author FE개발팀
+ * @dependency collection.js
  */
 
 (function(ne) {
@@ -1893,53 +2317,28 @@
 
     /**
      * 값이 정의되어 있는지 확인(null과 undefined가 아니면 true를 반환한다)
-     * @param {*} obj
-     * @param {(String|Array)} [key]
+     * @param {*} param
      * @returns {boolean}
      * @example
      *
-     * var obj = {a: {b: {c: 1}}};
-     * a 가 존재하는지 확인한다(존재함, true반환)
-     * ne.util.isExisty(a);
-     * => true;
-     * a 에 속성 b 가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b');
-     * => true;
-     * a 의 속성 b에 c가 존재하는지 확인한다.(존재함, true반환)
-     * ne.util.isExisty(a, 'b.c');
-     * => true;
-     * a 의 속성 b에 d가 존재하는지 확인한다.(존재하지 않음, false반환)
-     * ne.util.isExisty(a, 'b.d');
-     * => false;
+     *
+     * ne.util.isExisty(''); //true
+     * ne.util.isExisty(0); //true
+     * ne.util.isExisty([]); //true
+     * ne.util.isExisty({}); //true
+     * ne.util.isExisty(null); //false
+     * ne.util.isExisty(undefined); //false
+     * @memberOf ne.util
      */
-    function isExisty(obj, key) {
-        if (arguments.length < 2) {
-            return !isNull(obj) && !isUndefined(obj);
-        }
-        if (!isObject(obj)) {
-            return false;
-        }
-
-        key = isString(key) ? key.split('.') : key;
-
-        if (!isArray(key)) {
-            return false;
-        }
-        key.unshift(obj);
-
-        var res = ne.util.reduce(key, function(acc, a) {
-            if (!acc) {
-                return;
-            }
-            return acc[a];
-        });
-        return !isNull(res) && !isUndefined(res);
+    function isExisty(param) {
+        return param != null;
     }
 
     /**
      * 인자가 undefiend 인지 체크하는 메서드
-     * @param obj
+     * @param {*} obj 평가할 대상
      * @returns {boolean}
+     * @memberOf ne.util
      */
     function isUndefined(obj) {
         return obj === undefined;
@@ -1947,8 +2346,9 @@
 
     /**
      * 인자가 null 인지 체크하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @returns {boolean}
+     * @memberOf ne.util
      */
     function isNull(obj) {
         return obj === null;
@@ -1958,8 +2358,9 @@
      * 인자가 null, undefined, false가 아닌지 확인하는 메서드
      * (0도 true로 간주한다)
      *
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isTruthy(obj) {
         return isExisty(obj) && obj !== false;
@@ -1968,8 +2369,9 @@
     /**
      * 인자가 null, undefined, false인지 확인하는 메서드
      * (truthy의 반대값)
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isFalsy(obj) {
         return !isTruthy(obj);
@@ -1980,29 +2382,32 @@
 
     /**
      * 인자가 arguments 객체인지 확인
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isArguments(obj) {
         var result = isExisty(obj) &&
-            ((toString.call(obj) === '[object Arguments]') || 'callee' in obj);
+            ((toString.call(obj) === '[object Arguments]') || !!obj.callee);
 
         return result;
     }
 
     /**
      * 인자가 배열인지 확인
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isArray(obj) {
-        return toString.call(obj) === '[object Array]';
+        return obj instanceof Array;
     }
 
     /**
      * 인자가 객체인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isObject(obj) {
         return obj === Object(obj);
@@ -2010,44 +2415,105 @@
 
     /**
      * 인자가 함수인지 확인하는 메서드
-     * @param {*} obj
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isFunction(obj) {
+        return obj instanceof Function;
+    }
+
+    /**
+     * 인자가 숫자인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isNumber(obj) {
+        return typeof obj === 'number' || obj instanceof Number;
+    }
+
+    /**
+     * 인자가 문자열인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isString(obj) {
+        return typeof obj === 'string' || obj instanceof String;
+    }
+
+    /**
+     * 인자가 불리언 타입인지 확인하는 메서드
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isBoolean(obj) {
+        return typeof obj === 'boolean' || obj instanceof Boolean;
+    }
+
+
+    /**
+     * 인자가 배열인지 확인.
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isArraySafe(obj) {
+        return toString.call(obj) === '[object Array]';
+    }
+
+    /**
+     * 인자가 함수인지 확인하는 메서드
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
+     * @return {boolean}
+     * @memberOf ne.util
+     */
+    function isFunctionSafe(obj) {
         return toString.call(obj) === '[object Function]';
     }
 
     /**
      * 인자가 숫자인지 확인하는 메서드
-     * @param {*} obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
-    function isNumber(obj) {
+    function isNumberSafe(obj) {
         return toString.call(obj) === '[object Number]';
     }
 
     /**
      * 인자가 문자열인지 확인하는 메서드
-     * @param obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
-    function isString(obj) {
+    function isStringSafe(obj) {
         return toString.call(obj) === '[object String]';
     }
 
     /**
      * 인자가 불리언 타입인지 확인하는 메서드
-     * @param {*} obj
+     * <br>iframe 사용할 경우 부모 자식 window 간 타입 체크를 위해 사용한다.
+     * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
-    function isBoolean(obj) {
+    function isBooleanSafe(obj) {
         return toString.call(obj) === '[object Boolean]';
     }
 
     /**
      * 인자가 HTML Node 인지 검사한다. (Text Node 도 포함)
-     * @param {HTMLElement} html
+     * @param {*} html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
+     * @memberOf ne.util
      */
     function isHTMLNode(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -2055,10 +2521,12 @@
         }
         return !!(html && html.nodeType);
     }
+
     /**
      * 인자가 HTML Tag 인지 검사한다. (Text Node 제외)
-     * @param {HTMLElement} html
+     * @param {*} html 평가할 대상
      * @return {Boolean} HTMLElement 인지 여부
+     * @memberOf ne.util
      */
     function isHTMLTag(html) {
         if (typeof(HTMLElement) === 'object') {
@@ -2066,16 +2534,21 @@
         }
         return !!(html && html.nodeType && html.nodeType === 1);
     }
+
     /**
      * null, undefined 여부와 순회 가능한 객체의 순회가능 갯수가 0인지 체크한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isEmpty(obj) {
-        var key,
-            hasKey = false;
+        var hasKey = false;
 
         if (!isExisty(obj)) {
+            return true;
+        }
+
+        if (isString(obj) && obj === '') {
             return true;
         }
 
@@ -2100,6 +2573,7 @@
      * isEmpty 메서드와 반대로 동작한다.
      * @param {*} obj 평가할 대상
      * @return {boolean}
+     * @memberOf ne.util
      */
     function isNotEmpty(obj) {
         return !isEmpty(obj);
@@ -2113,11 +2587,16 @@
     ne.util.isFalsy = isFalsy;
     ne.util.isArguments = isArguments;
     ne.util.isArray = Array.isArray || isArray;
+    ne.util.isArraySafe = Array.isArray || isArraySafe;
     ne.util.isObject = isObject;
     ne.util.isFunction = isFunction;
+    ne.util.isFunctionSafe = isFunctionSafe;
     ne.util.isNumber = isNumber;
+    ne.util.isNumberSafe = isNumberSafe;
     ne.util.isString = isString;
+    ne.util.isStringSafe = isStringSafe;
     ne.util.isBoolean = isBoolean;
+    ne.util.isBooleanSafe = isBooleanSafe;
     ne.util.isHTMLNode = isHTMLNode;
     ne.util.isHTMLTag = isHTMLTag;
     ne.util.isEmpty = isEmpty;
@@ -2149,8 +2628,7 @@
     /**
      * 팝업 컨트롤 클래스
      * @constructor
-     * @exports Popup
-     * @class
+     * @memberof ne.util
      */
     function Popup() {
 
@@ -2180,7 +2658,6 @@
 
     /**
      * 현재 윈도우가 관리하는 팝업 창 리스트를 반환합니다.
-     * @method getPopupList
      * @param {String} [key] key에 해당하는 팝업을 반환한다
      * @returns {Object} popup window list object
      */
@@ -2431,7 +2908,7 @@
 
         if (useIEPostBridge) {
             url = this.postDataBridgeUrl + '?storageKey=' + encodeURIComponent(popupName) +
-                '&redirectUrl=' + encodeURIComponent(url);
+            '&redirectUrl=' + encodeURIComponent(url);
             if (!window.localStorage) {
                 alert('IE11브라우저의 문제로 인해 이 기능은 브라우저의 LocalStorage 기능을 활성화 하셔야 이용하실 수 있습니다');
             } else {

@@ -23,8 +23,8 @@ Virtual Keyboard
 ![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png)
 
 ## Dependency
-* jquery: v1.8.3
-* ne-code-snippet: v1.0.2
+* jquery: ~1.8.3
+* ne-code-snippet: ~1.0.2
 
 ## Test environment
 * PC
@@ -42,4 +42,4 @@ Virtual Keyboard
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a> | 배포 | 2015.03 | NHNEnt. FE 개발팀 이제인 <jein.yi@nhnent.com> |
+| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a> | 배포 | 2015.03 | FE개발팀 이제인 <jein.yi@nhnent.com> |

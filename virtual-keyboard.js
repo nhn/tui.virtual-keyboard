@@ -1,4 +1,4 @@
-/*!Component-VirtualKeyboard v1.0.0 | NHN Entertainment*/
+/*!component-virtual-keyboard v1.0.0 | NHN Entertainment*/
 (function() {
 /**
  * @fileoverview 유저의 키입력 정보를 캡쳐하는 모듈
@@ -6,9 +6,7 @@
  * @dependency jquery-1.8.3.min.js, common.js
  */
 
-if (!ne.component) {
-    ne.component = {};
-}
+ne.util.defineNamespace('ne.component');
 
 /**
  * 클릭 또는 터치로 사용자 입력을 받는 가상키보드 컴포넌트
