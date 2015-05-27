@@ -1,8 +1,6 @@
-VirtualKeyboard
-======================
-가상키보드 컴포넌트<br>
-실제 키보드가 아닌 가상의 키보드를 만들어, 숫자, 영문, 한글, 특수문자 등의 키 입력 효과를 제공합니다.<br>
-PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 터치를 이용합니다.
+Virtual Keyboard
+===============
+가상키보드 컴포넌트<br>실제 키보드가 아닌 가상의 키보드를 만들어, 숫자, 영문, 한글, 특수문자 등의 키 입력 효과를 제공합니다.<br>PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 터치를 이용합니다.
 
 ## Feature
 * 가상의 키보드를 이용한 키입력을 제공
@@ -12,38 +10,36 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 * 키가 입력될 때마다 등록된 콜백함수로 입력된 값이 인덱스를 전달
 * 가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능
 
-## Sample Image
-* 일반 가상키보드<br>
-![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vknormal.png)<br><br>
-* 숫자용 가상키보드<br>
-![alt tag](https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png)
-
 ## Documentation
-* **API** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/
+* API : https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0
+* Tutorial : https://github.nhnent.com/fe/component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
 * **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-mobile.html
-* **Tutorial** - https://github.nhnent.com/fe/component-virtual-keyboard/wiki/%EA%B0%80%EC%83%81%ED%82%A4%EB%B3%B4%EB%93%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%A0%81%EC%9A%A9%EB%B0%A9%EB%B2%95
-* **CI** - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
+* CI : http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
+
+## Sample Image
+* 일반키보드<br>
+![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vknormal.png)<br><br>
+* 숫자용키보드<br>
+![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png)
 
 ## Dependency
-* code-snippet : https://github.nhnent.com/fe/code-snippet
-* jquery 1.8.3
+* jquery: v1.8.3
+* ne-code-snippet: v1.0.2
 
 ## Test environment
-* browser : 
-   * IE7~11
-   * Chrome
-   * Firefox
-   
+* PC
+	* IE7~11
+	* Chrome
+	* Firefox
+
+
 ## Download/Install
-* Bower: 
-   * 최신버전`bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
-   * 특정버전 `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git[#tag]"`
+* Bower:
+   * 최신버전 : `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
+   * 특정버전 : `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git[#tag]"`
 * Download: https://github.nhnent.com/fe/component-virtual-keyboard
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/">1.0.0</a> | 배포 | 2015.03 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
-| 0.1.0 | 최초개발 | 2015.02 | FE 개발팀 이제인 <jein.yi@nhnent.com> |
-
-
+| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a> | 배포 | 2015.03 | NHNEnt. FE 개발팀 이제인 <jein.yi@nhnent.com> |
