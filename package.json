@@ -55,6 +55,11 @@
     "doc": "./node_modules/.bin/jsdoc -c conf.json"
   },
   "history" : {
+    "1.0.0a": {
+      "content": "defnieNamespace 적용",
+      "date" : "2015.05",
+      "author": "이제인 <jein.yi@nhnent.com>"
+    },
     "1.0.0": {
       "content": "배포",
       "date" : "2015.03",
