@@ -14,7 +14,7 @@
     "일반키보드": "![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vknormal.png)<br><br>",
     "숫자용키보드": "![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png)"
   },
-  "samplePage": "tutorial-mobile.html",
+  "samplePage": "desktop.html",
   "tutorial": "가상키보드",
   "dependency": [
     "jquery#~1.8.3",

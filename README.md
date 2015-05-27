@@ -13,7 +13,7 @@ Virtual Keyboard
 ## Documentation
 * **API** : https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0
 * **Tutorial** : https://github.nhnent.com/fe/component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
-* **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-mobile.html
+* **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-desktop.html
 * **CI** : http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
 
 ## Sample Image
