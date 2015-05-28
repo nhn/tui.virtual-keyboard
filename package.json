@@ -48,21 +48,21 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-requirejs": "^0.2.2",
     "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "requirejs": "^2.1.14",
-    "readme-builder": "https://github.com/jein-yi/readme-builder.git"
+    "readme-builder": "git+https://github.com/jein-yi/readme-builder.git",
+    "requirejs": "^2.1.14"
   },
   "scripts": {
     "doc": "./node_modules/.bin/jsdoc -c conf.json"
   },
-  "history" : {
+  "history": {
     "1.0.0a": {
       "content": "defnieNamespace 적용",
-      "date" : "2015.05",
+      "date": "2015.05",
       "author": "이제인 <jein.yi@nhnent.com>"
     },
     "1.0.0": {
       "content": "배포",
-      "date" : "2015.03",
+      "date": "2015.03",
       "author": "이제인 <jein.yi@nhnent.com>",
       "hasAPI": true
     }
