@@ -46,9 +46,7 @@
 
 
     <section>
-        <article><div class="readme"><h1>VirtualKeyboard</h1><p>가상키보드 컴포넌트<br>
-실제 키보드가 아닌 가상의 키보드를 만들어, 숫자, 영문, 한글, 특수문자 등의 키 입력 효과를 제공합니다.<br>
-PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 터치를 이용합니다.</p>
+        <article><div class="readme"><h1>Virtual Keyboard</h1><p>가상키보드 컴포넌트<br>실제 키보드가 아닌 가상의 키보드를 만들어, 숫자, 영문, 한글, 특수문자 등의 키 입력 효과를 제공한다.<br>PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 터치를 이용한다.</p>
 <h2>Feature</h2><ul>
 <li>가상의 키보드를 이용한 키입력을 제공</li>
 <li>모바일, 데스크탑 환경을 모두 지원</li>
@@ -57,24 +55,36 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 <li>키가 입력될 때마다 등록된 콜백함수로 입력된 값이 인덱스를 전달</li>
 <li>가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능</li>
 </ul>
-<h2>Sample Image</h2><ul>
-<li>일반 가상키보드<br>
-<img src="https://github.nhnent.com/pages/fe/component-virtual-keyboard/vknormal.png" alt="alt tag"><br><br></li>
-<li>숫자용 가상키보드<br>
-<img src="https://github.nhnent.com/pages/fe/component-virtual-keyboard/vksample.png" alt="alt tag"></li>
-</ul>
 <h2>Documentation</h2><ul>
-<li><strong>API</strong> - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/</li>
-<li><strong>Sample</strong> - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-mobile.html</li>
-<li><strong>CI</strong> - http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/</li>
+<li><strong>API</strong> : https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0</li>
+<li><strong>Tutorial</strong> : https://github.com/nhnent/fe.component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법</li>
+<li><strong>Sample</strong> - https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/tutorial-desktop.html</li>
+</ul>
+<h2>Sample Image</h2><ul>
+<li>일반키보드<br>
+<img src="https://nhnent.github.io/fe.component-virtual-keyboard/vknormal.png" alt="alt tag"><br><br></li>
+<li>숫자용키보드<br>
+<img src="https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png" alt="alt tag"></li>
 </ul>
 <h2>Dependency</h2><ul>
-<li>code-snippet : https://github.nhnent.com/fe/share-code-snippet</li>
-<li>jquer 1.8.3</li>
+<li>jquery: ~1.8.3</li>
+<li>ne-code-snippet: ~1.0.2</li>
+</ul>
+<h2>Test environment</h2><ul>
+<li>PC<ul>
+<li>IE7~11</li>
+<li>Chrome</li>
+<li>Firefox</li>
+</ul>
+</li>
 </ul>
 <h2>Download/Install</h2><ul>
-<li>Bower: <code>bower install &quot;git+http://3c672057a1ac16c4e6f1baaba73e24d5270ef453:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#version&quot;</code></li>
-<li>Download: https://github.nhnent.com/fe/component-virtual-keyboard</li>
+<li>Bower:<ul>
+<li>최신버전 : <code>bower install ne-component-virtual-keyboard#master</code></li>
+<li>특정버전 : <code>bower install ne-component-virtual-keyboard[#tag]</code></li>
+</ul>
+</li>
+<li>Download: https://github.com/nhnent/fe.component-virtual-keyboard</li>
 </ul>
 <h2>History</h2><table>
 <thead>
@@ -87,16 +97,16 @@ PC환경에서는 마우스 클릭을 이용하며, 모바일 환경에서는 �
 </thead>
 <tbody>
 <tr>
-<td>1.0.0</td>
-<td>배포</td>
-<td>2015.03</td>
-<td>FE 개발팀 이제인 <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x6a;&#101;&#105;&#x6e;&#x2e;&#x79;&#105;&#x40;&#x6e;&#x68;&#x6e;&#x65;&#110;&#116;&#46;&#99;&#111;&#x6d;">&#x6a;&#101;&#105;&#x6e;&#x2e;&#x79;&#105;&#x40;&#x6e;&#x68;&#x6e;&#x65;&#110;&#116;&#46;&#99;&#111;&#x6d;</a></td>
+<td>1.0.0a</td>
+<td>defnieNamespace 적용</td>
+<td>2015.05</td>
+<td>FE개발팀 이제인 <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x6a;&#x65;&#105;&#x6e;&#46;&#x79;&#105;&#64;&#x6e;&#104;&#x6e;&#x65;&#110;&#x74;&#46;&#99;&#111;&#109;">&#x6a;&#x65;&#105;&#x6e;&#46;&#x79;&#105;&#64;&#x6e;&#104;&#x6e;&#x65;&#110;&#x74;&#46;&#99;&#111;&#109;</a></td>
 </tr>
 <tr>
-<td>0.1.0</td>
-<td>최초개발</td>
-<td>2015.02</td>
-<td>FE 개발팀 이제인 <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x6a;&#x65;&#x69;&#x6e;&#46;&#x79;&#105;&#x40;&#110;&#x68;&#x6e;&#101;&#x6e;&#116;&#x2e;&#99;&#x6f;&#109;">&#x6a;&#x65;&#x69;&#x6e;&#46;&#x79;&#105;&#x40;&#110;&#x68;&#x6e;&#101;&#x6e;&#116;&#x2e;&#99;&#x6f;&#109;</a></td>
+<td><a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a></td>
+<td>배포</td>
+<td>2015.03</td>
+<td>FE개발팀 이제인 <a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#106;&#101;&#x69;&#x6e;&#46;&#x79;&#105;&#64;&#x6e;&#x68;&#110;&#101;&#110;&#116;&#46;&#x63;&#111;&#x6d;">&#106;&#101;&#x69;&#x6e;&#46;&#x79;&#105;&#64;&#x6e;&#x68;&#110;&#101;&#110;&#116;&#46;&#x63;&#111;&#x6d;</a></td>
 </tr>
 </tbody>
 </table></div></article>
