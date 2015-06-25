@@ -11,10 +11,10 @@ Virtual Keyboard
 * 가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능
 
 ## Documentation
-* **API** : https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0
-* **Tutorial** : https://github.nhnent.com/fe/component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
-* **Sample** - https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0/tutorial-desktop.html
-* **CI** : http://fe.nhnent.com:8080/jenkins/job/component-virtual-keyboard/
+* **API** : https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0
+* **Tutorial** : https://github.com/nhnent/fe.component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
+* **Sample** - https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/tutorial-desktop.html
+
 
 ## Sample Image
 * 일반키보드<br>
@@ -35,9 +35,9 @@ Virtual Keyboard
 
 ## Download/Install
 * Bower:
-   * 최신버전 : `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git#master"`
-   * 특정버전 : `bower install "git+http://70327b4564c7a80eb61724056876b960290946dd:x-oauth-basic@github.nhnent.com/fe/component-virtual-keyboard.git[#tag]"`
-* Download: https://github.nhnent.com/fe/component-virtual-keyboard
+   * 최신버전 : `bower install ne-component-virtual-keyboard#master`
+   * 특정버전 : `bower install ne-component-virtual-keyboard[#tag]`
+* Download: https://github.com/nhnent/fe.component-virtual-keyboard
 
 ## History
 | Version | Description | Date | Developer |
