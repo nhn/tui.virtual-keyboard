@@ -44,3 +44,7 @@ Virtual Keyboard
 | ---- | ---- | ---- | ---- |
 | 1.0.0a | defnieNamespace 적용 | 2015.05 | FE개발팀 이제인 <jein.yi@nhnent.com> |
 | <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a> | 배포 | 2015.03 | FE개발팀 이제인 <jein.yi@nhnent.com> |
+
+
+## LICENSE
+[MIT 라이선스](LICENSE)로 자유롭게 사용할 수 있습니다.
