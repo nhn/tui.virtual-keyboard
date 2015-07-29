@@ -11,7 +11,7 @@ Virtual Keyboard
 * 가상키보드를 열고 닫을때, 키보드의 자판을 변경할때 사용자가 콜백을 등록하여 사용 가능
 
 ## Documentation
-* **API** : https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0
+* **API** : https://nhnent.github.io/fe.component-virtual-keyboard/lastest
 * **Tutorial** : https://github.com/nhnent/fe.component-virtual-keyboard/wiki/가상키보드-컴포넌트-적용방법
 * **Sample** - https://nhnent.github.io/fe.component-virtual-keyboard/1.0.0/tutorial-desktop.html
 
