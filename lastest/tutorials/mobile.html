@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="css/checkout_popup.css">
+    <title>결제 비밀번호 변경</title>
+    <style>
+        .lst_keypad .subcon {width:33.3%; height:30px;}
+    </style>
+</head>
+<body>
+<div id="wrap" class="wrap" style="width:300px;">
+    <input type="password" id="keyboardInput" class="inputText" style="width:200px;" />
+    <div id="content" class="content keypad">
+        <div class="form_lst form_lst_card">
+            <div class="form_row">
+                <ul id="vkeyboard" class="lst_sub lst_keypad">
+                    <!-- [D] 키의 배열은 li내 span.btn_key 요소로 제어해주시면 됩니다. -->
+                    <!--
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">1</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">2</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">3</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">4</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">5</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">6</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">7</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">8</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">9</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn btn_reload"><button type="button">재배열</button></span>
+                        </li>
+                        <li class="subcon">
+                            <span class="btn_key"><button type="button">0</button></span>
+                        </li>
+                        <li class="subcon last">
+                        <span class="btn btn_del"><button type="button"><span class="sp">삭제</span></button></span>
+                        </li>
+                        -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/Component-VirtualKeyboard.js"></script>
+<script>
+
+    // KEY DATA,
+    // 재배열, 특수문자 사용시 서버에서 내려줘야 하는 부분
+    var keys = {
+        symbol: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")"],
+        number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
+    };
+
+    var crntkeyType = 'number',
+        selectedType = 'number';
+
+    // keypress
+    var keyPressCallback = function(index) {
+        var str = keys[selectedType][index];
+        var dec = encodeURIComponent($('#keyboardInput').val());
+        dec =  dec + encodeURIComponent(str);
+        $('#keyboardInput').val(decodeURIComponent(dec));
+    };
+
+    // delete
+    var deleteCallback = function(index) {
+        var str = $('#keyboardInput').val();
+        str = str.substr(0, str.length-1);
+        $('#keyboardInput').val(str);
+    };
+
+    // symbol
+    var symbolCallback = function() {
+        if(crntkeyType === 'symbol') {
+            $('.symbolic').html('숫자')
+        } else {
+            $('.symbolic').html('#+=');
+        }
+    };
+
+    // clear
+    var clearCallback = function() {
+        $('#keyboardInput').val('');
+    };
+
+    //shuffle, language, caps, symbol
+    var getKeysCallback = function(keyType) {
+        crntkeyType = keyType;
+        return shuffle(keys[keyType]);
+
+    };
+
+    // temp
+    function shuffle(o){ //v1.0
+        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    };
+
+
+    // 생성
+    var vkeyboard = new ne.component.VirtualKeyboard({
+        container: 'vkeyboard',
+        keyType: 'number',
+        functions: {
+            symbol: 12,
+            remove: 2,
+            clear: 13,
+            shuffle: 14
+        },
+        keys: keys.number,
+        template: {
+            key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
+            blank: '<li class="subcon"><span class="btn_key"></span></li>',
+            shuffle: '<li class="subcon last"><span class="btn_key"><button class="special shuffles" type="button">SHUFFLE</button></span></li>',
+            symbol: '<li class="subcon"><span class="btn_key"><button class="special symbolic" type="button">#+=</button></span></li>',
+            remove: '<li class="subcon"><span class="btn_key"><button class="special" type="button">DEL</button></span></li>',
+            clear: '<li class="subcon"><span class="btn_key"><button class="special" type="button">CLEAR</button></span></li>'
+        },
+        callback: {
+            key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+            remove: deleteCallback,
+            symbol: symbolCallback,
+            clear: clearCallback,
+            getKeys: getKeysCallback
+        }
+    });
+</script>
+</body>
+</html>
+
+
+
