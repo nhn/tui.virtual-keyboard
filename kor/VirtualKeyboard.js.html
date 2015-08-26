@@ -21,7 +21,7 @@
     </div>
 
     <div class="body">
-        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">Default Example</a></li><li class="item"><a href="tutorial-mobile.html">Numeric Example</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
+        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">기본 예제</a></li><li class="item"><a href="tutorial-mobile.html">숫자용 예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
         <div id="main" class="main">
 
 
@@ -30,20 +30,23 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @fileoverview The module that capture keys typed from user.
- * @author NHN Ent. FE dev team. &lt;dl_javascript@nhnent.com>
+ * @fileoverview 유저의 키입력 정보를 캡쳐하는 모듈
+ * @author FE개발팀 이제인 &lt;jein.yi@nhnent.com>
  * @dependency jquery-1.8.3.min.js, common.js
  */
 
+ne.util.defineNamespace('ne.component');
+
 /**
- * A virtual keyboard component is capturing kyes that is typed from user.
+ * 클릭 또는 터치로 사용자 입력을 받는 가상키보드 컴포넌트
  * @example
  *
- * // Create VirtualKeyboard instance with array of keyboard
+ * // 인스턴스 생성
+ * // 자판 배열을 받아와 가상키보드를 생성한다.
  * var vkeyboard = new ne.component.VirtualKeyboard({
- *      container: 'vkeyboard', // container element id
- *      keyType: 'number', // keyboard type
- *      functions: { // function key location
+ *      container: 'vkeyboard', // 컨테이너 엘리먼트 아이디
+ *      keyType: 'number', // 키보드 타입
+ *      functions: { // 기능키 위치
  *          shuffle: 0,
  *          language: 2,
  *          caps: 3,
@@ -54,24 +57,24 @@
  *          close: 11,
  *          done: 20
  *      },
- *      keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // all keys but function keys.
- *      template: { // html templatet for key elements
+ *      keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // 사용키값
+ *      template: { // 기능키 템플릿
  *          key: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button type="button">{KEY}&lt;/button>&lt;/span>&lt;/li>',
  *          blank: '&lt;li class="subcon">&lt;span class="btn_key">&lt;/span>&lt;/li>',
  *          shuffle: '&lt;li class="subcon">&lt;span class="btn btn_reload">&lt;button type="button" value="shuffle">재배열&lt;/button>&lt;/span>&lt;/li>',
  *          remove: '&lt;li class="subcon last">&lt;span class="btn btn_del">&lt;button type="button" value="remove">&lt;span class="sp">삭제&lt;/span>&lt;/button>&lt;/span>&lt;/li>'
  *      },
- *      callback: { // callback for function or normal keys
- *          key: function() { //run },          // A callback that is called when user type or touch key (but function key)
+ *      callback: { // 기능키 동작 콜백
+ *          key: function() { //run },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
  *          remove: function() { //run },
- *          getKeys: function() { //run }        // A callback that called  rearrange keys
+ *          getKeys: function() { //run }        // 재배열시 키목록을 새로 요청하는 콜백
  *      }
  * });
  * @constructor ne.component.VirtualKeyboard
  */
-var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboard.prototype */{
+ne.component.VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboard.prototype */{
     /**
-     * Default html template for keys
+     * 디폴트 템플릿
      * @readonly
      * @type {object}
      * @private
@@ -82,85 +85,85 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * A map data for fixed keys(function keys)
+     * 고정위치를 갖는 키들의 위치 인덱스 맵데이터
      * @type {object}
      * @private
      */
     _fixedKeys: {},
 
     /**
-     * A array for unfixed keys' order.
+     * 유동위치를 갖는 키들의 배열순서
      * @type {array}
      * @private
      */
     _rawKeys: [],
 
     /**
-     * A array for blank keys' order
+     * 각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서
      * @type {array}
      * @private
      */
     _identifiedRawKeys: [],
 
-    /*** 
-     * The map data for vertual keyboard
+    /**
+     * 가상 키보드의 키 맵데이터
      * @type {object}
      * @private
      */
     _keyMap: {},
 
     /**
-     * A array of all of keys(fixed, unfixed)' order
+     * 가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서
      * @type {array}
      * @private
      */
     _keySequences: [],
 
     /**
-     * A map for callback supposed to run for keys
+     * 키타입별 수행해야하는 콜백함수 맵데이터
      * @type {object}
      * @private
      */
     _callback: {},
 
     /**
-     * Key type of current keyboard
+     * 현재 키패드의 키타입
      * @type {string}
      * @private
      */
     _currentKeyType: null,
 
     /**
-     * Whether english keyboard or not
+     * 영문 여부
      * @type {boolean}
      * @private
      */
     _isEnglish: false,
 
     /**
-     * Whether symbol letter keyboard or not
+     * 특수문자 여부
      * @type {boolean}
      * @private
      */
     _isSymbol: false,
 
     /**
-     * whether caps lock or not
+     * caps lock 여부
      * @type {boolean}
      * @private
      */
     _isCapsLock: false,
 
     /**
-     * The documentFragment inpromtu pool for saving key element
+     * 키 엘리먼트의 pool로 사용할 documentFragment
      * @type {element}
      * @private
      */
     _documentFragment: null,
 
     /**
-     * Initalize 
-	 * @param {object} [options] Options to initialize component
+     * 초기화 함수
+     * @param {object} options 가상키보드를 초기화 옵션
      */
     init: function(options) {
         this._initVariables(options || {});
@@ -173,8 +176,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Initialize private files
-     * @param {object} options  Options to initialize keyboard
+     * 변수 초기화 함수
+     * @param {object} options 가상키보드를 초기화 옵션
      * @private
      */
     _initVariables: function(options) {
@@ -187,7 +190,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Binds event
+     * 이벤트 바인딩
      * @private
      */
     _attachEvent: function() {
@@ -198,8 +201,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Handler for click or touch buttons
-     * @param {object} event A event object
+     * 버튼 클릭/터치 이벤트 처리함수
+     * @param event 이벤트 객체
      * @private
      */
     _pressKeyHandler: function(event) {
@@ -225,8 +228,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Returns clicked/touched elements of keys
-     * @param {element} targetElement A clicked/touched html element
+     * 클릭/터치된 키의 버튼 엘리먼트를 반환한다.
+     * @param {element} targetElement 클릭/터치된 타켓 엘리먼트
      * @returns {*}
      * @private
      */
@@ -239,20 +242,20 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Create keys array for virtual keyboard
+     * 가상키보드의 자판을 배열정보를 생성한다.
      * @private
      */
     _arrangeKeySequence: function() {
         var sortedKeys;
 
-        // Sort fixed keys by index
+        // 고정위치의 키배열을 인덱스 순으로 정렬한다.
         sortedKeys = this._sortFixedKeys();
 
-        // Copy recieved key array
+        // 전달받은 키배열을 복사한다.
         this._identifyRawKeys();
         this._copyArray(this._identifiedRawKeys, this._keySequences);
 
-        // Insert fixed key 
+        // 고정키를 고정위치에 삽입한다.
         ne.util.forEach(sortedKeys, function(value, index) {
             if(ne.util.isExisty(value)) {
                 this._keySequences.splice(this._fixedKeys[value], 0, value);
@@ -261,7 +264,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Inject key value to find blank key
+     * 공백키를 구분할수 있게 키값을 부여한다.
      * @private
      */
     _identifyRawKeys: function() {
@@ -276,10 +279,10 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Copy array (not deep copy)
-     * @param {array} originalArray Original array
-     * @param {array} copyArray New array
-     * @returns {*} 
+     * 배열을 복사한다. (deep copy는 지원하지 않는다. 덮어쓰기 한다.)
+     * @param {array} originalArray 원본배열
+     * @param {array} copyArray 복사본배열
+     * @returns {*} 복사본배열
      * @private
      */
     _copyArray: function(originalArray, copyArray) {
@@ -301,8 +304,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Sort fixed keys.
-     * @returns {Array} Fixed keys' array that is sorted by index
+     * 고정위치의 키배열을 정렬한다.
+     * @returns {Array} 인덱스 순으로 정렬된 고정위치 키목록
      * @private
      */
     _sortFixedKeys : function() {
@@ -318,7 +321,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Create map data by key information
+     * 키정보를 가공하여 맵데이터를 만든다.
      * @private
      */
     _refineKeyMap: function() {
@@ -327,7 +330,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Redefine fixed keys map
+     * 고정키 정보를 가공하여 맵데이터를 만든다.
      * @private
      */
     _refineFixedKeys: function() {
@@ -342,16 +345,16 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Redefine unfixed keys map
+     * 유동키 정보를 가공하여 맵데이터를 만든다.
      * @private
      */
     _refineFloatingKeys: function() {
         ne.util.forEach(this._identifiedRawKeys, function(value, index) {
             if(ne.util.isExisty(this._keyMap[value])) {
-                // Exist case, only change position index
+                // 이미 맵데이터는 생성되있는 상태에서 자판재배열등으로 포지션인덱스만 바뀌는 경우
                 this._keyMap[value].positionIndex = this._getPositionIndex(value);
             } else {
-                // Create new map data
+                // 맵데이터를 최초 생성하는 경우
                 this._keyMap[value] = {
                     key: value,
                     rawIndex: index,
@@ -363,9 +366,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Return key type.
-     * @param {string} key A key value 
-     * @returns {string} A key type
+     * 해당 키의 키타입을 반환한다.
+     * @param key 키값
+     * @returns {string} 키타입
      * @private
      */
     _getKeyGroup: function(key) {
@@ -383,9 +386,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * eturn index keys in virtual keyboard
-     * @param {string} key A key value 
-     * @returns {number} A key index
+     * 가상키보드내 위치 인덱스를 반환한다.
+     * @param key 키값
+     * @returns {number} 위치인덱스
      * @private
      */
     _getPositionIndex: function(key) {
@@ -400,8 +403,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Initialize VirtualKeyboard.
-     * @param {string} containerId A container id
+     * 가상 키보드를 초기화 한다.
+     * @param {string} containerId 키보드 컨테이너
      * @private
      */
     _initKeyboard: function(containerId) {
@@ -410,8 +413,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Initialize container
-     * @param {string} containerId A container id
+     * 가상 키보드 컨테이너를 초기화 한다.
+     * @param {string} containerId 키보드 컨테이너
      * @private
      */
     _initContainer: function(containerId) {
@@ -428,7 +431,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Create VirtualKeyboard container
+     * 가상 키보드의 컨테이너를 생성한다.
      * @returns {element}
      * @private
      */
@@ -440,8 +443,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Return current time
-     * @returns {millisecond} Date time by millisecond
+     * 현재 시간을 반환하는 함수
+     * @returns {millisecond} 현재 시간의 millisecond
      * @private
      */
     _getTime: function() {
@@ -453,7 +456,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Arrange keys in virtual keyboard.
+     * 가상 키보드 안에 키를 배열한다.
      * @private
      */
     _arrangeKeys: function() {
@@ -468,9 +471,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Return template by key.
-     * @param {string} keyGroup A key type to create
-     * @param {string} key A key to create
+     * 해당 키의 템플릿을 반환한다.
+     * @param keyGroup 생성할 키 타입
+     * @param key 생성할 키 값
      * @returns {string}
      * @private
      */
@@ -490,9 +493,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Create key button and return.
-     * @param {string} key A keys to create
-     * @returns {element} A key button element
+     * 키 버튼을 생성하고, 반환한다.
+     * @param key 생성할 키 값
+     * @returns {element} 키 버튼 엘리먼트
      * @private
      */
     _createKeyElement: function(key) {
@@ -507,12 +510,12 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Shuffle the keys
-     * @param {array} rawKeys A keys that is shuffled
+     * 자판 재배열을 처리한다.
+     * @param {array} rawKeys 재배열된 키배열
      * @private
      */
     _reArrangeKeys: function(rawKeys) {
-        // Initailize exist keys
+        // 기존 키 정보 초기화
         this._rawKeys.length = 0;
         this._keySequences.length = 0;
 
@@ -523,9 +526,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Run custom callback
-     * @param {string} callbackKey The keys for callbaak function
-     * @param {number} rawIndex The typed index numberd
+     * 사용자 등록 콜백 수행함수
+     * @param {string} callbackKey 수행할 콜백함수 키
+     * @param {number} rawIndex 입력된 값의 인덱스 번호
      * @private
      */
     _excuteCallback: function(callbackKey, rawIndex) {
@@ -535,18 +538,18 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Get keyboard array
-     * @param {boolean} isCaseToggle Whether change case or not
+     * 자판의 배열정보를 받아온다.
+     * @param {boolean} isCaseToggle 대소문자 변환할지 여부
      * @private
      */
     _getRawKeys: function(isCaseToggle) {
         var rawKeys;
         if(ne.util.isExisty(this._callback, 'getKeys') &amp;&amp; ne.util.isFunction(this._callback.getKeys)) {
             if(isCaseToggle) {
-                // Not shuffled, only get other case array.
+                // 자판의 위치는 바꾸지 않고 대소문자 변환만한 배열정보를 받아온다.
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock, true);
             } else {
-                // Get new keys information array
+                // 자판의 배열정보를 새로 받아온다.
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock);
             }
         }
@@ -556,17 +559,17 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Shuffle keys.
+     * 자판을 재배열한다.
      */
     shuffle: function() {
-        // Reset exist values
+        // 기존 입력값 초기화
         this._keySequences.length = 0;
         this._initContainer();
         this._getRawKeys();
     },
 
     /**
-     * Toggle Eng/Kor.
+     * 한/영 자판을 변환한다.
      */
     language: function() {
         this._initContainer();
@@ -576,7 +579,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Change upper/lower case.
+     * 대소문자 변환을 한다.
      */
     caps: function() {
         this._initContainer();
@@ -585,7 +588,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Change symbol/number keys
+     * 특수키/숫자키 변환을 한다.
      */
     symbol: function() {
         this._initContainer();
@@ -595,25 +598,25 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Remove the last typed/touched value
+     * 마지막으로 입력된 값을 삭제한다.
      */
     remove: function() {
     },
 
     /**
-     * Reset all typed keys.
+     * 전체 입력값을 초기화한다.
      */
     clear: function() {
     },
 
     /**
-     * Insert blank
+     * 공백문자를 입력한다.
      */
     space: function() {
     },
 
     /**
-     * Open virtual keyboard
+     * 가상키보드를 연다.
      */
     open: function() {
         this.shuffle();
@@ -621,7 +624,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Close virtual keyboard
+     * 가상키보드를 닫는다.
      */
     close: function() {
         this.clear();
@@ -629,14 +632,12 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboar
     },
 
     /**
-     * Close viertual keyboard with complate button.
+     * 완료버튼을 처리한다.
      */
     done: function() {
         this.close();
     }
-});
-
-module.exports = VirtualKeyboard;</code></pre>
+});</code></pre>
         </article>
     </section>
 

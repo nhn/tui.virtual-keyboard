@@ -21,7 +21,7 @@
     </div>
 
     <div class="body">
-        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">Default Example</a></li><li class="item"><a href="tutorial-mobile.html">Numeric Example</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
+        <div id="navigation" class="navigation"><h3>Samples</h3><ul class="list samples"><li class="item"><a href="tutorial-desktop.html">기본 예제</a></li><li class="item"><a href="tutorial-mobile.html">숫자용 예제</a></li></ul><h3>Classes</h3><ul class="list classes"><li class="item" id="ne.component.VirtualKeyboard"><span class="title"><span class="p-item">ne.component.</span><a href="ne.component.VirtualKeyboard.html">VirtualKeyboard</a></span><span class="icon blue static">static</span><ul class="sublist members ne.component.VirtualKeyboard"></ul><ul class="sublist division ne.component.VirtualKeyboard"><li></li></ul><ul class="sublist methods ne.component.VirtualKeyboard"><span class="subtitle">Methods</span><li><a href="ne.component.VirtualKeyboard.html#caps">caps</a></li><li><a href="ne.component.VirtualKeyboard.html#clear">clear</a></li><li><a href="ne.component.VirtualKeyboard.html#close">close</a></li><li><a href="ne.component.VirtualKeyboard.html#done">done</a></li><li><a href="ne.component.VirtualKeyboard.html#init">init</a></li><li><a href="ne.component.VirtualKeyboard.html#language">language</a></li><li><a href="ne.component.VirtualKeyboard.html#open">open</a></li><li><a href="ne.component.VirtualKeyboard.html#remove">remove</a></li><li><a href="ne.component.VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="ne.component.VirtualKeyboard.html#space">space</a></li><li><a href="ne.component.VirtualKeyboard.html#symbol">symbol</a></li></ul></li></ul></div>
         <div id="main" class="main">
 
 
@@ -53,7 +53,7 @@
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line7">line 7</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line9">line 9</a></code>
                 </div>
             
         </h4>
@@ -67,7 +67,7 @@
 
     
     <div class="description">
-        <p>A virtual keyboard component is capturing kyes that is typed from user.</p>
+        <p>클릭 또는 터치로 사용자 입력을 받는 가상키보드 컴포넌트</p>
     </div>
     
 
@@ -134,11 +134,12 @@
     
         <h5>Example</h5>
         
-    <pre class="prettyprint"><code>// Create VirtualKeyboard instance with array of keyboard
+    <pre class="prettyprint"><code>// 인스턴스 생성
+// 자판 배열을 받아와 가상키보드를 생성한다.
 var vkeyboard = new ne.component.VirtualKeyboard({
-     container: 'vkeyboard', // container element id
-     keyType: 'number', // keyboard type
-     functions: { // function key location
+     container: 'vkeyboard', // 컨테이너 엘리먼트 아이디
+     keyType: 'number', // 키보드 타입
+     functions: { // 기능키 위치
          shuffle: 0,
          language: 2,
          caps: 3,
@@ -149,17 +150,17 @@ var vkeyboard = new ne.component.VirtualKeyboard({
          close: 11,
          done: 20
      },
-     keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // all keys but function keys.
-     template: { // html templatet for key elements
+     keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // 사용키값
+     template: { // 기능키 템플릿
          key: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button type="button">{KEY}&lt;/button>&lt;/span>&lt;/li>',
          blank: '&lt;li class="subcon">&lt;span class="btn_key">&lt;/span>&lt;/li>',
          shuffle: '&lt;li class="subcon">&lt;span class="btn btn_reload">&lt;button type="button" value="shuffle">재배열&lt;/button>&lt;/span>&lt;/li>',
          remove: '&lt;li class="subcon last">&lt;span class="btn btn_del">&lt;button type="button" value="remove">&lt;span class="sp">삭제&lt;/span>&lt;/button>&lt;/span>&lt;/li>'
      },
-     callback: { // callback for function or normal keys
-         key: function() { //run },          // A callback that is called when user type or touch key (but function key)
+     callback: { // 기능키 동작 콜백
+         key: function() { //run },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
          remove: function() { //run },
-         getKeys: function() { //run }        // A callback that called  rearrange keys
+         getKeys: function() { //run }        // 재배열시 키목록을 새로 요청하는 콜백
      }
 });</code></pre>
 
@@ -192,7 +193,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line93">line 93</a></code>
+            <code><a href="VirtualKeyboard.js.html#line96">line 96</a></code>
         </div>
         
     </h4>
@@ -202,7 +203,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>A map for callback supposed to run for keys</p>
+        <p>키타입별 수행해야하는 콜백함수 맵데이터</p>
     </div>
     
 
@@ -273,7 +274,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line100">line 100</a></code>
+            <code><a href="VirtualKeyboard.js.html#line103">line 103</a></code>
         </div>
         
     </h4>
@@ -283,7 +284,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>Key type of current keyboard</p>
+        <p>현재 키패드의 키타입</p>
     </div>
     
 
@@ -354,7 +355,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line128">line 128</a></code>
+            <code><a href="VirtualKeyboard.js.html#line131">line 131</a></code>
         </div>
         
     </h4>
@@ -364,7 +365,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>The documentFragment inpromtu pool for saving key element</p>
+        <p>키 엘리먼트의 pool로 사용할 documentFragment</p>
     </div>
     
 
@@ -435,7 +436,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line58">line 58</a></code>
+            <code><a href="VirtualKeyboard.js.html#line61">line 61</a></code>
         </div>
         
     </h4>
@@ -445,7 +446,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>A map data for fixed keys(function keys)</p>
+        <p>고정위치를 갖는 키들의 위치 인덱스 맵데이터</p>
     </div>
     
 
@@ -516,7 +517,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line72">line 72</a></code>
+            <code><a href="VirtualKeyboard.js.html#line75">line 75</a></code>
         </div>
         
     </h4>
@@ -526,7 +527,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>A array for blank keys' order</p>
+        <p>각각의 공백키를 구분할 수 있도록 키값을 부여한 배열순서</p>
     </div>
     
 
@@ -597,7 +598,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line121">line 121</a></code>
+            <code><a href="VirtualKeyboard.js.html#line124">line 124</a></code>
         </div>
         
     </h4>
@@ -607,7 +608,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>whether caps lock or not</p>
+        <p>caps lock 여부</p>
     </div>
     
 
@@ -678,7 +679,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line107">line 107</a></code>
+            <code><a href="VirtualKeyboard.js.html#line110">line 110</a></code>
         </div>
         
     </h4>
@@ -688,7 +689,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>Whether english keyboard or not</p>
+        <p>영문 여부</p>
     </div>
     
 
@@ -759,7 +760,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line114">line 114</a></code>
+            <code><a href="VirtualKeyboard.js.html#line117">line 117</a></code>
         </div>
         
     </h4>
@@ -769,7 +770,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>Whether symbol letter keyboard or not</p>
+        <p>특수문자 여부</p>
     </div>
     
 
@@ -835,12 +836,12 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
             
 <dt>
-    <h4 class="name" id="_keySequences">
-        <span class="type-signature"><span class="icon green">private</span> </span>_keySequences<span class="type-signature"> :array</span>
+    <h4 class="name" id="_keyMap">
+        <span class="type-signature"><span class="icon green">private</span> </span>_keyMap<span class="type-signature"> :object</span>
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line86">line 86</a></code>
+            <code><a href="VirtualKeyboard.js.html#line82">line 82</a></code>
         </div>
         
     </h4>
@@ -850,7 +851,88 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>A array of all of keys(fixed, unfixed)' order</p>
+        <p>가상 키보드의 키 맵데이터</p>
+    </div>
+    
+
+    <!--
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    -->
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    <!--
+    
+    -->
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="_keySequences">
+        <span class="type-signature"><span class="icon green">private</span> </span>_keySequences<span class="type-signature"> :array</span>
+        
+        <div class="container-source members">
+            <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
+            <code><a href="VirtualKeyboard.js.html#line89">line 89</a></code>
+        </div>
+        
+    </h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>가상 키보드의 전체 키들(고정위치 + 유동위치)의 배열순서</p>
     </div>
     
 
@@ -921,7 +1003,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line65">line 65</a></code>
+            <code><a href="VirtualKeyboard.js.html#line68">line 68</a></code>
         </div>
         
     </h4>
@@ -931,7 +1013,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>A array for unfixed keys' order.</p>
+        <p>유동위치를 갖는 키들의 배열순서</p>
     </div>
     
 
@@ -1002,7 +1084,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
         <div class="container-source members">
             <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-            <code><a href="VirtualKeyboard.js.html#line48">line 48</a></code>
+            <code><a href="VirtualKeyboard.js.html#line51">line 51</a></code>
         </div>
         
     </h4>
@@ -1012,7 +1094,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dd>
     
     <div class="description">
-        <p>Default html template for keys</p>
+        <p>디폴트 템플릿</p>
     </div>
     
 
@@ -1092,7 +1174,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line428">line 428</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line431">line 431</a></code>
                 </div>
             
         </h4>
@@ -1106,7 +1188,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Arrange keys in virtual keyboard.</p>
+        <p>가상 키보드 안에 키를 배열한다.</p>
     </div>
     
 
@@ -1182,7 +1264,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line214">line 214</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line217">line 217</a></code>
                 </div>
             
         </h4>
@@ -1196,7 +1278,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Create keys array for virtual keyboard</p>
+        <p>가상키보드의 자판을 배열정보를 생성한다.</p>
     </div>
     
 
@@ -1272,7 +1354,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line162">line 162</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line165">line 165</a></code>
                 </div>
             
         </h4>
@@ -1286,7 +1368,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Binds event</p>
+        <p>이벤트 바인딩</p>
     </div>
     
 
@@ -1362,7 +1444,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line254">line 254</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line257">line 257</a></code>
                 </div>
             
         </h4>
@@ -1376,7 +1458,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Copy array (not deep copy)</p>
+        <p>배열을 복사한다. (deep copy는 지원하지 않는다. 덮어쓰기 한다.)</p>
     </div>
     
 
@@ -1428,7 +1510,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>Original array</p></td>
+            <td class="description last"><p>원본배열</p></td>
         </tr>
 
     
@@ -1451,7 +1533,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>New array</p></td>
+            <td class="description last"><p>복사본배열</p></td>
         </tr>
 
     
@@ -1467,10 +1549,9 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         <div class="details">
         
                 
-    
-<span class="param-type">*</span>
-
-
+<div class="param-desc">
+    <p>복사본배열</p>
+</div>
 
             
         </div>
@@ -1540,7 +1621,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line404">line 404</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line407">line 407</a></code>
                 </div>
             
         </h4>
@@ -1554,7 +1635,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Create VirtualKeyboard container</p>
+        <p>가상 키보드의 컨테이너를 생성한다.</p>
     </div>
     
 
@@ -1646,7 +1727,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line467">line 467</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line470">line 470</a></code>
                 </div>
             
         </h4>
@@ -1660,7 +1741,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Create key button and return.</p>
+        <p>키 버튼을 생성하고, 반환한다.</p>
     </div>
     
 
@@ -1701,18 +1782,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A keys to create</p></td>
+            <td class="description last"><p>생성할 키 값</p></td>
         </tr>
 
     
@@ -1729,7 +1805,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
                 
 <div class="param-desc">
-    <p>A key button element</p>
+    <p>키 버튼 엘리먼트</p>
 </div>
 
             
@@ -1800,7 +1876,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line500">line 500</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line503">line 503</a></code>
                 </div>
             
         </h4>
@@ -1814,7 +1890,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Run custom callback</p>
+        <p>사용자 등록 콜백 수행함수</p>
     </div>
     
 
@@ -1866,7 +1942,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>The keys for callbaak function</p></td>
+            <td class="description last"><p>수행할 콜백함수 키</p></td>
         </tr>
 
     
@@ -1889,7 +1965,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>The typed index numberd</p></td>
+            <td class="description last"><p>입력된 값의 인덱스 번호</p></td>
         </tr>
 
     
@@ -1962,7 +2038,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line340">line 340</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line343">line 343</a></code>
                 </div>
             
         </h4>
@@ -1976,7 +2052,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Return key type.</p>
+        <p>해당 키의 키타입을 반환한다.</p>
     </div>
     
 
@@ -2017,18 +2093,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A key value</p></td>
+            <td class="description last"><p>키값</p></td>
         </tr>
 
     
@@ -2045,7 +2116,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
                 
 <div class="param-desc">
-    <p>A key type</p>
+    <p>키타입</p>
 </div>
 
             
@@ -2116,7 +2187,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line360">line 360</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line363">line 363</a></code>
                 </div>
             
         </h4>
@@ -2130,7 +2201,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>eturn index keys in virtual keyboard</p>
+        <p>가상키보드내 위치 인덱스를 반환한다.</p>
     </div>
     
 
@@ -2171,18 +2242,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A key value</p></td>
+            <td class="description last"><p>키값</p></td>
         </tr>
 
     
@@ -2199,7 +2265,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
                 
 <div class="param-desc">
-    <p>A key index</p>
+    <p>위치인덱스</p>
 </div>
 
             
@@ -2270,7 +2336,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line511">line 511</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line514">line 514</a></code>
                 </div>
             
         </h4>
@@ -2284,7 +2350,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Get keyboard array</p>
+        <p>자판의 배열정보를 받아온다.</p>
     </div>
     
 
@@ -2336,7 +2402,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>Whether change case or not</p></td>
+            <td class="description last"><p>대소문자 변환할지 여부</p></td>
         </tr>
 
     
@@ -2409,7 +2475,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line202">line 202</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line205">line 205</a></code>
                 </div>
             
         </h4>
@@ -2423,7 +2489,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Returns clicked/touched elements of keys</p>
+        <p>클릭/터치된 키의 버튼 엘리먼트를 반환한다.</p>
     </div>
     
 
@@ -2475,7 +2541,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>A clicked/touched html element</p></td>
+            <td class="description last"><p>클릭/터치된 타켓 엘리먼트</p></td>
         </tr>
 
     
@@ -2564,7 +2630,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line446">line 446</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line449">line 449</a></code>
                 </div>
             
         </h4>
@@ -2578,7 +2644,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Return template by key.</p>
+        <p>해당 키의 템플릿을 반환한다.</p>
     </div>
     
 
@@ -2619,18 +2685,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A key type to create</p></td>
+            <td class="description last"><p>생성할 키 타입</p></td>
         </tr>
 
     
@@ -2642,18 +2703,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">string</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A key to create</p></td>
+            <td class="description last"><p>생성할 키 값</p></td>
         </tr>
 
     
@@ -2742,7 +2798,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line416">line 416</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line419">line 419</a></code>
                 </div>
             
         </h4>
@@ -2756,7 +2812,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Return current time</p>
+        <p>현재 시간을 반환하는 함수</p>
     </div>
     
 
@@ -2776,7 +2832,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
                 
 <div class="param-desc">
-    <p>Date time by millisecond</p>
+    <p>현재 시간의 millisecond</p>
 </div>
 
             
@@ -2847,7 +2903,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line236">line 236</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line239">line 239</a></code>
                 </div>
             
         </h4>
@@ -2861,7 +2917,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Inject key value to find blank key</p>
+        <p>공백키를 구분할수 있게 키값을 부여한다.</p>
     </div>
     
 
@@ -2937,7 +2993,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line386">line 386</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line389">line 389</a></code>
                 </div>
             
         </h4>
@@ -2951,7 +3007,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Initialize container</p>
+        <p>가상 키보드 컨테이너를 초기화 한다.</p>
     </div>
     
 
@@ -3003,7 +3059,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>A container id</p></td>
+            <td class="description last"><p>키보드 컨테이너</p></td>
         </tr>
 
     
@@ -3076,7 +3132,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line376">line 376</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line379">line 379</a></code>
                 </div>
             
         </h4>
@@ -3090,7 +3146,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Initialize VirtualKeyboard.</p>
+        <p>가상 키보드를 초기화 한다.</p>
     </div>
     
 
@@ -3142,7 +3198,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>A container id</p></td>
+            <td class="description last"><p>키보드 컨테이너</p></td>
         </tr>
 
     
@@ -3215,7 +3271,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line149">line 149</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line152">line 152</a></code>
                 </div>
             
         </h4>
@@ -3229,7 +3285,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Initialize private files</p>
+        <p>변수 초기화 함수</p>
     </div>
     
 
@@ -3281,7 +3337,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>Options to initialize keyboard</p></td>
+            <td class="description last"><p>가상키보드를 초기화 옵션</p></td>
         </tr>
 
     
@@ -3354,7 +3410,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line174">line 174</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line177">line 177</a></code>
                 </div>
             
         </h4>
@@ -3368,7 +3424,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Handler for click or touch buttons</p>
+        <p>버튼 클릭/터치 이벤트 처리함수</p>
     </div>
     
 
@@ -3409,18 +3465,13 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             <td class="type">
             
-                
-<span class="param-type">object</span>
-
-
-            
             </td>
 
             
 
             
 
-            <td class="description last"><p>A event object</p></td>
+            <td class="description last"><p>이벤트 객체</p></td>
         </tr>
 
     
@@ -3493,7 +3544,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line483">line 483</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line486">line 486</a></code>
                 </div>
             
         </h4>
@@ -3507,7 +3558,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Shuffle the keys</p>
+        <p>자판 재배열을 처리한다.</p>
     </div>
     
 
@@ -3559,7 +3610,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
             
 
-            <td class="description last"><p>A keys that is shuffled</p></td>
+            <td class="description last"><p>재배열된 키배열</p></td>
         </tr>
 
     
@@ -3632,7 +3683,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line302">line 302</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line305">line 305</a></code>
                 </div>
             
         </h4>
@@ -3646,7 +3697,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Redefine fixed keys map</p>
+        <p>고정키 정보를 가공하여 맵데이터를 만든다.</p>
     </div>
     
 
@@ -3722,7 +3773,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line317">line 317</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line320">line 320</a></code>
                 </div>
             
         </h4>
@@ -3736,7 +3787,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Redefine unfixed keys map</p>
+        <p>유동키 정보를 가공하여 맵데이터를 만든다.</p>
     </div>
     
 
@@ -3812,7 +3863,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line293">line 293</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line296">line 296</a></code>
                 </div>
             
         </h4>
@@ -3826,7 +3877,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Create map data by key information</p>
+        <p>키정보를 가공하여 맵데이터를 만든다.</p>
     </div>
     
 
@@ -3902,7 +3953,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line277">line 277</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line280">line 280</a></code>
                 </div>
             
         </h4>
@@ -3916,7 +3967,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Sort fixed keys.</p>
+        <p>고정위치의 키배열을 정렬한다.</p>
     </div>
     
 
@@ -3936,7 +3987,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
         
                 
 <div class="param-desc">
-    <p>Fixed keys' array that is sorted by index</p>
+    <p>인덱스 순으로 정렬된 고정위치 키목록</p>
 </div>
 
             
@@ -4007,7 +4058,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line550">line 550</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line553">line 553</a></code>
                 </div>
             
         </h4>
@@ -4021,7 +4072,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Change upper/lower case.</p>
+        <p>대소문자 변환을 한다.</p>
     </div>
     
 
@@ -4097,7 +4148,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line575">line 575</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line578">line 578</a></code>
                 </div>
             
         </h4>
@@ -4111,7 +4162,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Reset all typed keys.</p>
+        <p>전체 입력값을 초기화한다.</p>
     </div>
     
 
@@ -4187,7 +4238,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line595">line 595</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line598">line 598</a></code>
                 </div>
             
         </h4>
@@ -4201,7 +4252,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Close virtual keyboard</p>
+        <p>가상키보드를 닫는다.</p>
     </div>
     
 
@@ -4277,7 +4328,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line603">line 603</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line606">line 606</a></code>
                 </div>
             
         </h4>
@@ -4291,7 +4342,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Close viertual keyboard with complate button.</p>
+        <p>완료버튼을 처리한다.</p>
     </div>
     
 
@@ -4363,11 +4414,11 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 <dt>
     
         <h4 class="name" id="init">
-            <span class="type-signature"></span>init<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+            <span class="type-signature"></span>init<span class="signature">(options)</span><span class="type-signature"></span>
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line134">line 134</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line137">line 137</a></code>
                 </div>
             
         </h4>
@@ -4381,7 +4432,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Initalize</p>
+        <p>초기화 함수</p>
     </div>
     
 
@@ -4404,8 +4455,6 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
         <th>Type</th>
 
-        
-        <th>Attributes</th>
         
 
         
@@ -4432,20 +4481,10 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Options to initialize component</p></td>
+            <td class="description last"><p>가상키보드를 초기화 옵션</p></td>
         </tr>
 
     
@@ -4518,7 +4557,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line540">line 540</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line543">line 543</a></code>
                 </div>
             
         </h4>
@@ -4532,7 +4571,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Toggle Eng/Kor.</p>
+        <p>한/영 자판을 변환한다.</p>
     </div>
     
 
@@ -4608,7 +4647,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line587">line 587</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line590">line 590</a></code>
                 </div>
             
         </h4>
@@ -4622,7 +4661,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Open virtual keyboard</p>
+        <p>가상키보드를 연다.</p>
     </div>
     
 
@@ -4698,7 +4737,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line569">line 569</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line572">line 572</a></code>
                 </div>
             
         </h4>
@@ -4712,7 +4751,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Remove the last typed/touched value</p>
+        <p>마지막으로 입력된 값을 삭제한다.</p>
     </div>
     
 
@@ -4788,7 +4827,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line530">line 530</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line533">line 533</a></code>
                 </div>
             
         </h4>
@@ -4802,7 +4841,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Shuffle keys.</p>
+        <p>자판을 재배열한다.</p>
     </div>
     
 
@@ -4878,7 +4917,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line581">line 581</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line584">line 584</a></code>
                 </div>
             
         </h4>
@@ -4892,7 +4931,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Insert blank</p>
+        <p>공백문자를 입력한다.</p>
     </div>
     
 
@@ -4968,7 +5007,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
             
                 <div class="container-source method">
                     <code><a href="VirtualKeyboard.js.html">VirtualKeyboard.js</a></code>,
-                    <code><a href="VirtualKeyboard.js.html#line559">line 559</a></code>
+                    <code><a href="VirtualKeyboard.js.html#line562">line 562</a></code>
                 </div>
             
         </h4>
@@ -4982,7 +5021,7 @@ var vkeyboard = new ne.component.VirtualKeyboard({
 
     
     <div class="description">
-        <p>Change symbol/number keys</p>
+        <p>특수키/숫자키 변환을 한다.</p>
     </div>
     
 
