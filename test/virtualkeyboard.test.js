@@ -43,13 +43,13 @@ describe("viertualkeyboard", function() {
             callback: {
                 key: function(key) {
                     console.log('key', key);
-                },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+                },
                 remove: function(del) {
                     console.log('delete', del);
                 },
                 getKeys: function(key) {
                     return ["4", "6", "0", "2", "5", "8", "7", "", "3", "1", "9", ""]
-                }        // 재배열시 키목록을 새로 요청하는 콜백
+                }
             }
         };
         options2 = {
@@ -76,13 +76,13 @@ describe("viertualkeyboard", function() {
             callback: {
                 key: function(key) {
                     console.log('key', key);
-                },          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+                },
                 remove: function(del) {
                     console.log('delete', del);
                 },
                 getKeys: function(key) {
                     console.log('getkey', key);
-                }        // 재배열시 키목록을 새로 요청하는 콜백
+                } 
             }
         };
 
@@ -90,13 +90,13 @@ describe("viertualkeyboard", function() {
         vk2 = new ne.component.VirtualKeyboard(options2);
     });
 
-    describe("VirtualKeyboard 및 내부 요소 생성", function() {
-        it("VirtualKeyboard 인스턴스 생성", function() {
+    describe("VirtualKeyboard defnied", function() {
+        it("Virtualkeyboard instance defined", function() {
             expect(vk).toBeDefined();
             expect(vk2).toBeDefined();
         });
 
-        it("VirtualKeyboard 컨테이너 생성", function() {
+        it("VirtualKeyboard container created", function() {
             expect(vk._$container).toBeDefined();
             expect(vk2._$container).toBeDefined();
         });
@@ -117,19 +117,19 @@ describe("viertualkeyboard", function() {
             res5 = vk._copyArray();
         });
 
-        it("_copyArray(['a', 'b', 'c'], ['1', '2', '3'])을 수행하면 결과값은 ['a', 'b', 'c']와 같다.", function() {
+        it("_copyArray(['a', 'b', 'c'], ['1', '2', '3']) is return ['a', 'b', 'c']", function() {
             expect(res1).toEqual(['a', 'b', 'c']);
         });
-        it("_copyArray(['1', '2', '3'])을 수행하면 결과값은 ['1','2','3']와 같다.", function() {
+        it("_copyArray(['1', '2', '3'])is return ['1','2','3']", function() {
             expect(res2).toEqual(['1', '2', '3']);
         });
-        it("_copyArray('0')을 수행하면 결과값은 ['0']과 같다.", function() {
+        it("_copyArray('0') is return ['0']", function() {
             expect(res3).toEqual(['0']);
         });
-        it("_copyArray(['q'], ['a', 'b', 'c'])을 수행하면 결과값은 ['q', 'b', 'c']와 같다.", function() {
+        it("_copyArray(['q'], ['a', 'b', 'c']) is return ['q', 'b', 'c']", function() {
             expect(res4).toEqual(['q', 'b', 'c']);
         });
-        it("_copyArray() 일땐 false가 리턴된다", function() {
+        it("_copyArray() is return false", function() {
             expect(res5).toBeFalsy();
         });
     });
@@ -268,10 +268,10 @@ describe("viertualkeyboard", function() {
             vk2._getRawKeys(true);
         });
 
-        it("fixed flag에 따른 데이터 처리가 가능하다(fixed false)", function() {
+        it("Process data with fixed flag (fixed false)", function() {
             expect(res1).not.toEqual(vk2._rawKeys);
         });
-        it("fixed flag에 따른 데이터 처리가 가능하다(fixed true)", function() {
+        it("Process data with fixed flag(fixed true)", function() {
             expect(res2).toEqual(vk2._rawKeys);
             expect(vk2._reArrangeKeys).not.toHaveBeenCalled();
         });
@@ -475,10 +475,6 @@ describe("viertualkeyboard", function() {
             expect(bfFirst).toBe(bfFirst);
         });
 
-
-        // todo 보강
     });
-
-
 
 });
