@@ -36,9 +36,9 @@
  *          getKeys: function() { //run }        // A callback that called  rearrange keys
  *      }
  * });
- * @constructor ne.component.VirtualKeyboard
+ * @constructor VirtualKeyboard
  */
-var VirtualKeyboard = ne.util.defineClass(/** @lends ne.component.VirtualKeyboard.prototype */{
+var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype */{
     /**
      * Default html template for keys
      * @readonly
