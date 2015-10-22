@@ -9,7 +9,7 @@
  * @example
  *
  * // Create VirtualKeyboard instance with array of keyboard
- * var vkeyboard = new ne.component.VirtualKeyboard({
+ * var vkeyboard = new tui.component.VirtualKeyboard({
  *      container: 'vkeyboard', // container element id
  *      keyType: 'number', // keyboard type
  *      functions: { // function key location
@@ -38,7 +38,7 @@
  * });
  * @constructor VirtualKeyboard
  */
-var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype */{
+var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype */{
     /**
      * Default html template for keys
      * @readonly
@@ -150,7 +150,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
         this._currentKeyType = options.keyType || 'english';
         this._fixedKeys = options.functions || {};
         this._rawKeys = this._copyArray(options.keys);
-        this._template = ne.util.extend(this._template, options.template);
+        this._template = tui.util.extend(this._template, options.template);
         this._callback = options.callback || {};
         this._documentFragment = document.createDocumentFragment();
     },
@@ -176,7 +176,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
             inputValue,
             index,
             keyGroup;
-        if(!ne.util.isExisty(targetButton)) {
+        if(!tui.util.isExisty(targetButton)) {
             return false;
         }
 
@@ -222,8 +222,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
         this._copyArray(this._identifiedRawKeys, this._keySequences);
 
         // Insert fixed key 
-        ne.util.forEach(sortedKeys, function(value, index) {
-            if(ne.util.isExisty(value)) {
+        tui.util.forEach(sortedKeys, function(value, index) {
+            if(tui.util.isExisty(value)) {
                 this._keySequences.splice(this._fixedKeys[value], 0, value);
             }
         }, this);
@@ -235,7 +235,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      */
     _identifyRawKeys: function() {
         var blankCount = 0;
-        ne.util.forEach(this._rawKeys, function(value, index) {
+        tui.util.forEach(this._rawKeys, function(value, index) {
             if(this._getKeyGroup(value) === 'blank') {
                 value = 'blank' + blankCount;
                 blankCount++;
@@ -252,17 +252,17 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      * @private
      */
     _copyArray: function(originalArray, copyArray) {
-        if(!ne.util.isExisty(originalArray)) {
+        if(!tui.util.isExisty(originalArray)) {
             return false;
         }
-        if(!ne.util.isArray(originalArray)) {
+        if(!tui.util.isArray(originalArray)) {
             originalArray = [originalArray];
         }
-        if(!ne.util.isExisty(copyArray) || !ne.util.isArray(copyArray)) {
+        if(!tui.util.isExisty(copyArray) || !tui.util.isArray(copyArray)) {
             copyArray = [];
         }
 
-        ne.util.forEach(originalArray, function(value, index) {
+        tui.util.forEach(originalArray, function(value, index) {
             copyArray[index] = value;
         }, this);
 
@@ -278,7 +278,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
         var sortedKeys;
         this._keySequences.length = 0;
 
-        sortedKeys = ne.util.keys(this._fixedKeys) || [];
+        sortedKeys = tui.util.keys(this._fixedKeys) || [];
         sortedKeys.sort($.proxy(function(a, b) {
             return this._fixedKeys[a] - this._fixedKeys[b];
         }, this));
@@ -300,7 +300,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      * @private
      */
     _refineFixedKeys: function() {
-        ne.util.forEach(this._fixedKeys, function(value, key) {
+        tui.util.forEach(this._fixedKeys, function(value, key) {
             this._keyMap[key] = {
                 key: key,
                 rawIndex: null,
@@ -315,8 +315,8 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      * @private
      */
     _refineFloatingKeys: function() {
-        ne.util.forEach(this._identifiedRawKeys, function(value, index) {
-            if(ne.util.isExisty(this._keyMap[value])) {
+        tui.util.forEach(this._identifiedRawKeys, function(value, index) {
+            if(tui.util.isExisty(this._keyMap[value])) {
                 // Exist case, only change position index
                 this._keyMap[value].positionIndex = this._getPositionIndex(value);
             } else {
@@ -339,7 +339,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      */
     _getKeyGroup: function(key) {
         var keyGroup;
-        if(ne.util.isExisty(this._fixedKeys[key])) {
+        if(tui.util.isExisty(this._fixedKeys[key])) {
             keyGroup = 'function';
         } else {
             if(key === '') {
@@ -385,12 +385,12 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      */
     _initContainer: function(containerId) {
         if(this._$container) {
-            ne.util.forEach(this._identifiedRawKeys, function(value) {
+            tui.util.forEach(this._identifiedRawKeys, function(value) {
                 this._documentFragment.appendChild(this._keyMap[value].element);
             }, this);
         } else {
             this._$container = $('#' + containerId);
-            if(!ne.util.isHTMLTag(this._$container[0])) {
+            if(!tui.util.isHTMLTag(this._$container[0])) {
                 this._$container = this._createContainer();
             }
         }
@@ -427,9 +427,9 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      */
     _arrangeKeys: function() {
         var keyElement;
-        ne.util.forEach(this._keySequences, function(value) {
+        tui.util.forEach(this._keySequences, function(value) {
             keyElement = this._keyMap[value].element;
-            if(!ne.util.isHTMLTag(keyElement)) {
+            if(!tui.util.isHTMLTag(keyElement)) {
                 this._keyMap[value].element = keyElement = this._createKeyElement(value);
             }
             this._$container.append(keyElement);
@@ -452,7 +452,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
             template = this._template[key] || this._template.key;
         }
 
-        if(ne.util.isExisty(key)) {
+        if(tui.util.isExisty(key)) {
             template = template.replace(/{KEY}/g, key);
         }
         return template;
@@ -469,7 +469,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
             template = this._getTemplate(keyGroup, key),
             keyElement = $(template);
         var buttonElement = keyElement.find('button');
-        if(!buttonElement.val() && ne.util.isExisty(key)) {
+        if(!buttonElement.val() && tui.util.isExisty(key)) {
             buttonElement.val(key);
         }
         return keyElement[0];
@@ -498,7 +498,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      * @private
      */
     _excuteCallback: function(callbackKey, rawIndex) {
-        if(ne.util.isExisty(this._callback, callbackKey) && ne.util.isFunction(this._callback[callbackKey])) {
+        if(tui.util.isExisty(this._callback, callbackKey) && tui.util.isFunction(this._callback[callbackKey])) {
             this._callback[callbackKey](rawIndex);
         }
     },
@@ -510,7 +510,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
      */
     _getRawKeys: function(isCaseToggle) {
         var rawKeys;
-        if(ne.util.isExisty(this._callback, 'getKeys') && ne.util.isFunction(this._callback.getKeys)) {
+        if(tui.util.isExisty(this._callback, 'getKeys') && tui.util.isFunction(this._callback.getKeys)) {
             if(isCaseToggle) {
                 // Not shuffled, only get other case array.
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock, true);
@@ -519,7 +519,7 @@ var VirtualKeyboard = ne.util.defineClass(/** @lends VirtualKeyboard.prototype *
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock);
             }
         }
-        if(ne.util.isArray(rawKeys)) {
+        if(tui.util.isArray(rawKeys)) {
             this._reArrangeKeys(rawKeys);
         }
     },

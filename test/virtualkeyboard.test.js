@@ -86,8 +86,8 @@ describe("viertualkeyboard", function() {
             }
         };
 
-        vk = new ne.component.VirtualKeyboard(options);
-        vk2 = new ne.component.VirtualKeyboard(options2);
+        vk = new tui.component.VirtualKeyboard(options);
+        vk2 = new tui.component.VirtualKeyboard(options2);
     });
 
     describe("VirtualKeyboard defnied", function() {
@@ -214,7 +214,7 @@ describe("viertualkeyboard", function() {
         beforeEach(function() {
             bfRaw = vk._copyArray(vk._rawKeys);
             bfSeq = vk._copyArray(vk._keySequences);
-            bfMap = ne.util.map(vk._keyMap, function(element) {
+            bfMap = tui.util.map(vk._keyMap, function(element) {
                 var obj = {},
                     key;
                 for(key in element) {
