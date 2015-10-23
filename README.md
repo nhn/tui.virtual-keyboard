@@ -14,16 +14,16 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 * When this component toggle or shuffle the keys this component run the callback functions
 
 ## Documentation
-* **API** : https://nhnent.github.io/fe.component-virtual-keyboard/latest
-* **Tutorial** : https://github.com/nhnent/fe.component-virtual-keyboard/wiki/Virtual-Keyboard-Tutorial
-* **Sample** - https://nhnent.github.io/fe.component-virtual-keyboard/latest/tutorial-desktop.html
+* **API** : https://nhnent.github.io/tui.component.virtual-keyboard/latest
+* **Tutorial** : https://github.com/nhnent/tui.component.virtual-keyboard/wiki/Virtual-Keyboard-Tutorial
+* **Sample** - https://nhnent.github.io/tui.component.virtual-keyboard/latest/tutorial-desktop.html
 
 
 ## Sample Image
 * Regular keyboard<br>
-![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vknormal.png)<br><br>
+![alt tag](https://nhnent.github.io/tui.component.virtual-keyboard/vknormal.png)<br><br>
 * Numeric keyboard<br>
-![alt tag](https://nhnent.github.io/fe.component-virtual-keyboard/vksample.png)
+![alt tag](https://nhnent.github.io/tui.component.virtual-keyboard/vksample.png)
 
 ## Dependency
 * jquery: ~1.8.3
@@ -40,13 +40,14 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 * Bower:
    * latest : `bower install ne-component-virtual-keyboard#master`
    * each version : `bower install ne-component-virtual-keyboard[#tag]`
-* Download: https://github.com/nhnent/fe.component-virtual-keyboard
+* Download: https://github.com/nhnent/tui.component.virtual-keyboard
 
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
-| 1.0.0a | defnieNamespace apply | 2015.05 | NHN ent. FE dev team. <dl_javascript@nhnent.com> |
-| <a href="https://github.nhnent.com/pages/fe/component-virtual-keyboard/1.0.0">1.0.0</a> | Realese | 2015.03 | NHN ent. FE dev team. <dl_javascript@nhnent.com> |
+| 1.0.0a | Namespace changed | 2015.10 | NHN Ent. FE de team. <dl_javascript@nhnent.com> |
+| 1.0.0a | defnieNamespace apply | 2015.05 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
+| <a href="https://github.nhnent.com/pages/tui.component.virtual-keyboard/1.0.0">1.0.0</a> | Realese | 2015.03 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
 
 
 ## LICENSE
