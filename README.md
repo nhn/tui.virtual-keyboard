@@ -38,8 +38,8 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 
 ## Download/Install
 * Bower:
-   * latest : `bower install ne-component-virtual-keyboard#master`
-   * each version : `bower install ne-component-virtual-keyboard[#tag]`
+   * latest : `bower install tui-component-virtual-keyboard#master`
+   * each version : `bower install tui-component-virtual-keyboard[#tag]`
 * Download: https://github.com/nhnent/tui.component.virtual-keyboard
 
 ## History
@@ -47,7 +47,7 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 | ---- | ---- | ---- | ---- |
 | 1.0.0a | Namespace changed | 2015.10 | NHN Ent. FE de team. <dl_javascript@nhnent.com> |
 | 1.0.0a | defnieNamespace apply | 2015.05 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
-| <a href="https://github.nhnent.com/pages/tui.component.virtual-keyboard/1.0.0">1.0.0</a> | Realese | 2015.03 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
+| <a href="https://nhnent.github.io/pages/tui.component.virtual-keyboard/1.0.0">1.0.0</a> | Realese | 2015.03 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
 
 
 ## LICENSE
