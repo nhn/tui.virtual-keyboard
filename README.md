@@ -27,7 +27,7 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 
 ## Dependency
 * jquery: ~1.8.3
-* ne-code-snippet: ~1.0.2
+* tui-code-snippet: ~1.0.2
 
 ## Test environment
 * PC
