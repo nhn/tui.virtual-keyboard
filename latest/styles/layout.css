@@ -12,7 +12,7 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
     top:0;
     overflow:auto;
     left:0; 
-    background-color: #161b1d;
+    background-color: #f4f7f8;
 }
 
 #left #menu {
@@ -21,12 +21,12 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 
 #left #menu h3 {
     font-size:1.5em; 
-    color:#dc9656;
+    color:#333;
 }
 
 
 #left #menu li {
-    border-bottom: 1px solid #1f292e;
+    border-bottom: 1px solid #ddd;
 }
 #left #menu li ul {
     display:none;
@@ -43,18 +43,14 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
     display:block;
 }
 #left #menu li .title strong {
-    color:#568c3b;
+    color:#c7254e;
 }
 
 #left #menu li li {
     border-bottom:0 !important; 
 }
 
-#left #menu li a {
-    color:#7cafc2;
-}
-
-#left #menu li.selected a {font-weight:bold; text-decoration:underline; font-size:1.2em; color:#ebf8ff; }
+#left #menu li.selected a {font-weight:bold; text-decoration:underline; font-size:1.2em; }
 #left #menu li.selected li a {font-weight:normal; text-decoration:none;}
 #left #menu li strong {
     font-weight:normal;
@@ -72,7 +68,7 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
     margin-left:15px;
 }
 #left #menu li li a {
-    color:#ebf8ff;
+    color:#181818;
     font-size:12px !important;
 }
 
@@ -83,11 +79,12 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 #left ul.tutorials li a {font-weight: normal !important;}
 .home {
     text-align:center;
-    padding:15px 0;
+    padding:10px 0;
 }
 .home a {
+    text-decoration:underline;
     font-size:18px;
-    color:#ebf8ff;
+    color:#398df0;
 }
 
 #search {
@@ -102,24 +99,23 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
     font-size:12px;
     width:220px;
     color:#aaa;
-    border: 1px solid #585858;
-    background-color: #373737;
-    border-radius:2px;
+    border: 1px solid #ddd;
+    background-color: #fff;
 }
 
 #search .searchList {
     position: absolute;
     width: 220px;
-    background-color: #516d7b;
+    background-color: #397df0;
     left: 15px;
-    border: 1px solid #1f292e;
+    border: 1px solid #197fc2;
     border-radius: 0 0 2px 2px;
     opacity:0.9; filter:alpha(opacity=90);
 }
 
 #search .searchList li {
     font-size:12px;
-    color:#ebf8ff;
+    color:#ddd;
     text-align:left;
     width:100%;
     padding: 2px 0;
@@ -129,18 +125,18 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 }
 
 #search .searchList li.on, #search .searchList li:hover {
-    background-color:#ebf8ff;
+    background-color:#fff;
 }
 #search .searchList li.on a, #search .searchList li:hover a {
-    color:#1f292e;
+    color:#197fc2;
 }
 #search .searchList li.on string, 
 #search .searchList li:hover strong {
-    color:#d22d72;
+    color:#c7254e;
 }
 #search .searchList li.on .group, 
 #search .searchList li:hover .group {
-    color:#1f292e;
+    color:#000;
 }
 
 #search .searchList li a { 
@@ -167,6 +163,7 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
     top:0;
     bottom:26px; 
     padding-top: 60px;
+    border-left:1px solid #ddd;
     overflow: auto;
     background-color:#fff;
 }
@@ -202,22 +199,20 @@ ul, ol, li {list-style:none; padding-left:0; margin-left:0;}
 }
 
 #contentTab li {
-    cursor:pointer;
-    border-right:1px solid #ebf8ff;
+    border-right:1px solid #aaa;
     float:left;
     padding: 15px;
     text-align:center;
     width:50%;
-    background-color:#516d7b;
-    color:#ebf8ff;
+    background-color:#398df0;
+    color:#fff;
     font-weight:bold;
     font-size:16px;
 }
 
 #contentTab li.on {
     text-decoration:underline;
-    border-bottom:2px solid #7ea2b4;
-    color:#fff;
+    border-bottom:2px solid #ddd;
 }
 
 #contentCode {
@@ -234,12 +229,13 @@ footer {
     bottom:0px;
     left:0;
     right:0;
-    background-color:#516d7b;
-    color:#ebf8ff;
+    background-color:#181818;
+    color:#fff;
     text-align:center;
     height:26px;
     line-height:2.0em;
-    border-top:1px solid #516d7d;
+    border-top:1px solid #197fc2;
+    background-color:#398df0;
     display:block;
 }
 
@@ -264,7 +260,7 @@ footer {
     font-size:18px;
     font-weight:bold;
     padding-left : 5px;
-    border-left: 5px solid #dc9656;
+    border-left: 5px solid #c7254e;
 }
 
 .main section article {
@@ -354,8 +350,8 @@ footer {
 }
 
 .main section article h3.subsection-title {
-    font-size:16px;
-    color: #dc9656;
+    font-size:14px;
+    color: #c7254e;
     padding:35px 0 0 5px;
     border-bottom: 1px solid #dedede;
 }
