@@ -34,7 +34,8 @@
  *          key: function() { //run },          // A callback that is called when user type or touch key (but function key)
  *          remove: function() { //run },
  *          getKeys: function() { //run }        // A callback that called  rearrange keys
- *      }
+ *      },
+ *      isClickOnly: false
  * });
  * @constructor VirtualKeyboard
  */
@@ -138,7 +139,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
         this._refineKeyMap();
         this._initKeyboard(options.container);
 
-        this._attachEvent();
+        this._attachEvent(options.isClickOnly);
     },
 
     /**
@@ -157,11 +158,11 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Binds event
+     * @param {boolean} isClickOnly A option to decide to ignore touchevent
      * @private
      */
-    _attachEvent: function() {
-        // touch event 지원여부 확
-        var isSupportTouch = ('createTouch' in document) || ('ontouchstart' in document);
+    _attachEvent: function(isClickOnly) {
+        var isSupportTouch = ('createTouch' in document) || ('ontouchstart' in document) && !isClickOnly;
         var eventType = isSupportTouch ? 'touchstart' : 'click';
         this._$container.on(eventType, $.proxy(this._pressKeyHandler, this));
     },
@@ -180,7 +181,6 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
             return false;
         }
 
-        //inputValue = $(targetButton).val();
         inputValue = $(targetButton).text();
         index = this._keyMap[inputValue].rawIndex;
         keyGroup = this._getKeyGroup(inputValue);

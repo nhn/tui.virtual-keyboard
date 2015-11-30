@@ -45,6 +45,7 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 ## History
 | Version | Description | Date | Developer |
 | ---- | ---- | ---- | ---- |
+| 1.0.0b | isClickOnly option added | 2015.11 | NHN Ent. FE de team. <dl_javascript@nhnent.com> |
 | 1.0.0a | Namespace changed | 2015.10 | NHN Ent. FE de team. <dl_javascript@nhnent.com> |
 | 1.0.0a | defnieNamespace apply | 2015.05 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
 | <a href="https://nhnent.github.io/pages/tui.component.virtual-keyboard/1.0.0">1.0.0</a> | Realese | 2015.03 | NHN Ent. FE dev team. <dl_javascript@nhnent.com> |
