@@ -162,7 +162,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _attachEvent: function(isClickOnly) {
-        var isSupportTouch = ('createTouch' in document) || ('ontouchstart' in document) && !isClickOnly;
+        var isSupportTouch = !isClickOnly && ('createTouch' in document) || ('ontouchstart' in document);
         var eventType = isSupportTouch ? 'touchstart' : 'click';
         this._$container.on(eventType, $.proxy(this._pressKeyHandler, this));
     },
