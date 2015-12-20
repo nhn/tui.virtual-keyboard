@@ -12,7 +12,7 @@
     "default": {
       "outputSourceFiles" : true
     },
-    "applicationName": "Component-MouseGesture",
+    "applicationName": "Virtual Keyboard",
     "disqus": "",
     "googleAnalytics": "",
     "openGraph": {
@@ -35,8 +35,8 @@
   },
   "opts": {
     "recurse": true,
-    "private": true,
     "destination": "doc",
+    "name": "Virtual Keyboard",
     "tutorials": "samples"
   }
 }

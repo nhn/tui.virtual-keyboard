@@ -6,8 +6,8 @@
 
 /**
  * A virtual keyboard component is capturing kyes that is typed from user.
+ * @constructor VirtualKeyboard
  * @example
- *
  * // Create VirtualKeyboard instance with array of keyboard
  * var vkeyboard = new tui.component.VirtualKeyboard({
  *      container: 'vkeyboard', // container element id
@@ -37,7 +37,6 @@
  *      },
  *      isClickOnly: false
  * });
- * @constructor VirtualKeyboard
  */
 var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype */{
     /**
@@ -467,8 +466,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     _createKeyElement: function(key) {
         var keyGroup = this._keyMap[key].keyGroup,
             template = this._getTemplate(keyGroup, key),
-            keyElement = $(template);
-        var buttonElement = keyElement.find('button');
+            keyElement = $(template),
+            buttonElement = keyElement.find('button');
+
         if(!buttonElement.val() && tui.util.isExisty(key)) {
             buttonElement.val(key);
         }
@@ -526,6 +526,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Shuffle keys.
+     * @api
+     * @example
+     *  virtualKeyboard.shuffle();
      */
     shuffle: function() {
         // Reset exist values
@@ -536,6 +539,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Toggle Eng/Kor.
+     * @api
+     * @example
+     *  virtualKeyboard.language();
      */
     language: function() {
         this._initContainer();
@@ -546,6 +552,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Change upper/lower case.
+     * @api
+     * @example
+     *  virtualKeyboard.caps();
      */
     caps: function() {
         this._initContainer();
@@ -555,6 +564,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Change symbol/number keys
+     * @api
+     * @example
+     *  virtualKeyboard.symbol();
      */
     symbol: function() {
         this._initContainer();
@@ -583,6 +595,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Open virtual keyboard
+     * @api
+     * @example
+     *  virtualKeyboard.open();
      */
     open: function() {
         this.shuffle();
@@ -591,6 +606,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Close virtual keyboard
+     * @api
+     * @example
+     *  virtualKeyboard.close();
      */
     close: function() {
         this.clear();
