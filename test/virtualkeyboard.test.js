@@ -1,4 +1,4 @@
-var VirtualKeyboard = require('../src/js/VirtualKeyboard');
+var VirtualKeyboard = require('../src/js/virtualKeyboard');
 
 describe("viertualkeyboard", function() {
 

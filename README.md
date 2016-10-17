@@ -31,7 +31,7 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 
 ## Test environment
 * PC
-	* IE7~11
+	* IE8~11
 	* Chrome
 	* Firefox
 
