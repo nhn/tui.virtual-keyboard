@@ -15,7 +15,7 @@ module.exports = function(config) {
         ],
         files: [
             'bower_components/jquery/jquery.js',
-            'samples/lib/code-snippet.js',
+            'bower_components/tui-code-snippet/code-snippet.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             'src/js/*.js',
             'test/*.js',

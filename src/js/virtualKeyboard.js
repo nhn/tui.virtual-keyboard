@@ -180,7 +180,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
         }
 
         keyName = targetButton.value;
-        keyGroup = this._keyMap[keyName].keyGroup;
+        keyGroup = this._getKeyGroup(keyName);
         index = this._keyMap[keyName].rawIndex;
 
         if(keyGroup === 'key') {
