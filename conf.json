@@ -1,7 +1,6 @@
 {
   "source": {
     "include": ["src/js/VirtualKeyboard.js", "README.md"],
-    "exclude": ["src/js/common.js"],
     "includePattern": ".+\\.js(doc)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },

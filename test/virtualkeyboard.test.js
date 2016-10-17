@@ -1,3 +1,5 @@
+var VirtualKeyboard = require('../src/js/VirtualKeyboard');
+
 describe("viertualkeyboard", function() {
 
     var vk,
@@ -86,8 +88,8 @@ describe("viertualkeyboard", function() {
             }
         };
 
-        vk = new tui.component.VirtualKeyboard(options);
-        vk2 = new tui.component.VirtualKeyboard(options2);
+        vk = new VirtualKeyboard(options);
+        vk2 = new VirtualKeyboard(options2);
     });
 
     describe("VirtualKeyboard defnied", function() {
@@ -166,7 +168,7 @@ describe("viertualkeyboard", function() {
         });
     });
 
-    describe("_excuteCallback", function() {
+    describe("_executeCallback", function() {
 
         beforeEach(function() {
             vk2._callback = {
@@ -182,9 +184,9 @@ describe("viertualkeyboard", function() {
             spyOn(vk2._callback, 'remove');
             spyOn(vk2._callback, 'getKeys');
 
-            vk2._excuteCallback('key', 1);
-            vk2._excuteCallback('remove', 5);
-            vk2._excuteCallback('getKeys', 0);
+            vk2._executeCallback('key', 1);
+            vk2._executeCallback('remove', 5);
+            vk2._executeCallback('getKeys', 0);
         });
 
         it("key called", function() {
@@ -375,11 +377,11 @@ describe("viertualkeyboard", function() {
         });
 
         it("language button click, language called", function() {
-            expect(vk.shuffle).toHaveBeenCalled();
+            expect(vk.language).toHaveBeenCalled();
         });
 
-        it("language button click, language called", function() {
-            expect(vk.language).toHaveBeenCalled();
+        it("language button click, shuffle called", function() {
+            expect(vk.shuffle).toHaveBeenCalled();
         });
 
         it("caps button click, caps called", function() {
@@ -413,9 +415,7 @@ describe("viertualkeyboard", function() {
     });
 
     describe("shuffle, language, caps, symbol", function() {
-        var bfSet, afSet,
-            bfFirst, bfSecond,
-            afFirst, afSecond;
+        var bfFirst, afFirst;
 
         beforeEach(function() {
 

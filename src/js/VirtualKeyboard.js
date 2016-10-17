@@ -1,7 +1,7 @@
 /**
  * @fileoverview The module that capture keys typed from user.
  * @author NHN Ent. FE dev team. <dl_javascript@nhnent.com>
- * @dependency jquery-1.8.3.min.js, common.js
+ * @dependency jquery-1.8.3.min.js, tui-code-snippet.js
  */
 
 /**
@@ -172,23 +172,22 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _pressKeyHandler: function(event) {
-        var targetButton = this._getTargetButton(event.target),
-            inputValue,
-            index,
-            keyGroup;
-        if(!tui.util.isExisty(targetButton)) {
+        var targetButton = this._getTargetButton(event.target);
+        var keyName, keyGroup, index;
+
+          if(!tui.util.isExisty(targetButton)) {
             return false;
         }
 
-        inputValue = $(targetButton).text();
-        index = this._keyMap[inputValue].rawIndex;
-        keyGroup = this._getKeyGroup(inputValue);
+        keyName = targetButton.value;
+        keyGroup = this._keyMap[keyName].keyGroup;
+        index = this._keyMap[keyName].rawIndex;
 
         if(keyGroup === 'key') {
-            this._excuteCallback(keyGroup, index);
+            this._executeCallback(keyGroup, index);
         } else {
-            this[inputValue]();
-            this._excuteCallback(inputValue);
+            this[keyName]();
+            this._executeCallback(keyName);
         }
     },
 
@@ -246,7 +245,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     /**
      * Copy array (not deep copy)
      * @param {array} originalArray Original array
-     * @param {array} copyArray New array
+     * @param {array} [copyArray] New array
      * @returns {*} 
      * @private
      */
@@ -316,8 +315,11 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     _refineFloatingKeys: function() {
         tui.util.forEach(this._identifiedRawKeys, function(value, index) {
             if(tui.util.isExisty(this._keyMap[value])) {
-                // Exist case, only change position index
+                // v1.0.0:: Exist case, only change positionIndex
                 this._keyMap[value].positionIndex = this._getPositionIndex(value);
+
+                // v1.1.0:: Exist case, change positionIndex with **rawIndex**
+                this._keyMap[value].rawIndex = index;
             } else {
                 // Create new map data
                 this._keyMap[value] = {
@@ -351,7 +353,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     },
 
     /**
-     * eturn index keys in virtual keyboard
+     * return index keys in virtual keyboard
      * @param {string} key A key value 
      * @returns {number} A key index
      * @private
@@ -493,11 +495,11 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Run custom callback
-     * @param {string} callbackKey The keys for callbaak function
-     * @param {number} rawIndex The typed index numberd
+     * @param {string} callbackKey The keys for callback function
+     * @param {number} [rawIndex] The typed index numberd
      * @private
      */
-    _excuteCallback: function(callbackKey, rawIndex) {
+    _executeCallback: function(callbackKey, rawIndex) {
         if(tui.util.isExisty(this._callback, callbackKey) && tui.util.isFunction(this._callback[callbackKey])) {
             this._callback[callbackKey](rawIndex);
         }
