@@ -14,7 +14,7 @@ module.exports = function(config) {
             'junit'
         ],
         files: [
-            'bower_components/jquery/jquery.js',
+            'bower_components/jquery/dist/jquery.js',
             'bower_components/tui-code-snippet/code-snippet.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             'src/js/*.js',
