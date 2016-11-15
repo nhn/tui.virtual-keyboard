@@ -1,5 +1,5 @@
 {
-  "name": "component-virtual-keyboard",
+  "name": "tui-component-virtual-keyboard",
   "version": "1.1.0",
   "description": "VirtualKeyboard",
   "repository": "https://github.com/nhnent/tui.component.virtual-keyboard",
@@ -7,16 +7,14 @@
   "devDependencies": {
     "browserify": "latest",
     "browserify-istanbul": "^0.2.1",
-    "fedoc-template": "git+https://14bfd38a036366f7ca90355d202038126127bd01:x-oauth-basic@github.nhnent.com/fe/share-fedoc-template.git#develop",
     "gulp": "latest",
-    "gulp-concat": "latest",
     "gulp-connect": "latest",
     "gulp-header": "^1.8.8",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "latest",
-    "handlebars": "latest",
-    "hbsfy": "latest",
     "jasmine-core": "latest",
     "jasmine-jquery": "latest",
+    "jsdoc": "^3.4.3",
     "karma": "^1.2.0",
     "karma-browserify": "^5.1.0",
     "karma-coverage": "latest",
@@ -26,15 +24,17 @@
     "karma-mocha-reporter": "latest",
     "karma-phantomjs-launcher": "latest",
     "karma-webdriver-launcher": "git+https://github.com/everedifice/karma-webdriver-launcher.git",
-    "moment": "^2.10.3",
-    "phantomjs": "^1.9.18",
-    "underscore": "^1.8.3",
+    "phantomjs-prebuilt": "latest",
+    "tui-jsdoc-template": "^1.0.4",
     "vinyl-buffer": "latest",
     "vinyl-source-stream": "latest",
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "doc": "./node_modules/.bin/jsdoc -c conf.json -t node_modules/fedoc-template"
+    "cpy-dist2doc": "mkdir -p doc/dist && cp -f dist/tui-component-virtual-keyboard.js doc/dist",
+    "doc": "./node_modules/.bin/jsdoc -c jsdoc-conf.json && npm run cpy-dist2doc",
+    "bundle": "gulp bundle",
+    "test": "karma start karma.conf.js"
   },
-  "author": "NHN Ent. FE Dev team.<dl_javascript@nhnent.com>"
+  "author": "NHN Ent. FE Dev Lab <dl_javascript@nhnent.com>"
 }

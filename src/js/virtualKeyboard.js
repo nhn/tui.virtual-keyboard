@@ -39,6 +39,16 @@
  * });
  */
 var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype */{
+    init: function(options) {
+        this._initVariables(options || {});
+
+        this._arrangeKeySequence();
+        this._refineKeyMap();
+        this._initKeyboard(options.container);
+
+        this._attachEvent(options.isClickOnly);
+    },
+
     /**
      * Default html template for keys
      * @readonly
@@ -126,20 +136,6 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _documentFragment: null,
-
-    /**
-     * Initalize 
-	 * @param {object} [options] Options to initialize component
-     */
-    init: function(options) {
-        this._initVariables(options || {});
-
-        this._arrangeKeySequence();
-        this._refineKeyMap();
-        this._initKeyboard(options.container);
-
-        this._attachEvent(options.isClickOnly);
-    },
 
     /**
      * Initialize private files

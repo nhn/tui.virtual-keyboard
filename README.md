@@ -26,8 +26,8 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 ![alt tag](https://nhnent.github.io/tui.component.virtual-keyboard/vksample.png)
 
 ## Dependency
-* jquery: ~1.8.3
-* tui-code-snippet: ~1.1.0
+* jquery: ^1.8.3
+* tui-code-snippet: ^1.1.0
 
 ## Test environment
 * PC
@@ -38,9 +38,9 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 
 ## Download/Install
 * Bower:
-   * latest : `bower install tui-component-virtual-keyboard#master`
+   * latest : `bower install tui-component-virtual-keyboard`
    * each version : `bower install tui-component-virtual-keyboard[#tag]`
 * Download: https://github.com/nhnent/tui.component.virtual-keyboard
 
 ## LICENSE
-[MIT LICENSE](LICENSE)
+[MIT LICENSE](https://github.com/nhnent/tui.component.virtual-keyboard/blob/master/LICENSE)
