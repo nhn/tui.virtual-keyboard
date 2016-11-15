@@ -1,87 +1,131 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Virtual Keyboard API</title>
+    <title>Virtual Keyboard</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/layout.css">
-    <script type="text/javascript" src="scripts/prettify/prettify.js"></script>
-    <script type="text/javascript" src="scripts/prettify/lang-css.js"></script>
-    	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/code-snippet.js"></script>
-	<script type="text/javascript" src="js/tui.doc.js"></script>
-	<script type="text/javascript" src="js/list.js"></script>
-	<script type="text/javascript" src="VirtualKeyboard.js.html.js"></script>
-	<script type="text/javascript" src="main.html.js"></script>
-	<script type="text/javascript" src="VirtualKeyboard.html.js"></script>
-
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
 </head>
 <body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 150px">
+        <img src="https://cloud.githubusercontent.com/assets/12269563/20029815/01133928-a39a-11e6-80f3-12500a91c755.png" width="100%" height="100%">
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Virtual Keyboard</a></h1>
+        
+            <span class="version">v1.1.0</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Examples</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Examples</h3><ul><li><a href="tutorial-desktop.html">Default Example</a><div class="hidden" id="desktop_sub"></div></li><li><a href="tutorial-mobile.html">Numeric Example</a><div class="hidden" id="mobile_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="VirtualKeyboard.html">VirtualKeyboard</a><div class="hidden" id="VirtualKeyboard_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="VirtualKeyboard.html#caps">caps</a></li><li><a href="VirtualKeyboard.html#clear">clear</a></li><li><a href="VirtualKeyboard.html#close">close</a></li><li><a href="VirtualKeyboard.html#done">done</a></li><li><a href="VirtualKeyboard.html#language">language</a></li><li><a href="VirtualKeyboard.html#open">open</a></li><li><a href="VirtualKeyboard.html#remove">remove</a></li><li><a href="VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="VirtualKeyboard.html#space">space</a></li><li><a href="VirtualKeyboard.html#symbol">symbol</a></li></ul></div></li></ul></div>
+</nav>
+<div id="resizer"></div>
 
-<div id="wrap">
-    <div id="left">
-        <div class="logo">
-            Toast UI Component
-        </div>
-        <div class="home">
-            <a id="mainLink" href="index.html"><h1>Virtual Keyboard</h1></a>
-        </div>
-        <div id="search">
-            <input type="text" placeholder="Search" class="searchbox" />
-            <ul class="searchList">
-            </ul>
-        </div>
-        <div id="menu"></div>
-    </div>
-    <div id="content" class="body">
-        <div id="pagetop"></div>
-        <div id="contentTab">
-            <ul>
-                <li class="tabmenu info on">API</li>
-                <li class="tabmenu code">Code</li>
-                <li class="tabmenu sample">Sample</li>
-            </ul>
-        </div>
-        <div id="contentBody"></div>
-        <div id="contentCode"></div>
-        <div class="clearfix"></div>
-    </div>
+<div class="main" id="main">
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section>
+        <article class="readme"><h1>Virtual Keyboard</h1><p>Virtual Keyboard Component<br><br>Create virtual keyboard that support number, english, korean, symbol.<br><br>User can use the virtual keyboard like real keyboard in browser.<br><br>If you use this component on PC, you can click the buttons else on mobile, you can touch the buttons.</p>
+<h2>Feature</h2><ul>
+<li>Support virtual keys to input letters by click or touch</li>
+<li>Support mobile, PC both.</li>
+<li>Change english/korean, number, symbol</li>
+<li>Shuffles the keys</li>
+<li>When the keys are clicked/touched, this component run the callback functions with index.</li>
+<li>When this component toggle or shuffle the keys this component run the callback functions</li>
+</ul>
+<h2>Documentation</h2><ul>
+<li><strong>API</strong> : https://nhnent.github.io/tui.component.virtual-keyboard/latest</li>
+<li><strong>Tutorial</strong> : https://github.com/nhnent/tui.component.virtual-keyboard/wiki/Virtual-Keyboard-Tutorial</li>
+<li><strong>Sample</strong> - https://nhnent.github.io/tui.component.virtual-keyboard/latest/tutorial-desktop.html</li>
+</ul>
+<h2>Sample Image</h2><ul>
+<li>Regular keyboard<br><br><img src="https://nhnent.github.io/tui.component.virtual-keyboard/vknormal.png" alt="alt tag"><br><br></li>
+<li>Numeric keyboard<br><br><img src="https://nhnent.github.io/tui.component.virtual-keyboard/vksample.png" alt="alt tag"></li>
+</ul>
+<h2>Dependency</h2><ul>
+<li>jquery: ^1.8.3</li>
+<li>tui-code-snippet: ^1.1.0</li>
+</ul>
+<h2>Test environment</h2><ul>
+<li>PC<ul>
+<li>IE8~11</li>
+<li>Chrome</li>
+<li>Firefox</li>
+</ul>
+</li>
+</ul>
+<h2>Download/Install</h2><ul>
+<li>Bower:<ul>
+<li>latest : <code>bower install tui-component-virtual-keyboard</code></li>
+<li>each version : <code>bower install tui-component-virtual-keyboard[#tag]</code></li>
+</ul>
+</li>
+<li>Download: https://github.com/nhnent/tui.component.virtual-keyboard</li>
+</ul>
+<h2>LICENSE</h2><p><a href="https://github.com/nhnent/tui.component.virtual-keyboard/blob/master/LICENSE">MIT LICENSE</a></p></article>
+    </section>
+
+
+
+
+
 
 </div>
-<footer class="footer">
-    <div class="f_wrap">
-        <div class="logo">
-            Toast UI Component
-        </div>
-        <copyright class="copyright">
-            NHN Entertainment. Frontend Development Team.
-        </copyright>
-    </div>
+
+<footer>
+    <img class="logo" src="https://cloud.githubusercontent.com/assets/12269563/20029815/01133928-a39a-11e6-80f3-12500a91c755.png" style="width: 150px">
+    <div class="footer-text">NHN Entertainment. Frontend Development Lab</div>
 </footer>
-<script type="text/javascript">
-    $('#mainLink').attr({
-        href: location.href.replace(location.hash, '')
-    });
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
 
-    var ui = new tui.doc({
-        element: {
-            menu: $('#menu'),
-            content: $('#contentBody'),
-            code: $('#contentCode'),
-            tab: $('#contentTab'),
-            search: $('#search')
-        },
-        data: {
-            content: fedoc.content['main.html'],
-            menu: fedoc.lnb
-        }
-    });
+    <script>
+        var id = 'package:tui-component-virtual-keyboard_sub'.replace(/"/g, '_');
+        var element = document.getElementById(id); // do not use jquery selector
 
-    if (tui.util.isEmpty(fedoc.lnb.tutorials)) {
-        $('#content #contentTab .tabmenu.sample').hide();
-    }
-</script>
+        $(element).removeClass('hidden');
+        showLnbApi();
+    </script>
+
 </body>
 </html>
