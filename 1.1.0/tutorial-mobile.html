@@ -53,14 +53,14 @@
         <h2>Numeric Example</h2>
     </header>
 
-    <ul id="example-nav" class="nav nav-tabs hidden">
+    <ul id="example-nav" class="nav nav-tabs">
         <li role="presentation" id="example-result-btn" class="active" onclick="showResult()">
             <a href="#">Result</a>
         </li>
-        <li role="presentation" id="example-js-btn" class="hidden" onclick="showJs()">
+        <li role="presentation" id="example-js-btn" class="" onclick="showJs()">
             <a href="#">JS</a>
         </li>
-        <li role="presentation" id="example-html-btn" class="hidden" onclick="showHtml()">
+        <li role="presentation" id="example-html-btn" class="" onclick="showHtml()">
             <a href="#">HTML</a>
         </li>
     </ul>
@@ -68,8 +68,138 @@
     <article>
         
         <iframe id="example-result" width="100%" height="800" frameborder="0" src=tutorials/mobile.html></iframe>
-        <div id="example-js" class="hidden"><pre class="prettyprint source"></pre></div>
-        <div id="example-html" class="hidden"><pre class="prettyprint source"></pre></div>
+        <div id="example-js" class="hidden"><pre class="prettyprint source">
+
+    // KEY DATA,
+    // 재배열, 특수문자 사용시 서버에서 내려줘야 하는 부분
+    var keys = {
+        symbol: ["!", "@", "#", "$", "", "%", "^", "&amp;", "*", "(", ")"],
+        number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
+    };
+
+    var crntkeyType = 'number';
+
+    // keypress
+    var keyPressCallback = function(index) {
+        var str = keys[crntkeyType][index];
+        var dec = encodeURIComponent($('#keyboardInput').val());
+        dec =  dec + encodeURIComponent(str);
+        $('#keyboardInput').val(decodeURIComponent(dec));
+    };
+
+    // delete
+    var deleteCallback = function(index) {
+        var str = $('#keyboardInput').val();
+        str = str.substr(0, str.length-1);
+        $('#keyboardInput').val(str);
+    };
+
+    // symbol
+    var symbolCallback = function() {
+        if(crntkeyType === 'symbol') {
+            $('.symbolic').html('숫자');
+        } else {
+            $('.symbolic').html('#+=');
+        }
+    };
+
+    // clear
+    var clearCallback = function() {
+        $('#keyboardInput').val('');
+    };
+
+    //shuffle, language, caps, symbol
+    var getKeysCallback = function(keyType) {
+        crntkeyType = keyType;
+        return shuffle(keys[keyType]);
+    };
+
+    // temp
+    function shuffle(o){ //v1.0
+        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x){}
+        return o;
+    }
+
+
+    // 생성
+    var vkeyboard = new tui.component.VirtualKeyboard({
+        container: 'vkeyboard',
+        keyType: 'number',
+        functions: {
+            symbol: 12,
+            remove: 2,
+            clear: 13,
+            shuffle: 14
+        },
+        keys: keys.number,
+        template: {
+            key: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button type="button">{KEY}&lt;/button>&lt;/span>&lt;/li>',
+            blank: '&lt;li class="subcon">&lt;span class="btn_key">&lt;/span>&lt;/li>',
+            shuffle: '&lt;li class="subcon last">&lt;span class="btn_key">&lt;button class="special shuffles" type="button">SHUFFLE&lt;/button>&lt;/span>&lt;/li>',
+            symbol: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special symbolic" type="button">#+=&lt;/button>&lt;/span>&lt;/li>',
+            remove: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special" type="button">DEL&lt;/button>&lt;/span>&lt;/li>',
+            clear: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special" type="button">CLEAR&lt;/button>&lt;/span>&lt;/li>'
+        },
+        callback: {
+            key: keyPressCallback,          // 값이 입력될때마다 호출되는 콜백 (고정위치 키 제외)
+            remove: deleteCallback,
+            symbol: symbolCallback,
+            clear: clearCallback,
+            getKeys: getKeysCallback
+        }
+    });
+</pre></div>
+        <div id="example-html" class="hidden"><pre class="prettyprint source">
+    &lt;input type="password" id="keyboardInput" class="inputText" style="width:200px;">
+    &lt;div id="content" class="content keypad">
+        &lt;div class="form_lst form_lst_card">
+            &lt;div class="form_row">
+                &lt;ul id="vkeyboard" class="lst_sub lst_keypad">
+                    &lt;!-- [D] 키의 배열은 li내 span.btn_key 요소로 제어해주시면 됩니다. -->
+                    &lt;!--
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">1&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">2&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">3&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">4&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">5&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">6&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">7&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">8&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">9&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn btn_reload">&lt;button type="button">재배열&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon">
+                            &lt;span class="btn_key">&lt;button type="button">0&lt;/button>&lt;/span>
+                        &lt;/li>
+                        &lt;li class="subcon last">
+                        &lt;span class="btn btn_del">&lt;button type="button">&lt;span class="sp">삭제&lt;/span>&lt;/button>&lt;/span>
+                        &lt;/li>
+                        -->
+                &lt;/ul>
+            &lt;/div>
+        &lt;/div>
+
+    &lt;/div>
+</pre></div>
     </article>
 </section>
 
