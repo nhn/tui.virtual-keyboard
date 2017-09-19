@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial: 2. Mobile UI | VirtualKeyboard</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="width: 150px; height: 13px">
+        
+            <a href="https://github.com/nhnent/tui.jsdoc-template" rel="noopener noreferrer" target="_blank">
+                <img src="https://cloud.githubusercontent.com/assets/12269563/20029815/01133928-a39a-11e6-80f3-12500a91c755.png" width="100%" height="100%">
+            </a>
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">VirtualKeyboard</a></h1>
+        
+            <span class="version">v2.0.0</span>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+        <ol class="lnb-tab">
+            <li id="api-tab">
+                <a href="#"><h4>API</h4></a>
+            </li>
+            <li id="examples-tab">
+                <a href="#"><h4>Examples</h4></a>
+            </li>
+        </ol>
+    
+    <div class="lnb-examples hidden"><h3>Examples</h3><ul><li><a href="tutorial-example01-basic.html">1. Basic</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="example01-basic_sub"></div></li><li><a href="tutorial-example02-mobile-ui.html">2. Mobile UI</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="example02-mobile-ui_sub"></div></li></ul></div><div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="VirtualKeyboard.html">VirtualKeyboard</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="VirtualKeyboard_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="VirtualKeyboard.html#caps">caps</a></li><li><a href="VirtualKeyboard.html#close">close</a></li><li><a href="VirtualKeyboard.html#language">language</a></li><li><a href="VirtualKeyboard.html#open">open</a></li><li><a href="VirtualKeyboard.html#shuffle">shuffle</a></li><li><a href="VirtualKeyboard.html#symbol">symbol</a></li></ul></div></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+<section>
+    <header>
+        
+
+        <h2>2. Mobile UI</h2>
+    </header>
+
+    
+        
+
+        <ul id="example-nav" class="nav nav-tabs">
+            <li role="presentation" id="example-result-btn" class="active" onclick="showResult()">
+                <a href="#">Result</a>
+            </li>
+            <li role="presentation" id="example-js-btn" class="" onclick="showJs()">
+                <a href="#">JS</a>
+            </li>
+            <li role="presentation" id="example-html-btn" class="" onclick="showHtml()">
+                <a href="#">HTML</a>
+            </li>
+        </ul>
+        <article>
+            
+            <iframe id="example-result" width="100%" height="800" frameborder="0" src=tutorials/example02-mobile-ui.html></iframe>
+            <div id="example-js" class="hidden"><pre class="prettyprint source">
+
+            var keys = {
+                symbol: ["!", "@", "#", "$", "", "%", "^", "&amp;", "*", "(", ")"],
+                number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
+            };
+
+            var currentKeyType = 'number';
+
+            // calling after pressed 'remove' key (for service code)
+            var removeCallback = function(index) {
+                var str = $('#keyboardInput').val();
+
+                str = str.substr(0, str.length-1);
+
+                $('#keyboardInput').val(str);
+            };
+
+            // calling after pressed 'symbol' key (for service code)
+            var symbolCallback = function() {
+                if(currentKeyType === 'symbol') {
+                    $('.symbolic').html('숫자');
+                } else {
+                    $('.symbolic').html('#+=');
+                }
+            };
+
+            // calling after pressed 'clear' key (for service code)
+            var clearCallback = function() {
+                $('#keyboardInput').val('');
+            };
+
+            // calling after pressed each normal key (don't include function keys)
+            var keyPressCallback = function(index) {
+                var str = keys[currentKeyType][index];
+                var dec = encodeURIComponent($('#keyboardInput').val());
+
+                dec += encodeURIComponent(str);
+
+                $('#keyboardInput').val(decodeURIComponent(dec));
+            };
+
+            // calling after pressed 'shuffle' or 'language' or 'caps' or 'symbol' key
+            var getKeysCallback = function(keyType) {
+                currentKeyType = keyType;
+                return shuffle(keys[keyType]);
+            };
+
+            function shuffle(o) { // this logic is implemented to service
+                for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) {}
+                return o;
+            }
+
+            var instance = new tui.VirtualKeyboard('virtual-keyboard', {
+                keyType: 'number',
+                functions: {
+                    symbol: 12,
+                    remove: 2,
+                    clear: 13,
+                    shuffle: 14
+                },
+                keys: keys.number,
+                template: {
+                    key: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button type="button">{KEY}&lt;/button>&lt;/span>&lt;/li>',
+                    blank: '&lt;li class="subcon">&lt;span class="btn_key">&lt;/span>&lt;/li>',
+                    shuffle: '&lt;li class="subcon last">&lt;span class="btn_key">&lt;button class="special shuffles" type="button">SHUFFLE&lt;/button>&lt;/span>&lt;/li>',
+                    symbol: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special symbolic" type="button">#+=&lt;/button>&lt;/span>&lt;/li>',
+                    remove: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special" type="button">DEL&lt;/button>&lt;/span>&lt;/li>',
+                    clear: '&lt;li class="subcon">&lt;span class="btn_key">&lt;button class="special" type="button">CLEAR&lt;/button>&lt;/span>&lt;/li>'
+                },
+                callback: {
+                    key: keyPressCallback,
+                    getKeys: getKeysCallback,
+                    remove: removeCallback,
+                    symbol: symbolCallback,
+                    clear: clearCallback
+                }
+            });
+
+        </pre></div>
+            <div id="example-html" class="hidden"><pre class="prettyprint source">
+            &lt;input type="password" id="keyboardInput" class="inputText" style="width:200px;">
+            &lt;div id="content" class="content keypad">
+                &lt;div class="form_lst form_lst_card">
+                    &lt;div class="form_row">
+                        &lt;ul id="virtual-keyboard" class="lst_sub lst_keypad">&lt;/ul>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        </pre></div>
+        </article>
+    
+</section>
+
+
+    <script>
+        var exampleResult = document.getElementById('example-result');
+        var exampleJs = document.getElementById('example-js');
+        var exampleHtml = document.getElementById('example-html');
+        var exampleResultBtn = document.getElementById('example-result-btn');
+        var exampleJsBtn = document.getElementById('example-js-btn');
+        var exampleHtmlBtn = document.getElementById('example-html-btn');
+
+        function setActive(el) {
+            el.className += ' active';
+        }
+
+        function setInactive(el) {
+            el.className = el.className.replace(/\s*active\s*/g, '');
+        }
+
+        function show(el) {
+            el.className = el.className.replace(/\s*hidden\s*/g, '');
+        }
+
+        function hide(el) {
+            el.className += ' hidden';
+        }
+
+        function showJs() {
+            hide(exampleHtml);
+            hide(exampleResult);
+            setInactive(exampleHtmlBtn);
+            setInactive(exampleResultBtn);
+
+            show(exampleJs);
+            setActive(exampleJsBtn);
+        }
+
+        function showHtml() {
+            hide(exampleJs);
+            hide(exampleResult);
+            setInactive(exampleJsBtn);
+            setInactive(exampleResultBtn);
+
+            show(exampleHtml);
+            setActive(exampleHtmlBtn);
+        }
+
+        function showResult() {
+            hide(exampleJs);
+            hide(exampleHtml);
+            setInactive(exampleJsBtn);
+            setInactive(exampleHtmlBtn);
+
+            show(exampleResult);
+            setActive(exampleResultBtn);
+        }
+    </script>
+
+
+</div>
+
+<footer>
+    <img class="logo" src="https://cloud.githubusercontent.com/assets/12269563/20029815/01133928-a39a-11e6-80f3-12500a91c755.png" style="width: 150px; height: 13px">
+    <div class="footer-text">NHN Entertainment. Frontend Development Lab</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        showLnbExamples();
+    </script>
+
+</body>
+</html>
