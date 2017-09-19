@@ -1,18 +1,31 @@
 /**
  * @fileoverview The module that capture keys typed from user.
  * @author NHN Ent. FE dev team. <dl_javascript@nhnent.com>
- * @dependency jquery-1.8.3.min.js, tui-code-snippet.js
  */
+
+'use strict';
+
+var $ = require('jquery');
+var snippet = require('tui-code-snippet');
 
 /**
  * A virtual keyboard component is capturing kyes that is typed from user.
- * @constructor VirtualKeyboard
+ * @class VirtualKeyboard
+ * @param {jQuery|Element|string} container - Wrapper element or id selector
+ * @param {object} options
+ *     @param {string} options.keyType - Type of keyboard
+ *     @param {array} options.keys - Index of normal keys
+ *     @param {object} options.functions - Index of function keys
+ *     @param {object} options.template - Template set for all keys
+ *     @param {object} options.callback - Callback set for all keys
+ *     @param {boolean} options.isClickOnly - Whether the touch event is ignored or not
  * @example
- * // Create VirtualKeyboard instance with array of keyboard
- * var vkeyboard = new tui.component.VirtualKeyboard({
- *      container: 'vkeyboard', // container element id
- *      keyType: 'number', // keyboard type
- *      functions: { // function key location
+ * var container = document.getElementById('virtual-keyboard');
+ * var VirtualKeyboard = tui.VirtualKeyboard; // or require('tui-virtual-keyboard');
+ * var instance = new VirtualKeyboard(container, {
+ *      keyType: 'number',
+ *      keys: ['9', '3', '5', '1', '', '7', '0', '2', '4', '6', '8', ''],
+ *      functions: {
  *          shuffle: 0,
  *          language: 2,
  *          caps: 3,
@@ -23,28 +36,30 @@
  *          close: 11,
  *          done: 20
  *      },
- *      keys: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8", ""], // all keys but function keys.
- *      template: { // html templatet for key elements
+ *      template: {
  *          key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
  *          blank: '<li class="subcon"><span class="btn_key"></span></li>',
  *          shuffle: '<li class="subcon"><span class="btn btn_reload"><button type="button" value="shuffle">재배열</button></span></li>',
  *          remove: '<li class="subcon last"><span class="btn btn_del"><button type="button" value="remove"><span class="sp">삭제</span></button></span></li>'
  *      },
- *      callback: { // callback for function or normal keys
- *          key: function() { //run },          // A callback that is called when user type or touch key (but function key)
- *          remove: function() { //run },
- *          getKeys: function() { //run }        // A callback that called  rearrange keys
+ *      callback: {
+ *          key: function() {
+ *          },
+ *          getKeys: function() {
+ *          },
+ *          remove: function() {
+ *          }
  *      },
  *      isClickOnly: false
  * });
  */
-var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype */{
-    init: function(options) {
+var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype */{
+    init: function(container, options) {
         this._initVariables(options || {});
 
         this._arrangeKeySequence();
         this._refineKeyMap();
-        this._initKeyboard(options.container);
+        this._initKeyboard(container);
 
         this._attachEvent(options.isClickOnly);
     },
@@ -81,7 +96,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      */
     _identifiedRawKeys: [],
 
-    /*** 
+    /***
      * The map data for vertual keyboard
      * @type {object}
      * @private
@@ -146,7 +161,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
         this._currentKeyType = options.keyType || 'english';
         this._fixedKeys = options.functions || {};
         this._rawKeys = this._copyArray(options.keys);
-        this._template = tui.util.extend(this._template, options.template);
+        this._template = snippet.extend(this._template, options.template);
         this._callback = options.callback || {};
         this._documentFragment = document.createDocumentFragment();
     },
@@ -171,15 +186,15 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
         var targetButton = this._getTargetButton(event.target);
         var keyName, keyGroup, index;
 
-          if(!tui.util.isExisty(targetButton)) {
-            return false;
+        if (!snippet.isExisty(targetButton)) {
+            return;
         }
 
         keyName = targetButton.value;
         keyGroup = this._getKeyGroup(keyName);
         index = this._keyMap[keyName].rawIndex;
 
-        if(keyGroup === 'key') {
+        if (keyGroup === 'key') {
             this._executeCallback(keyGroup, index);
         } else {
             this[keyName]();
@@ -194,11 +209,15 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _getTargetButton: function(targetElement) {
-        if(targetElement.tagName.toUpperCase() === 'BUTTON') {
-            return targetElement;
+        var result;
+
+        if (targetElement.tagName.toUpperCase() === 'BUTTON') {
+            result = targetElement;
         } else {
-            return $(targetElement).parent('button')[0];
+            result = $(targetElement).parent('button')[0];
         }
+
+        return result;
     },
 
     /**
@@ -215,9 +234,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
         this._identifyRawKeys();
         this._copyArray(this._identifiedRawKeys, this._keySequences);
 
-        // Insert fixed key 
-        tui.util.forEach(sortedKeys, function(value, index) {
-            if(tui.util.isExisty(value)) {
+        // Insert fixed key
+        snippet.forEach(sortedKeys, function(value) {
+            if (snippet.isExisty(value)) {
                 this._keySequences.splice(this._fixedKeys[value], 0, value);
             }
         }, this);
@@ -229,10 +248,11 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      */
     _identifyRawKeys: function() {
         var blankCount = 0;
-        tui.util.forEach(this._rawKeys, function(value, index) {
-            if(this._getKeyGroup(value) === 'blank') {
+
+        snippet.forEach(this._rawKeys, function(value, index) {
+            if (this._getKeyGroup(value) === 'blank') {
                 value = 'blank' + blankCount;
-                blankCount++;
+                blankCount += 1;
             }
             this._identifiedRawKeys[index] = value;
         }, this);
@@ -242,21 +262,21 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * Copy array (not deep copy)
      * @param {array} originalArray Original array
      * @param {array} [copyArray] New array
-     * @returns {*} 
+     * @returns {*}
      * @private
      */
     _copyArray: function(originalArray, copyArray) {
-        if(!tui.util.isExisty(originalArray)) {
+        if (!snippet.isExisty(originalArray)) {
             return false;
         }
-        if(!tui.util.isArray(originalArray)) {
+        if (!snippet.isArray(originalArray)) {
             originalArray = [originalArray];
         }
-        if(!tui.util.isExisty(copyArray) || !tui.util.isArray(copyArray)) {
+        if (!snippet.isExisty(copyArray) || !snippet.isArray(copyArray)) {
             copyArray = [];
         }
 
-        tui.util.forEach(originalArray, function(value, index) {
+        snippet.forEach(originalArray, function(value, index) {
             copyArray[index] = value;
         }, this);
 
@@ -268,11 +288,12 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @returns {Array} Fixed keys' array that is sorted by index
      * @private
      */
-    _sortFixedKeys : function() {
+    _sortFixedKeys: function() {
         var sortedKeys;
+
         this._keySequences.length = 0;
 
-        sortedKeys = tui.util.keys(this._fixedKeys) || [];
+        sortedKeys = snippet.keys(this._fixedKeys) || [];
         sortedKeys.sort($.proxy(function(a, b) {
             return this._fixedKeys[a] - this._fixedKeys[b];
         }, this));
@@ -294,7 +315,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _refineFixedKeys: function() {
-        tui.util.forEach(this._fixedKeys, function(value, key) {
+        snippet.forEach(this._fixedKeys, function(value, key) {
             this._keyMap[key] = {
                 key: key,
                 rawIndex: null,
@@ -309,8 +330,8 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _refineFloatingKeys: function() {
-        tui.util.forEach(this._identifiedRawKeys, function(value, index) {
-            if(tui.util.isExisty(this._keyMap[value])) {
+        snippet.forEach(this._identifiedRawKeys, function(value, index) {
+            if (snippet.isExisty(this._keyMap[value])) {
                 // v1.0.0:: Exist case, only change positionIndex
                 this._keyMap[value].positionIndex = this._getPositionIndex(value);
 
@@ -330,64 +351,71 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Return key type.
-     * @param {string} key A key value 
+     * @param {string} key A key value
      * @returns {string} A key type
      * @private
      */
     _getKeyGroup: function(key) {
         var keyGroup;
-        if(tui.util.isExisty(this._fixedKeys[key])) {
+
+        if (snippet.isExisty(this._fixedKeys[key])) {
             keyGroup = 'function';
         } else {
-            if(key === '') {
-                keyGroup = 'blank';
-            } else {
-                keyGroup = 'key';
-            }
+            keyGroup = (key === '') ? 'blank' : 'key';
         }
+
         return keyGroup;
     },
 
     /**
-     * return index keys in virtual keyboard
-     * @param {string} key A key value 
+     * Return index keys in virtual keyboard
+     * @param {string} key A key value
      * @returns {number} A key index
      * @private
      */
     _getPositionIndex: function(key) {
-        var i = 0,
-            length = this._keySequences.length;
+        var i = 0;
+        var length = this._keySequences.length;
+        var result;
 
-        for(; i < length; i++) {
-            if(key === this._keySequences[i]) {
-                return i;
+        for (; i < length; i += 1) {
+            if (key === this._keySequences[i]) {
+                result = i;
+                break;
             }
         }
+
+        return result;
     },
 
     /**
-     * Initialize VirtualKeyboard.
-     * @param {string} containerId A container id
+     * Initialize VirtualKeyboard
+     * @param {jQuery|Element|string} container - Wrapper element or id selector
      * @private
      */
-    _initKeyboard: function(containerId) {
-        this._initContainer(containerId);
+    _initKeyboard: function(container) {
+        this._initContainer(container);
         this._arrangeKeys();
     },
 
     /**
      * Initialize container
-     * @param {string} containerId A container id
+     * @param {jQuery|Element|string} container - Wrapper element or id selector
      * @private
      */
-    _initContainer: function(containerId) {
-        if(this._$container) {
-            tui.util.forEach(this._identifiedRawKeys, function(value) {
+    _initContainer: function(container) {
+        if (this._$container) {
+            snippet.forEach(this._identifiedRawKeys, function(value) {
                 this._documentFragment.appendChild(this._keyMap[value].element);
             }, this);
         } else {
-            this._$container = $('#' + containerId);
-            if(!tui.util.isHTMLTag(this._$container[0])) {
+            if (snippet.isString(container)) {
+                this._$container = $('#' + container);
+            } else {
+                this._$container = $(container);
+            }
+
+            if (!snippet.isHTMLTag(this._$container[0])) {
                 this._$container = this._createContainer();
             }
         }
@@ -399,9 +427,11 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _createContainer: function() {
-        var containerId = 'vk-' + this._getTime(),
-            container = $('<ul id=' + containerId + '>');
+        var containerId = 'vk-' + this._getTime();
+        var container = $('<ul id=' + containerId + '>');
+
         $(document.body).append(container);
+
         return container;
     },
 
@@ -412,21 +442,24 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      */
     _getTime: function() {
         var timeStamp;
-        if(Date.now) {
+
+        if (Date.now) {
             timeStamp = Date.now() || new Date().getTime();
         }
+
         return timeStamp;
     },
 
     /**
-     * Arrange keys in virtual keyboard.
+     * Arrange keys in virtual keyboard
      * @private
      */
     _arrangeKeys: function() {
         var keyElement;
-        tui.util.forEach(this._keySequences, function(value) {
+
+        snippet.forEach(this._keySequences, function(value) {
             keyElement = this._keyMap[value].element;
-            if(!tui.util.isHTMLTag(keyElement)) {
+            if (!snippet.isHTMLTag(keyElement)) {
                 this._keyMap[value].element = keyElement = this._createKeyElement(value);
             }
             this._$container.append(keyElement);
@@ -443,15 +476,16 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     _getTemplate: function(keyGroup, key) {
         var template;
 
-        if(keyGroup === 'blank') {
+        if (keyGroup === 'blank') {
             template = this._template.blank;
         } else {
             template = this._template[key] || this._template.key;
         }
 
-        if(tui.util.isExisty(key)) {
+        if (snippet.isExisty(key)) {
             template = template.replace(/{KEY}/g, key);
         }
+
         return template;
     },
 
@@ -462,14 +496,15 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _createKeyElement: function(key) {
-        var keyGroup = this._keyMap[key].keyGroup,
-            template = this._getTemplate(keyGroup, key),
-            keyElement = $(template),
-            buttonElement = keyElement.find('button');
+        var keyGroup = this._keyMap[key].keyGroup;
+        var template = this._getTemplate(keyGroup, key);
+        var keyElement = $(template);
+        var buttonElement = keyElement.find('button');
 
-        if(!buttonElement.val() && tui.util.isExisty(key)) {
+        if (!buttonElement.val() && snippet.isExisty(key)) {
             buttonElement.val(key);
         }
+
         return keyElement[0];
     },
 
@@ -496,7 +531,7 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      * @private
      */
     _executeCallback: function(callbackKey, rawIndex) {
-        if(tui.util.isExisty(this._callback, callbackKey) && tui.util.isFunction(this._callback[callbackKey])) {
+        if (snippet.isExisty(this._callback, callbackKey) && snippet.isFunction(this._callback[callbackKey])) {
             this._callback[callbackKey](rawIndex);
         }
     },
@@ -508,8 +543,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
      */
     _getRawKeys: function(isCaseToggle) {
         var rawKeys;
-        if(tui.util.isExisty(this._callback, 'getKeys') && tui.util.isFunction(this._callback.getKeys)) {
-            if(isCaseToggle) {
+
+        if (snippet.isExisty(this._callback, 'getKeys') && snippet.isFunction(this._callback.getKeys)) {
+            if (isCaseToggle) {
                 // Not shuffled, only get other case array.
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock, true);
             } else {
@@ -517,16 +553,16 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
                 rawKeys = this._callback.getKeys(this._currentKeyType, this._isCapsLock);
             }
         }
-        if(tui.util.isArray(rawKeys)) {
+
+        if (snippet.isArray(rawKeys)) {
             this._reArrangeKeys(rawKeys);
         }
     },
 
     /**
      * Shuffle keys.
-     * @api
      * @example
-     *  virtualKeyboard.shuffle();
+     * instance.shuffle();
      */
     shuffle: function() {
         // Reset exist values
@@ -536,10 +572,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     },
 
     /**
-     * Toggle Eng/Kor.
-     * @api
+     * Toggle Eng/Kor
      * @example
-     *  virtualKeyboard.language();
+     * instance.language();
      */
     language: function() {
         this._initContainer();
@@ -549,10 +584,9 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     },
 
     /**
-     * Change upper/lower case.
-     * @api
+     * Change upper/lower case
      * @example
-     *  virtualKeyboard.caps();
+     * instance.caps();
      */
     caps: function() {
         this._initContainer();
@@ -562,9 +596,8 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Change symbol/number keys
-     * @api
      * @example
-     *  virtualKeyboard.symbol();
+     * instance.symbol();
      */
     symbol: function() {
         this._initContainer();
@@ -575,27 +608,29 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Remove the last typed/touched value
+     * @ignore
      */
     remove: function() {
     },
 
     /**
-     * Reset all typed keys.
+     * Reset all typed keys
+     * @ignore
      */
     clear: function() {
     },
 
     /**
      * Insert blank
+     * @ignore
      */
     space: function() {
     },
 
     /**
      * Open virtual keyboard
-     * @api
      * @example
-     *  virtualKeyboard.open();
+     * instance.open();
      */
     open: function() {
         this.shuffle();
@@ -604,9 +639,8 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
 
     /**
      * Close virtual keyboard
-     * @api
      * @example
-     *  virtualKeyboard.close();
+     * instance.close();
      */
     close: function() {
         this.clear();
@@ -614,7 +648,8 @@ var VirtualKeyboard = tui.util.defineClass(/** @lends VirtualKeyboard.prototype 
     },
 
     /**
-     * Close viertual keyboard with complate button.
+     * Close virtual keyboard with complete button
+     * @ignore
      */
     done: function() {
         this.close();

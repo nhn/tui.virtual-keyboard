@@ -1,71 +1,24 @@
-module.exports = function(config) {
-    var webdriverConfig = {
-        hostname: 'fe.nhnent.com',
-        port: 4444,
-        remoteHost: true
-    };
+/**
+ * Config file for testing
+ * @author NHN Ent. FE Development Lab <dl_javascript@nhnent.com>
+ */
 
-    config.set({
-        basePath: './',
-        frameworks: ['browserify', 'jasmine'],
-        reporters: [
-            'dots',
-            'coverage',
-            'junit'
-        ],
-        files: [
-            'bower_components/jquery/dist/jquery.js',
-            'bower_components/tui-code-snippet/dist/tui-code-snippet.js',
-            'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-            'src/js/*.js',
-            'test/*.js',
-            {
-                pattern: 'test/fixtures/**/*.html',
-                included: false
-            }
-        ],
-        exclude: [
-        ],
-        preprocessors: {
-            'test/**/*.test.js': ['browserify'],
-            'src/**/*.js': ['browserify', 'coverage']
-        },
-        coverageReporter: {
-            dir : 'report/coverage/',
-            reporters: [
-                {
-                    type: 'html',
-                    subdir: function(browser) {
-                        return 'report-html/' + browser;
-                    }
-                },
-                {
-                    type: 'cobertura',
-                    subdir: function(browser) {
-                        return 'report-cobertura/' + browser;
-                    },
-                    file: 'cobertura.txt'
-                }
-            ]
-        },
-        junitReporter: {
-            outputDir: 'report',
-            suite: ''
-        },
-        port: 9876,
-        colors: true,
-        logLevel: config.LOG_INFO,
-        autoWatch: true,
-        browsers: [
-            'IE8',
-            'IE9',
-            'IE10',
-            'IE11',
-            'Chrome-WebDriver',
-            'Firefox-WebDriver',
-            'Edge'
-        ],
-        customLaunchers: {
+'use strict';
+
+var webdriverConfig = {
+    hostname: 'fe.nhnent.com',
+    port: 4444,
+    remoteHost: true
+};
+
+/**
+ * Set config by environment
+ * @param {object} defaultConfig - default config
+ * @param {string} server - server type ('ne' or local)
+ */
+function setConfig(defaultConfig, server) {
+    if (server === 'ne') {
+        defaultConfig.customLaunchers = {
             'IE8': {
                 base: 'WebDriver',
                 config: webdriverConfig,
@@ -104,8 +57,105 @@ module.exports = function(config) {
                 base: 'WebDriver',
                 config: webdriverConfig,
                 browserName: 'firefox'
+            },
+            'Safari-WebDriver': {
+                base: 'WebDriver',
+                config: webdriverConfig,
+                browserName: 'safari'
+            }
+        };
+        defaultConfig.browsers = [
+            'IE8',
+            'IE9',
+            'IE10',
+            'IE11',
+            'Edge',
+            'Chrome-WebDriver',
+            'Firefox-WebDriver'
+            // 'Safari-WebDriver' // active only when safari test is needed
+        ];
+        defaultConfig.reporters.push('coverage');
+        defaultConfig.reporters.push('junit');
+        defaultConfig.coverageReporter = {
+            dir: 'report/coverage/',
+            reporters: [
+                {
+                    type: 'html',
+                    subdir: function(browser) {
+                        return 'report-html/' + browser;
+                    }
+                },
+                {
+                    type: 'cobertura',
+                    subdir: function(browser) {
+                        return 'report-cobertura/' + browser;
+                    },
+                    file: 'cobertura.txt'
+                }
+            ]
+        };
+        defaultConfig.junitReporter = {
+            outputDir: 'report',
+            suite: ''
+        };
+    } else {
+        defaultConfig.browsers = [
+            'ChromeHeadless'
+        ];
+    }
+}
+
+module.exports = function(config) {
+    var defaultConfig = {
+        basePath: './',
+        frameworks: [
+            'jquery-1.11.0',
+            'jasmine',
+            'es5-shim'
+        ],
+        files: [
+            // reason for not using karma-jasmine-jquery framework is that including older jasmine-karma file
+            // included jasmine-karma version is 2.0.5 and this version don't support ie8
+            {
+                pattern: 'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+                watched: false
+            },
+            {
+                pattern: 'test/fixtures/*.html',
+                included: false
+            },
+
+            'test/index.js'
+        ],
+        preprocessors: {
+            'test/index.js': ['webpack', 'sourcemap']
+        },
+        reporters: ['dots'],
+        webpack: {
+            devtool: 'inline-source-map',
+            module: {
+                preLoaders: [
+                    {
+                        test: /\.js$/,
+                        exclude: /(test|bower_components|node_modules)/,
+                        loader: 'istanbul-instrumenter'
+                    },
+                    {
+                        test: /\.js$/,
+                        exclude: /(bower_components|node_modules)/,
+                        loader: 'eslint-loader'
+                    }
+                ]
             }
         },
+        port: 9876,
+        colors: true,
+        logLevel: config.LOG_INFO,
+        autoWatch: true,
         singleRun: true
-    });
+    };
+
+    /* eslint-disable */
+    setConfig(defaultConfig, process.env.KARMA_SERVER);
+    config.set(defaultConfig);
 };

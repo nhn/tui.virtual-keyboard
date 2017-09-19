@@ -1,9 +1,5 @@
-Virtual Keyboard
-===============
-Virtual Keyboard Component<br>
-Create virtual keyboard that support number, english, korean, symbol.<br>
-User can use the virtual keyboard like real keyboard in browser.<br>
-If you use this component on PC, you can click the buttons else on mobile, you can touch the buttons.
+# VirtualKeyboard
+User can use the virtual keyboard like real keyboard in browser
 
 ## Feature
 * Support virtual keys to input letters by click or touch
@@ -14,33 +10,71 @@ If you use this component on PC, you can click the buttons else on mobile, you c
 * When this component toggle or shuffle the keys this component run the callback functions
 
 ## Documentation
-* **API** : https://nhnent.github.io/tui.component.virtual-keyboard/latest
-* **Tutorial** : https://github.com/nhnent/tui.component.virtual-keyboard/wiki/Virtual-Keyboard-Tutorial
-* **Sample** - https://nhnent.github.io/tui.component.virtual-keyboard/latest/tutorial-desktop.html
-
-
-## Sample Image
-* Regular keyboard<br>
-![alt tag](https://nhnent.github.io/tui.component.virtual-keyboard/vknormal.png)<br><br>
-* Numeric keyboard<br>
-![alt tag](https://nhnent.github.io/tui.component.virtual-keyboard/vksample.png)
+* **API** : [https://nhnent.github.io/tui.virtual-keyboard/latest](https://nhnent.github.io/tui.virtual-keyboard/latest)
+* **Tutorial** : [https://github.com/nhnent/tui.virtual-keyboard/wiki](https://github.com/nhnent/tui.virtual-keyboard/wiki)
+* **Example** :
+[https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example01-basic.html](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example01-basic.html)
 
 ## Dependency
-* jquery: ^1.8.3
-* tui-code-snippet: ^1.1.0
+* [jquery](https://jquery.com/) >= 1.11.0
+* [tui-code-snippet](https://github.com/nhnent/tui.code-snippet) >=1.2.5
 
-## Test environment
-* PC
-	* IE8~11
-	* Chrome
-	* Firefox
+## Test Environment
+### PC
+* IE8~11
+* Edge
+* Chrome
+* Firefox
+* Safari
 
+### Mobile
+* iOS 10.3.x
+* Android 5.5.x
 
-## Download/Install
-* Bower:
-   * latest : `bower install tui-component-virtual-keyboard`
-   * each version : `bower install tui-component-virtual-keyboard[#tag]`
-* Download: https://github.com/nhnent/tui.component.virtual-keyboard
+## Usage
+### Use `npm`
 
-## LICENSE
-[MIT LICENSE](https://github.com/nhnent/tui.component.virtual-keyboard/blob/master/LICENSE)
+Install the latest version using `npm` command:
+
+```
+$ npm install tui-virtual-keyboard --save
+```
+
+or want to install the each version:
+
+```
+$ npm install tui-virtual-keyboard@<version> --save
+```
+
+To access as module format in your code:
+
+```javascript
+var VirtualKeyboard = require('tui-virtual-keyboard');
+var instance = new VirtualKeyboard(...);
+```
+
+### Use `bower`
+Install the latest version using `bower` command:
+
+```
+$ bower install tui-virtual-keyboard
+```
+
+or want to install the each version:
+
+```
+$ bower install tui-virtual-keyboard#<tag>
+```
+
+To access as namespace format in your code:
+
+```javascript
+var instance = new tui.VirtualKeyboard(...);
+```
+
+### Download
+* [Download bundle files from `dist` folder](https://github.com/nhnent/tui.virtual-keyboard/tree/production/dist)
+* [Download all sources for each version](https://github.com/nhnent/tui.virtual-keyboard/releases)
+
+## License
+[MIT LICENSE](https://github.com/nhnent/tui.virtual-keyboard/blob/master/LICENSE)

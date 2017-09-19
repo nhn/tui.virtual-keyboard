@@ -1,22 +1,26 @@
 {
-  "name": "component-virtual-keyboard",
-  "authors": [
-    "NHN Ent. FE Dev team.<dl_javascript@nhnent.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests",
-    "conf.json",
-    "karma.conf.js",
-    "gulpfile.js",
-    "samples"
-  ],
-  "dependencies": {
-    "jquery" : "^1.8.3",
-	"tui-code-snippet" : "^1.1.0"
-  }
+    "name": "tui-virtual-keyboard",
+    "authors": [
+        "NHNent. FE Development Lab <dl_javascript@nhnent.com>"
+    ],
+    "main": [
+        "dist/tui-virtual-keyboard.js"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "examples",
+        "src",
+        "test",
+        "jsdoc.conf.json",
+        "karma.conf.js",
+        "webpack.config.js",
+        "package.json"
+    ],
+    "dependencies": {
+        "jquery": "^1.11.0",
+        "tui-code-snippet": "^1.2.5"
+    }
 }
