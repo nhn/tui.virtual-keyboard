@@ -1,6 +1,6 @@
 /*!
  * tui-virtual-keyboard.js
- * @version 2.0.0
+ * @version 2.0.1
  * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
