@@ -43,7 +43,7 @@
 
 
 ## 🐾 Examples
-* [Basic](https://nhnent.github.io/tui.virtual-scroll/latest/tutorial-example01-basic.html) : Example of using default options.
+* [Basic](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example01-basic.html) : Example of using default options.
 * [Mobile UI](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example02-mobile-ui.html) : Example of the keyboard UI when used on a mobile device.
 
 
