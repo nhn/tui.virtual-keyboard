@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="css/example.css">
+        <title>2. Mobile UI</title>
+        <style>
+            .lst_keypad .subcon {width:33.3%; height:30px;}
+        </style>
+    </head>
+
+    <body>
+        <div id="wrap" class="code-html" style="width:300px;">
+            <input type="password" id="keyboardInput" class="inputText" style="width:200px;" />
+            <div id="content" class="content keypad">
+                <div class="form_lst form_lst_card">
+                    <div class="form_row">
+                        <ul id="virtual-keyboard" class="lst_sub lst_keypad"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+        <script type="text/javascript" src="https://cdn.rawgit.com/nhnent/tui.code-snippet/v1.2.5/dist/tui-code-snippet.js"></script>
+        <script type="text/javascript" src="../dist/tui-virtual-keyboard.js"></script>
+        <script class="code-js">
+
+            var keys = {
+                symbol: ["!", "@", "#", "$", "", "%", "^", "&", "*", "(", ")"],
+                number: ["9", "3", "5", "1", "", "7", "0", "2", "4", "6", "8"]
+            };
+
+            var currentKeyType = 'number';
+
+            // calling after pressed 'remove' key (for service code)
+            var removeCallback = function(index) {
+                var str = $('#keyboardInput').val();
+
+                str = str.substr(0, str.length-1);
+
+                $('#keyboardInput').val(str);
+            };
+
+            // calling after pressed 'symbol' key (for service code)
+            var symbolCallback = function() {
+                if(currentKeyType === 'symbol') {
+                    $('.symbolic').html('숫자');
+                } else {
+                    $('.symbolic').html('#+=');
+                }
+            };
+
+            // calling after pressed 'clear' key (for service code)
+            var clearCallback = function() {
+                $('#keyboardInput').val('');
+            };
+
+            // calling after pressed each normal key (don't include function keys)
+            var keyPressCallback = function(index) {
+                var str = keys[currentKeyType][index];
+                var dec = encodeURIComponent($('#keyboardInput').val());
+
+                dec += encodeURIComponent(str);
+
+                $('#keyboardInput').val(decodeURIComponent(dec));
+            };
+
+            // calling after pressed 'shuffle' or 'language' or 'caps' or 'symbol' key
+            var getKeysCallback = function(keyType) {
+                currentKeyType = keyType;
+                return shuffle(keys[keyType]);
+            };
+
+            function shuffle(o) { // this logic is implemented to service
+                for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) {}
+                return o;
+            }
+
+            var instance = new tui.VirtualKeyboard('virtual-keyboard', {
+                keyType: 'number',
+                functions: {
+                    symbol: 12,
+                    remove: 2,
+                    clear: 13,
+                    shuffle: 14
+                },
+                keys: keys.number,
+                template: {
+                    key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
+                    blank: '<li class="subcon"><span class="btn_key"></span></li>',
+                    shuffle: '<li class="subcon last"><span class="btn_key"><button class="special shuffles" type="button">SHUFFLE</button></span></li>',
+                    symbol: '<li class="subcon"><span class="btn_key"><button class="special symbolic" type="button">#+=</button></span></li>',
+                    remove: '<li class="subcon"><span class="btn_key"><button class="special" type="button">DEL</button></span></li>',
+                    clear: '<li class="subcon"><span class="btn_key"><button class="special" type="button">CLEAR</button></span></li>'
+                },
+                callback: {
+                    key: keyPressCallback,
+                    getKeys: getKeysCallback,
+                    remove: removeCallback,
+                    symbol: symbolCallback,
+                    clear: clearCallback
+                }
+            });
+
+        </script>
+    </body>
+</html>
