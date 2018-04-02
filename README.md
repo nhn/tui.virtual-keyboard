@@ -76,6 +76,26 @@ $ bower install tui-virtual-keyboard#<tag> # Specific version
 * [Download bundle files](https://github.com/nhnent/tui.virtual-keyboard/tree/production/dist)
 * [Download all sources for each version](https://github.com/nhnent/tui.virtual-keyboard/releases)
 
+### Via Contents Delivery Network (CDN)
+TOAST UI Component: Virtual Keyboard is available over a CDN.
+
+- You can use cdn as below.
+
+```html
+<script src="https://uicdn.toast.com/tui.virtual-keyboard/latest/tui-virtual-keyboard.min.js"></script>
+```
+
+
+- Within the download you'll find the following directories
+
+```
+tui.virtual-keyboard/
+├─ latest
+│  ├─ tui-virtual-keyboard.js
+│  ├─ tui-virtual-keyboard.min.js
+```
+
+
 
 ## 🔨 Usage
 
