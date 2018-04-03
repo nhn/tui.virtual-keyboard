@@ -470,4 +470,21 @@ describe('VirtualKeyboard', function() {
             expect(bfFirst).toBe(bfFirst);
         });
     });
+    describe('usageStatistics', function() {
+        beforeEach(function() {
+            spyOn(snippet, 'imagePing');
+            this.virtualKeyboard = null;
+        });
+        it('should send hostname by default', function() {
+            this.virtualKeyboard = new VirtualKeyboard('virtualkeyboard1', options);
+
+            expect(snippet.imagePing).toHaveBeenCalled();
+        });
+        it('should not send hostname on usageStatistics option false', function() {
+            options.usageStatistics = false;
+            this.virtualKeyboard = new VirtualKeyboard('virtualkeyboard1', options);
+
+            expect(snippet.imagePing).not.toHaveBeenCalled();
+        });
+    });
 });

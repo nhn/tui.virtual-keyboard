@@ -7,6 +7,17 @@
 
 var $ = require('jquery');
 var snippet = require('tui-code-snippet');
+var sendHostName = function() {
+    var hostname = location.hostname;
+    snippet.imagePing('https://www.google-analytics.com/collect', {
+        v: 1,
+        t: 'event',
+        tid: 'UA-115377265-9',
+        cid: hostname,
+        dp: hostname,
+        dh: 'virtual-keyboard'
+    });
+};
 
 /**
  * A virtual keyboard component is capturing kyes that is typed from user.
@@ -19,6 +30,7 @@ var snippet = require('tui-code-snippet');
  *     @param {object} options.template - Template set for all keys
  *     @param {object} options.callback - Callback set for all keys
  *     @param {boolean} options.isClickOnly - Whether the touch event is ignored or not
+ *     @param {Boolean} [options.usageStatistics=true|false] send hostname to google analytics [default value is true]
  * @example
  * var container = document.getElementById('virtual-keyboard');
  * var VirtualKeyboard = tui.VirtualKeyboard; // or require('tui-virtual-keyboard');
@@ -55,6 +67,10 @@ var snippet = require('tui-code-snippet');
  */
 var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype */{
     init: function(container, options) {
+        options = snippet.extend({
+            usageStatistics: true
+        }, options);
+
         this._initVariables(options || {});
 
         this._arrangeKeySequence();
@@ -62,6 +78,10 @@ var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype *
         this._initKeyboard(container);
 
         this._attachEvent(options.isClickOnly);
+
+        if (options.usageStatistics) {
+            sendHostName();
+        }
     },
 
     /**
