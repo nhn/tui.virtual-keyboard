@@ -76,19 +76,24 @@ $ bower install tui-virtual-keyboard#<tag> # Specific version
 ### Via Contents Delivery Network (CDN)
 TOAST UI products are available over a CDN powered by [TOAST Cloud](https://www.toast.com).
 
-- You can use cdn as below.
+You can use CDN as below.
 
 ```html
 <script src="https://uicdn.toast.com/tui.virtual-keyboard/latest/tui-virtual-keyboard.js"></script>
 ```
 
-- Within the download you'll find the following directories
+If you want to use a specific version, use the tag name instead of `latest` in the url's path.
+
+The CDN directory has the following structure.
+
 
 ```
 tui.virtual-keyboard/
 ├─ latest
 │  ├─ tui-virtual-keyboard.js
 │  ├─ tui-virtual-keyboard.min.js
+├─ v2.0.1/
+│  ├─ ...
 ```
 
 ### Download Source Files
