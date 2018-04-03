@@ -472,24 +472,19 @@ describe('VirtualKeyboard', function() {
     });
     describe('usageStatistics', function() {
         beforeEach(function() {
+            spyOn(snippet, 'imagePing');
             this.virtualKeyboard = null;
         });
         it('should send hostname by default', function() {
-            spyOn(snippet, 'imagePing');
             this.virtualKeyboard = new VirtualKeyboard('virtualkeyboard1', options);
 
             expect(snippet.imagePing).toHaveBeenCalled();
         });
         it('should not send hostname on usageStatistics option false', function() {
-            spyOn(snippet, 'imagePing');
             options.usageStatistics = false;
             this.virtualKeyboard = new VirtualKeyboard('virtualkeyboard1', options);
 
             expect(snippet.imagePing).not.toHaveBeenCalled();
-        });
-
-        afterEach(function() {
-            delete this.virtualKeyboard;
         });
     });
 });
