@@ -1,6 +1,6 @@
 /*!
  * tui-virtual-keyboard.js
- * @version 2.0.1
+ * @version 2.1.0
  * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
@@ -69,6 +69,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var $ = __webpack_require__(1);
 	var snippet = __webpack_require__(2);
+	var sendHostName = function() {
+	    var hostname = location.hostname;
+	    snippet.imagePing('https://www.google-analytics.com/collect', {
+	        v: 1,
+	        t: 'event',
+	        tid: 'UA-115377265-9',
+	        cid: hostname,
+	        dp: hostname,
+	        dh: 'virtual-keyboard'
+	    });
+	};
 
 	/**
 	 * A virtual keyboard component is capturing kyes that is typed from user.
@@ -81,6 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *     @param {object} options.template - Template set for all keys
 	 *     @param {object} options.callback - Callback set for all keys
 	 *     @param {boolean} options.isClickOnly - Whether the touch event is ignored or not
+	 *     @param {Boolean} [options.usageStatistics=true|false] send hostname to google analytics [default value is true]
 	 * @example
 	 * var container = document.getElementById('virtual-keyboard');
 	 * var VirtualKeyboard = tui.VirtualKeyboard; // or require('tui-virtual-keyboard');
@@ -117,6 +129,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype */{
 	    init: function(container, options) {
+	        options = snippet.extend({
+	            usageStatistics: true
+	        }, options);
+
 	        this._initVariables(options || {});
 
 	        this._arrangeKeySequence();
@@ -124,6 +140,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._initKeyboard(container);
 
 	        this._attachEvent(options.isClickOnly);
+
+	        if (options.usageStatistics) {
+	            sendHostName();
+	        }
 	    },
 
 	    /**
