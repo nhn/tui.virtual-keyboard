@@ -85,7 +85,7 @@ describe('VirtualKeyboard', function() {
         vk2 = new VirtualKeyboard('noId', options2);
     });
 
-    describe('VirtualKeyboard defnied', function() {
+    describe('VirtualKeyboard defined', function() {
         it('Virtualkeyboard instance defined', function() {
             expect(vk).toBeDefined();
             expect(vk2).toBeDefined();
