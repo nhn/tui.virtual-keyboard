@@ -1,6 +1,6 @@
 /*!
  * tui-virtual-keyboard.js
- * @version 2.1.0
+ * @version 2.1.1
  * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
  * @license MIT
  */
@@ -69,17 +69,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var $ = __webpack_require__(1);
 	var snippet = __webpack_require__(2);
-	var sendHostName = function() {
-	    var hostname = location.hostname;
-	    snippet.imagePing('https://www.google-analytics.com/collect', {
-	        v: 1,
-	        t: 'event',
-	        tid: 'UA-115377265-9',
-	        cid: hostname,
-	        dp: hostname,
-	        dh: 'virtual-keyboard'
-	    });
-	};
 
 	/**
 	 * A virtual keyboard component is capturing kyes that is typed from user.
@@ -142,7 +131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._attachEvent(options.isClickOnly);
 
 	        if (options.usageStatistics) {
-	            sendHostName();
+	            snippet.sendHostname('virtual-keyboard', 'UA-129987462-1');
 	        }
 	    },
 
