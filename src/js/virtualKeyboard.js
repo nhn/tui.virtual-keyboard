@@ -7,17 +7,6 @@
 
 var $ = require('jquery');
 var snippet = require('tui-code-snippet');
-var sendHostName = function() {
-    var hostname = location.hostname;
-    snippet.imagePing('https://www.google-analytics.com/collect', {
-        v: 1,
-        t: 'event',
-        tid: 'UA-115377265-9',
-        cid: hostname,
-        dp: hostname,
-        dh: 'virtual-keyboard'
-    });
-};
 
 /**
  * A virtual keyboard component is capturing kyes that is typed from user.
@@ -80,7 +69,7 @@ var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype *
         this._attachEvent(options.isClickOnly);
 
         if (options.usageStatistics) {
-            sendHostName();
+            snippet.sendHostname('virtual-keyboard', 'UA-129987462-1');
         }
     },
 
