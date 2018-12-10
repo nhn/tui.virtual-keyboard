@@ -7,9 +7,6 @@
 
 var $ = require('jquery');
 var snippet = require('tui-code-snippet');
-var sendHostName = function() {
-    snippet.sendHostname('virtual-keyboard', 'UA-129987462-1');
-};
 
 /**
  * A virtual keyboard component is capturing kyes that is typed from user.
@@ -72,7 +69,7 @@ var VirtualKeyboard = snippet.defineClass(/** @lends VirtualKeyboard.prototype *
         this._attachEvent(options.isClickOnly);
 
         if (options.usageStatistics) {
-            sendHostName();
+            snippet.sendHostname('virtual-keyboard', 'UA-129987462-1');
         }
     },
 
