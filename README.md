@@ -39,7 +39,7 @@ var options = {
     ...
     usageStatistics: false
 }
-var instance = new VirtualKeyboard(options);
+var instance = new VirtualKeyboard(container, options);
 ```
 
 ## 🌏 Browser Support
