@@ -39,7 +39,7 @@ var options = {
     ...
     usageStatistics: false
 }
-var instance = new VirtualKeyboard(options);
+var instance = new VirtualKeyboard(container, options);
 ```
 
 ## 🌏 Browser Support
@@ -57,8 +57,8 @@ var instance = new VirtualKeyboard(options);
 
 
 ## 🐾 Examples
-* [Basic](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example01-basic.html) : Example of using default options.
-* [Mobile UI](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example02-mobile-ui.html) : Example of the keyboard UI when used on a mobile device.
+* [Basic](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example01-basic) : Example of using default options.
+* [Mobile UI](https://nhnent.github.io/tui.virtual-keyboard/latest/tutorial-example02-mobile-ui) : Example of the keyboard UI when used on a mobile device.
 
 
 ## 💾 Install
@@ -140,10 +140,10 @@ var VirtualKeyboard = require('tui-virtual-keyboard'); /* CommonJS */
 ```
 
 ``` javascript
-import {VirtualKeyboard} from 'tui-virtual-keyboard'; /* ES6 */
+import VirtualKeyboard from 'tui-virtual-keyboard'; /* ES6 */
 ```
 
-You can create an instance with [options](https://nhnent.github.io/tui.virtual-keyboard/latest/VirtualKeyboard.html) and call various APIs after creating an instance.
+You can create an instance with [options](https://nhnent.github.io/tui.virtual-keyboard/latest/VirtualKeyboard) and call various APIs after creating an instance.
 
 ``` javascript
 var container = document.getElementById('tui-virtual-keyboard-container');
@@ -152,7 +152,7 @@ var instance = new VirtualKeyboard(container, { ... });
 instance.shuffle();
 ```
 
-For more information about the API, please see [here](https://nhnent.github.io/tui.virtual-keyboard/latest/VirtualKeyboard.html).
+For more information about the API, please see [here](https://nhnent.github.io/tui.virtual-keyboard/latest/VirtualKeyboard).
 
 
 ## 🔧 Pull Request Steps
