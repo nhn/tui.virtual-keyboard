@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <title>1. Basic</title>
+        <link rel="stylesheet" type="text/css" href="./css/tui-example-style.css" />
+        <link rel="stylesheet" type="text/css" href="./css/example.css">
+    </head>
+
+    <body>
+        <div id="wrap" class="code-html">
+            <input type="password" id="keyboardInput" class="inputText" />
+            <div id="content" class="content keypad">
+                <div class="form_lst form_lst_card">
+                    <div class="form_row">
+                        <ul id="virtual-keyboard" class="lst_sub lst_keypad"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+        <script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
+        <script type="text/javascript" src="../dist/tui-virtual-keyboard.js"></script>
+        <script class="code-js">
+
+            var keys = {
+                english: [
+                    "1", "2", "", "3", "4", "5", "6", "7", "8", "9", "0", "",
+                    "q", "w", "e", "r", "t", "y", "u", "i", "o", "", "p",
+                    "", "a", "s", "d", "f", "g", "h", "j", "k", "l",
+                    "z", "x", "c", "v", "b", "", "n", "", "m"
+                ],
+                symbol: [
+                    "1", "2", "", "3", "4", "5", "6", "7", "8", "9", "0", "",
+                    "-", "=", "+", "{", "}", "[", "]", "*", ":", ";",
+                    '"', "'", "<", ">", "", ",", ".", "/", "?", "^", "|",
+                    "~", "`", "_", "#", "$", "", "@", "", "!"
+                ],
+                korean: [
+                    "1", "2", "", "3", "4", "5", "6", "7", "8", "9", "0", "",
+                    "ㅂ", "ㅈ", "ㄷ", "ㄱ", "ㅅ", "", "ㅛ", "ㅕ", "ㅑ", "ㅐ", "ㅔ",
+                    'ㅁ', "ㄴ", "ㅇ", "ㄹ", "ㅎ", "", "ㅗ", "ㅓ", "ㅏ", "ㅣ",
+                    "ㅋ", "ㅌ", "ㅊ", "ㅍ", "", "", "ㅠ", "ㅜ", "ㅡ"
+                ]
+            };
+
+            var currentKeyType = 'korean';
+            var selectedType = 'korean';
+            var isRandom = false;
+
+            // calling after pressed 'space' key (for service code)
+            var spaceCallback = function() {
+                var str = ' ';
+                var dec = encodeURIComponent($('#keyboardInput').val());
+
+                dec += encodeURIComponent(str);
+
+                $('#keyboardInput').val(decodeURIComponent(dec));
+            };
+
+            // calling after pressed 'remove' key (for service code)
+            var removeCallback = function(index) {
+                var str = $('#keyboardInput').val();
+
+                str = str.substr(0, str.length-1);
+
+                $('#keyboardInput').val(str);
+            };
+
+            // calling after pressed 'language' key (for service code)
+            var languageCallback = function() {
+                if(currentKeyType === 'korean') {
+                    $('.language').html('영어')
+                } else {
+                    $('.language').html('한글');
+                }
+            };
+
+            // calling after pressed each normal key (don't include function keys)
+            var keyPressCallback = function(index) {
+                var str = keys[selectedType][index];
+                var dec = encodeURIComponent($('#keyboardInput').val());
+
+                dec += encodeURIComponent(str);
+
+                $('#keyboardInput').val(decodeURIComponent(dec));
+            };
+
+            // calling after pressed 'shuffle' or 'language' or 'caps' or 'symbol' key
+            var getKeysCallback = function(keyType, isCapsLock, isFixed) {
+                var rawKeys, i, length, key;
+
+                if(keyType === 'number') {
+                    keyType = currentKeyType;
+                }
+
+                if(keyType !== 'symbol') {
+                    currentKeyType = keyType;
+                }
+
+                selectedType = keyType;
+                rawKeys = keys[keyType];
+
+                length = rawKeys.length;
+
+                for(i = 0; i < length; i += 1) {
+                    if(rawKeys[i]) {
+                        if(keyType === 'english') {
+                                key = isCapsLock ? rawKeys[i].toUpperCase() : rawKeys[i].toLowerCase();
+                            } else if(keyType === 'korean') {
+                                if(isCapsLock) {
+                                        key = rawKeys[i].replace('ㄱ', 'ㄲ').replace('ㅂ', 'ㅃ').replace('ㅅ', 'ㅆ').replace('ㅈ', 'ㅉ');
+                                    } else {
+                                        key = rawKeys[i].replace('ㄲ', 'ㄱ').replace('ㅃ', 'ㅂ').replace('ㅆ', 'ㅅ').replace('ㅉ', 'ㅈ');
+                                    }
+                            } else {
+                                key = rawKeys[i];
+                            }
+                        keys[keyType][i] = rawKeys[i] = key;
+                    }
+                }
+
+                if (isFixed) {
+                    return rawKeys;
+                }
+
+                return shuffle(rawKeys);
+            };
+
+            function shuffle(o) { // this logic is implemented to service
+                for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x) {}
+                return o;
+            }
+
+            var instance = new tui.VirtualKeyboard('virtual-keyboard', {
+                keyType: 'korean',
+                functions: {
+                    remove: 43,
+                    symbol: 46,
+                    language: 45,
+                    space: 47,
+                    shuffle: 42
+                },
+                keys: keys[currentKeyType],
+                template: {
+                    key: '<li class="subcon"><span class="btn_key"><button type="button">{KEY}</button></span></li>',
+                    blank: '<li class="subcon"><span class="btn_key"></span></li>',
+                    caps: '<li class="subcon"><span class="btn_key"><button class="special" type="button">대/소</button></span></li>',
+                    remove: '<li class="subcon"><span class="btn_key"><button class="special" type="button">삭제</button></span></li>',
+                    symbol: '<li class="subcon"><span class="btn_key"><button class="special" type="button">#+=</button></span></li>',
+                    language: '<li class="subcon"><span class="btn_key"><button class="special language" type="button">영어</button></span></li>',
+                    space: '<li class="space"><span class="btn_key"><button type="button">SPACE</button></span></li>',
+                    shuffle: '<li class="subcon last"><span class="btn_key"><button class="special shuffles" type="button">재배열</button></span></li>'
+                },
+                callback: {
+                    key: keyPressCallback,
+                    getKeys: getKeysCallback,
+                    remove: removeCallback,
+                    language: languageCallback,
+                    space: spaceCallback
+                }
+            });
+
+        </script>
+    </body>
+</html>
