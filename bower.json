@@ -1,7 +1,7 @@
 {
     "name": "tui-virtual-keyboard",
     "authors": [
-        "NHNent. FE Development Lab <dl_javascript@nhnent.com>"
+        "NHN. FE Development Lab <dl_javascript@nhn.com>"
     ],
     "main": [
         "dist/tui-virtual-keyboard.js"
