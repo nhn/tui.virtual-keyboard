@@ -1,7 +1,7 @@
 /*!
  * tui-virtual-keyboard.js
- * @version 2.1.2
- * @author NHNEnt FE Development Lab <dl_javascript@nhnent.com>
+ * @version 2.1.3
+ * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -62,7 +62,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @fileoverview The module that capture keys typed from user.
-	 * @author NHN Ent. FE dev team. <dl_javascript@nhnent.com>
+	 * @author NHN. FE dev Lab. <dl_javascript@nhn.com>
 	 */
 
 	'use strict';
