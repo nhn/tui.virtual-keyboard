@@ -1,6 +1,6 @@
 /**
  * @fileoverview The module that capture keys typed from user.
- * @author NHN Ent. FE dev team. <dl_javascript@nhnent.com>
+ * @author NHN. FE dev Lab. <dl_javascript@nhn.com>
  */
 
 'use strict';
