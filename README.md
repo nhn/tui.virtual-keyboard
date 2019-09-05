@@ -1,3 +1,5 @@
+#### ‼️ There are no major updates planned for `tui.virtual-keyboard` in the future. It will only get bug fixes.
+
 # TOAST UI Component : Virtual Keyboard
 > Component that creates a virtual keyboard that replacing the native keyboard of the browser.
 
